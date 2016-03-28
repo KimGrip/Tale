@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(LineRenderer))]
 
-public class StolenRopeScript : MonoBehaviour
+public class scr_ropeAttach : MonoBehaviour
 {
     /*========================================
     ==  Physics Based Rope				==
@@ -155,6 +155,8 @@ public class StolenRopeScript : MonoBehaviour
     {
         joints[n] = new GameObject("Joint_" + n);
         joints[n].transform.parent = transform;
+        joints[n].layer = 8;
+        print(joints[n].layer);
         Rigidbody rigid = joints[n].AddComponent<Rigidbody>();
         SphereCollider col = joints[n].AddComponent<SphereCollider>();
         CharacterJoint ph = joints[n].AddComponent<CharacterJoint>();
@@ -191,11 +193,11 @@ public class StolenRopeScript : MonoBehaviour
     {
         // Stop Rendering Rope then Destroy all of its components
         rope = false;
-        for (int dj = 0; dj < joints.Length - 1; dj++)
+        for (int dj = 0; dj < joints.Length ; dj++)
         {
             Destroy(joints[dj]);
         }
-
+        Destroy(target.GetComponent<CharacterJoint>());
         segmentPos = new Vector3[0];
         joints = new GameObject[0];
         segments = 0;
