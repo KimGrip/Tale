@@ -4,6 +4,7 @@ public enum PlayerState
 {
     Idle, Running, Jumping, Climbing, Aiming, 
 };
+[RequireComponent(typeof(Rigidbody))]
 public class scr_playerController : MonoBehaviour {
 
     public float m_inputDelay;
