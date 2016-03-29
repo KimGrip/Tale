@@ -6,18 +6,51 @@ public enum PlayerState
 };
 public class scr_playerController : MonoBehaviour {
 
-    public float m_inputDelay;
-    public float m_ForwardSpeed;
-    public float m_RotationSpeed;
+
+    [System.Serializable]
+    public class MoveSettings
+    {
+        public float m_ForwardSpeed;
+        public float m_RotationSpeed;
+        public float m_JumpSpeed;
+        public float m_DistanceToGround;
+
+        public LayerMask m_groundLayer;
+
+    }
+    [System.Serializable]
+    public class PhysSettings
+    {
+        public float m_DownAccel;
+    }
+    [System.Serializable]
+    public class InputSettings
+    {
+        public float m_inputDelay;
+        public string FORWARD_AXSIS = "Vertical";
+        public string TURN_AXSIS = "Horizontal";
+        public string JUMP_AXSIS = "Jump";
+    }
+
+
+    public MoveSettings m_moveSettings = new MoveSettings();
+    public PhysSettings m_physSeetings = new PhysSettings();
+    public InputSettings m_inputSettings = new InputSettings();
+
+    Vector3 velocity = Vector3.zero;
 
     Quaternion m_targetRotation;
     Rigidbody m_rb;
 
-    float forwardInput, turnInput;
+    float forwardInput, turnInput, jumpInput;
 
     public Quaternion GetTargetRotation
     {
         get { return m_targetRotation; }
+    }
+    bool Grounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, m_moveSettings.m_DistanceToGround);
     }
 	// Use this for initialization
 	void Start () 
@@ -31,12 +64,13 @@ public class scr_playerController : MonoBehaviour {
         {
             Debug.LogError("The player needs a rigidbody");
         }
-        forwardInput = 0; turnInput = 0;
+        forwardInput = 0; turnInput = 0; jumpInput = 0;
 	}
     void GetInput()
     {
-        forwardInput = Input.GetAxis("Vertical");
-        turnInput = Input.GetAxis("Horizontal");
+        forwardInput = Input.GetAxis(m_inputSettings.FORWARD_AXSIS); 
+        turnInput = Input.GetAxis(m_inputSettings.TURN_AXSIS); // ^ + this = interpolated
+        jumpInput = Input.GetAxisRaw(m_inputSettings.JUMP_AXSIS); // not interpoaltesds
     }
 
 	// Update is called once per frame
@@ -48,21 +82,39 @@ public class scr_playerController : MonoBehaviour {
     void FixedUpdate()
     {
         Run();
+        Jump();
+
+        m_rb.velocity = transform.TransformDirection(velocity);
     }
     void Run()
     {
-        if(Mathf.Abs(forwardInput) > m_inputDelay)
+        if(Mathf.Abs(forwardInput) > m_inputSettings.m_inputDelay)
         {
-            m_rb.velocity = transform.forward * forwardInput * m_ForwardSpeed;
+            velocity.z = m_moveSettings.m_ForwardSpeed * forwardInput;
         }
         else
         {
-            m_rb.velocity = Vector3.zero;
+            velocity.z = 0;
         }
     }
     void Turn()
     {
-        m_targetRotation *= Quaternion.AngleAxis(m_RotationSpeed * turnInput * Time.deltaTime,Vector3.up  );
+        m_targetRotation *= Quaternion.AngleAxis(m_moveSettings.m_RotationSpeed * turnInput * Time.deltaTime, Vector3.up);
         transform.rotation = m_targetRotation;
+    }
+    void Jump()
+    {
+        if(jumpInput > 0 && Grounded())
+        {
+            velocity.y = m_moveSettings.m_JumpSpeed;
+        }
+        else if(jumpInput == 0 && Grounded())
+        {
+            velocity.y = 0;
+        }
+        else   //Gravity
+        {
+            velocity.y -= m_physSeetings.m_DownAccel;
+        }
     }
 }

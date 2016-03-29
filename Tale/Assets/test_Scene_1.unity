@@ -185,6 +185,42 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+      propertyPath: m_ForwardSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400780, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+      propertyPath: m_moveSettings.m_groundLayer.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+      propertyPath: m_moveSettings.m_ForwardSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+      propertyPath: m_moveSettings.m_RotationSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+      propertyPath: m_moveSettings.m_JumpSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+      propertyPath: m_moveSettings.m_DistanceToGround
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+      propertyPath: m_inputSettings.m_inputDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+      propertyPath: m_physSeetings.m_DownAccel
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
   m_IsPrefabParent: 0
