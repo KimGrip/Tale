@@ -68,10 +68,12 @@ public class scr_ropeAttach : MonoBehaviour
         if (rope && Input.GetKeyDown("t"))
         {
             DestroyRope();
+            print("destroyed Rope");
         }
         if (!rope && Input.GetKeyDown("y"))
         {
             BuildRope();
+            print("ropeBuilt");
         }
     }
     void LateUpdate()
