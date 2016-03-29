@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/gabrielsRopeScene.unity
+- path: Assets/test_Scene_1.unity
   isLoaded: 1
   isActive: 1
