@@ -160,8 +160,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 129650007}
-  m_LocalRotation: {x: 0, y: -0.8849458, z: 0, w: 0.46569416}
-  m_LocalPosition: {x: 255, y: 101.2, z: 232.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 310, y: 15.6, z: 218.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -194,7 +194,7 @@ MonoBehaviour:
   previousJoint: {fileID: 0}
   currentJoint: {fileID: 0}
   nextJoint: {fileID: 0}
-  pullForce: 800
+  pullForce: 400
   pullPushForceMode: 5
   k_traverseForward: 113
   k_traverseBackwards: 101
@@ -213,25 +213,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_moveSettings:
-<<<<<<< HEAD
-    m_ForwardSpeed: 40
-    m_RotationSpeed: 30
-    m_JumpSpeed: 10
-=======
     m_ForwardSpeed: 50
     m_RotationSpeed: 140
     m_JumpSpeed: 70
->>>>>>> e0161026716ea813b1ae0a9a507afa6ef48db042
     m_DistanceToGround: 2
     m_groundLayer:
       serializedVersion: 2
       m_Bits: 4294967295
   m_physSeetings:
-<<<<<<< HEAD
     m_DownAccel: 0
-=======
-    m_DownAccel: 3
->>>>>>> e0161026716ea813b1ae0a9a507afa6ef48db042
   m_inputSettings:
     m_inputDelay: 0
     FORWARD_AXSIS: Vertical
@@ -272,27 +262,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_LocalPosition.x
-<<<<<<< HEAD
-      value: 162.7
+      value: 340.3
       objectReference: {fileID: 0}
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 97.5
+      value: 44.5
       objectReference: {fileID: 0}
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 104.3
-=======
-      value: 573.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 73.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 141.99
->>>>>>> e0161026716ea813b1ae0a9a507afa6ef48db042
+      value: 267.7
       objectReference: {fileID: 0}
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_LocalRotation.x
@@ -336,7 +314,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: ropeDrag
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: lowTwistLimit
@@ -352,11 +330,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: resolution
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: ropeColRadius
-      value: 0.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: swingAxis.x
@@ -376,7 +354,121 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: attachSpaceStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5402548, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 12070832, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0aa87e5e29aedb64cb3d459f68317736, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &293342364
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 482.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 129.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 322.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1959059374}
+    - target: {fileID: 161048, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_Name
+      value: RopeSpawnFrom (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: ropeMass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5402548, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 161048, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: ropeDrag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: lowTwistLimit
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: highTwistLimit
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: swing1Limit
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: resolution
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: ropeColRadius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: swingAxis.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: swingAxis.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 12070832, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_UseWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: attachSpaceEnd
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: attachSpaceStart
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5402548, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_IsKinematic
@@ -504,11 +596,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 19.1
       objectReference: {fileID: 0}
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 229.9
+      value: 242.7
       objectReference: {fileID: 0}
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_LocalRotation.x
@@ -540,7 +632,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: ropeMass
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5402548, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_Constraints
@@ -568,15 +660,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: resolution
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
-      propertyPath: ropeColRadius
       value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
-      propertyPath: swingAxis.x
+      propertyPath: ropeColRadius
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: swingAxis.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11402522, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: swingAxis.y
@@ -709,9 +801,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 129650011}
-  lookSmooth: 0.02
-  offsetFromTarget: {x: 0, y: 6, z: -8}
-  xTilt: 10
+  m_cameraPositionSettings:
+    targetPosOffset: {x: 0, y: 3.4, z: 0}
+    m_lookSmooth: 100
+    m_distanceFromTarget: 16
+    m_zoomSpeed: 10
+    m_maxZoom: -2
+    minZoom: -15
+  m_aimSettings:
+    xRotation: -20
+    yRotation: -180
+    maxRotation: 25
+    minRotation: -25
+    vOrbitSmooth: 150
+    hOrbitSmooth: -150
+  m_inputSettings:
+    AIM_HORIZONTAL_SNAP: AimHorizontalSnap
+    AIM_HORIZONTAL: Mouse X
+    AIM_VERTICAL: Mouse Y
+    ZOOM: Fire2
 --- !u!82 &1389441577
 AudioSource:
   m_ObjectHideFlags: 0
@@ -953,15 +1061,38 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1937565230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-<<<<<<< HEAD
-  m_LocalPosition: {x: 263.9, y: 115.7, z: 124.7}
-=======
-  m_LocalPosition: {x: 178.253, y: 137.3, z: 23.96}
->>>>>>> e0161026716ea813b1ae0a9a507afa6ef48db042
+  m_LocalPosition: {x: 315.8, y: 28.8, z: 267.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!1 &1959059373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1959059374}
+  m_Layer: 8
+  m_Name: RopeAttachTo (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1959059374
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1959059373}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 373.2, y: 28.8, z: 267.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
 --- !u!1 &2077165742
 GameObject:
   m_ObjectHideFlags: 0
