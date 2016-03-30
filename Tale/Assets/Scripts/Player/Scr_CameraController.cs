@@ -59,7 +59,7 @@ public class Scr_CameraController : MonoBehaviour {
 	void Update ()
     {
         GetInput();
-        ZoomInOnTarget();
+        BowCamera();
         OrbitTarget();
 
 	}
@@ -121,7 +121,7 @@ public class Scr_CameraController : MonoBehaviour {
         }
 
     }
-    void ZoomInOnTarget()
+    void BowCamera()
     {
         if(zoomInput != 0)
         {
