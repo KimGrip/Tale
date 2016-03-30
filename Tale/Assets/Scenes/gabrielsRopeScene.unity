@@ -118,7 +118,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8ac594c355de84247a80b8a2ed030572, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -213,15 +213,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_moveSettings:
+<<<<<<< HEAD
     m_ForwardSpeed: 40
     m_RotationSpeed: 30
     m_JumpSpeed: 10
+=======
+    m_ForwardSpeed: 50
+    m_RotationSpeed: 140
+    m_JumpSpeed: 70
+>>>>>>> e0161026716ea813b1ae0a9a507afa6ef48db042
     m_DistanceToGround: 2
     m_groundLayer:
       serializedVersion: 2
       m_Bits: 4294967295
   m_physSeetings:
+<<<<<<< HEAD
     m_DownAccel: 0
+=======
+    m_DownAccel: 3
+>>>>>>> e0161026716ea813b1ae0a9a507afa6ef48db042
   m_inputSettings:
     m_inputDelay: 0
     FORWARD_AXSIS: Vertical
@@ -262,6 +272,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_LocalPosition.x
+<<<<<<< HEAD
       value: 162.7
       objectReference: {fileID: 0}
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
@@ -271,6 +282,17 @@ Prefab:
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_LocalPosition.z
       value: 104.3
+=======
+      value: 573.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 73.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 141.99
+>>>>>>> e0161026716ea813b1ae0a9a507afa6ef48db042
       objectReference: {fileID: 0}
     - target: {fileID: 422904, guid: 9c4f8655869e39b4b98da1ae4ffcf286, type: 2}
       propertyPath: m_LocalRotation.x
@@ -931,7 +953,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1937565230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: 263.9, y: 115.7, z: 124.7}
+=======
+  m_LocalPosition: {x: 178.253, y: 137.3, z: 23.96}
+>>>>>>> e0161026716ea813b1ae0a9a507afa6ef48db042
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

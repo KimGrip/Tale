@@ -167,19 +167,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 405346, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.010908807
       objectReference: {fileID: 0}
     - target: {fileID: 405346, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.0516499
       objectReference: {fileID: 0}
     - target: {fileID: 405346, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.0027821225
       objectReference: {fileID: 0}
     - target: {fileID: 405346, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.9986018
       objectReference: {fileID: 0}
     - target: {fileID: 405346, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_RootOrder
@@ -199,7 +199,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_moveSettings.m_ForwardSpeed
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_moveSettings.m_RotationSpeed
@@ -207,7 +207,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_moveSettings.m_JumpSpeed
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_moveSettings.m_DistanceToGround
@@ -219,6 +219,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_physSeetings.m_DownAccel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -250,8 +254,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1054395679}
-  m_LocalRotation: {x: 0.14105149, y: 0, z: 0, w: 0.99000233}
-  m_LocalPosition: {x: 1.07, y: 21, z: -8.72}
+  m_LocalRotation: {x: 0, y: 0.051287398, z: 0, w: 0.9986839}
+  m_LocalPosition: {x: 0.31, y: 19.57, z: -3.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -295,7 +299,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -323,9 +327,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1383808498}
-  lookSmooth: 0.07
-  offsetFromTarget: {x: 0, y: 3, z: -5}
-  xTilt: 10
+  m_cameraPositionSettings:
+    targetPosOffset: {x: 0, y: 3.4, z: 0}
+    m_lookSmooth: 100
+    m_distanceFromTarget: -8
+    m_zoomSpeed: 10
+    m_maxZoom: -3
+    minZoom: -9
+  m_aimSettings:
+    xRotation: -20
+    yRotation: -180
+    maxRotation: 25
+    minRotation: -50
+    vOrbitSmooth: 150
+    hOrbitSmooth: -150
+  m_inputSettings:
+    AIM_HORIZONTAL_SNAP: AimHorizontalSnap
+    AIM_HORIZONTAL: Mouse X
+    AIM_VERTICAL: Mouse Y
+    ZOOM: Fire2
 --- !u!1 &1214728892
 GameObject:
   m_ObjectHideFlags: 0
