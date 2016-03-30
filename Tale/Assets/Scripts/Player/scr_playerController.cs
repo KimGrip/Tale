@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
-public enum PlayerState
+
+namespace playerenums
 {
-    Idle, Running, Jumping, Climbing, Aiming, 
-};
+    public enum PlayerState
+    {
+        Idle, Running, Jumping, Climbing, Aiming,
+    };
+}
 [RequireComponent(typeof(Rigidbody))]
 public class scr_playerController : MonoBehaviour {
 
