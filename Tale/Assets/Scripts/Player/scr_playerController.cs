@@ -42,17 +42,15 @@ public class scr_playerController : MonoBehaviour {
     public PhysSettings m_physSeetings = new PhysSettings();
     public InputSettings m_inputSettings = new InputSettings();
     scr_PSM playerStateManager;
+    Scr_CameraController m_cameraController;
     Vector3 velocity = Vector3.zero;
 
     Quaternion m_targetRotation;
     Rigidbody m_rb;
 
     float forwardInput, turnInput, jumpInput;
+    float m_refValue = 0;
 
-    public Quaternion GetTargetRotation
-    {
-        get { return m_targetRotation; }
-    }
     bool Grounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, m_moveSettings.m_DistanceToGround);
@@ -62,6 +60,8 @@ public class scr_playerController : MonoBehaviour {
     {
         m_targetRotation = transform.rotation;
         playerStateManager = this.gameObject.GetComponent<scr_PSM>();
+        m_cameraController = Camera.main.GetComponent<Scr_CameraController>();
+
         if (GetComponent<Rigidbody>())
         {
             m_rb = GetComponent<Rigidbody>();
@@ -72,6 +72,11 @@ public class scr_playerController : MonoBehaviour {
         }
         forwardInput = 0; turnInput = 0; jumpInput = 0;
 	}
+    public Vector3 GetVelocity()
+    {
+        return m_rb.velocity;
+    }
+
     void GetInput()
     {
         forwardInput = Input.GetAxis(m_inputSettings.FORWARD_AXSIS); 
@@ -85,12 +90,21 @@ public class scr_playerController : MonoBehaviour {
         GetInput();
         Turn();
 	}
+
     void FixedUpdate()
     {
         Run();
         Jump();
 
         m_rb.velocity = transform.TransformDirection(velocity);
+    }
+    public void SetDownAcceleratin(float value)
+    {
+        m_physSeetings.m_DownAccel = value;
+    }
+    public float GetDownAcceleration()
+    {
+        return m_physSeetings.m_DownAccel;
     }
     void Run()
     {
@@ -105,9 +119,25 @@ public class scr_playerController : MonoBehaviour {
             velocity.z = 0;
         }
     }
+    public void SetTargetRotation(Quaternion rotation)
+    {
+        m_targetRotation = rotation;
+    }
+    public Quaternion GetTargetRotation()
+    {
+        return m_targetRotation;
+    }
     void Turn()
     {
-        m_targetRotation *= Quaternion.AngleAxis(m_moveSettings.m_RotationSpeed * turnInput * Time.deltaTime, Vector3.up);
+        if(playerStateManager.GetPlayerPose() == scr_PSM.PlayerPose.pose_idle)
+        {
+            m_targetRotation.y = Mathf.SmoothDamp(m_targetRotation.y, -m_cameraController.GetRotation().y, ref m_refValue, 0);
+        }
+        if(playerStateManager.GetPlayerPose() == scr_PSM.PlayerPose.pose_running)
+        {
+            m_targetRotation *= Quaternion.AngleAxis(m_moveSettings.m_RotationSpeed * turnInput * Time.deltaTime, Vector3.up);
+
+        }
         transform.rotation = m_targetRotation;
     }
     void Jump()
