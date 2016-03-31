@@ -127,11 +127,17 @@ public class scr_playerController : MonoBehaviour {
     {
         return m_targetRotation;
     }
+    void TurnCharacterToCameraRotation()
+    {
+        m_targetRotation.y = Mathf.SmoothDamp(m_targetRotation.y, -m_cameraController.GetRotation().y, ref m_refValue, 0.2f);
+    }
     void Turn()
     {
         if(playerStateManager.GetPlayerPose() == scr_PSM.PlayerPose.pose_idle)
         {
-            m_targetRotation.y = Mathf.SmoothDamp(m_targetRotation.y, -m_cameraController.GetRotation().y, ref m_refValue, 0);
+            //TurnCharacterToCameraRotation();
+            //m_targetRotation *= Quaternion.AngleAxis(m_moveSettings.m_RotationSpeed * turnInput * Time.deltaTime, Vector3.up);
+
         }
         if(playerStateManager.GetPlayerPose() == scr_PSM.PlayerPose.pose_running)
         {
