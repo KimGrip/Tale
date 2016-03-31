@@ -41,6 +41,8 @@ public class Scr_CameraController : MonoBehaviour {
     public AimingSettings m_aimSettings = new AimingSettings();
     public InputSettings m_inputSettings = new InputSettings();
 
+    Vector2 m_CameraRefVelocity = Vector2.zero;
+    Vector2 m_DefaultCameraRotation;
     Vector3 m_targetPos = Vector3.zero;
     Vector3 m_destination = Vector3.zero;
     scr_PSM playerStateManager;
@@ -50,6 +52,9 @@ public class Scr_CameraController : MonoBehaviour {
     private float cameraReturnCounter;
     private bool m_returnCamera;
 
+
+
+
 	void Start ()
     {
         SetCameraTarget(target);
@@ -58,6 +63,7 @@ public class Scr_CameraController : MonoBehaviour {
         m_destination = Quaternion.Euler(m_aimSettings.xRotation, m_aimSettings.yRotation + target.eulerAngles.y, 0) * -Vector3.forward * m_cameraPositionSettings.m_distanceFromTarget;
         m_destination += m_targetPos;
         transform.position = m_destination;
+        m_DefaultCameraRotation = new Vector2(m_aimSettings.xRotation, m_aimSettings.yRotation);
 	}
 	
 	// Update is called once per frame
@@ -80,20 +86,6 @@ public class Scr_CameraController : MonoBehaviour {
             OrbitTarget();
         }
 	}
-    void ResetCamera()
-    {
-        Debug.Log("Return cameraia");
-
-
-        Mathf.MoveTowardsAngle(m_aimSettings.xRotation, -20, 30);
-        Mathf.MoveTowardsAngle(m_aimSettings.yRotation, -20, 30);
-
-
-        //Mathf.Lerp(m_aimSettings.xRotation, -20, m_cameraPositionSettings.m_CameraReturnTime);
-        //Mathf.Lerp(m_aimSettings.yRotation, -180, m_cameraPositionSettings.m_CameraReturnTime);
-
-
-    }
     public void SetCameraTarget(Transform t)
     {
         target = t;
@@ -127,7 +119,21 @@ public class Scr_CameraController : MonoBehaviour {
     void MoveToTarget()
     {
         m_targetPos = target.position + m_cameraPositionSettings.targetPosOffset;
-        m_destination = Quaternion.Euler(m_aimSettings.xRotation, m_aimSettings.yRotation + target.eulerAngles.y, 0) * -Vector3.forward * m_cameraPositionSettings.m_distanceFromTarget; 
+        if(!m_returnCamera)
+        {
+            m_destination = Quaternion.Euler(m_aimSettings.xRotation, m_aimSettings.yRotation + target.eulerAngles.y, 0) * -Vector3.forward * m_cameraPositionSettings.m_distanceFromTarget; 
+        }
+        else if(m_returnCamera)
+        {
+
+           m_aimSettings.xRotation = Mathf.SmoothDamp(m_aimSettings.xRotation, m_DefaultCameraRotation.x, ref m_CameraRefVelocity.x, m_cameraPositionSettings.m_CameraReturnTime / 2.5f);
+           m_aimSettings.yRotation = Mathf.SmoothDamp(m_aimSettings.yRotation, m_DefaultCameraRotation.y, ref m_CameraRefVelocity.y, m_cameraPositionSettings.m_CameraReturnTime / 2.5f);
+
+
+           Debug.Log(m_aimSettings.xRotation);
+           // m_destination = Quaternion.Euler(target.eulerAngles.x, target.eulerAngles.y + target.eulerAngles.z, 0) * -Vector3.forward * m_cameraPositionSettings.m_distanceFromTarget;
+            m_destination = Quaternion.Euler(m_aimSettings.xRotation, m_aimSettings.yRotation + target.eulerAngles.y, 0) * -Vector3.forward * m_cameraPositionSettings.m_distanceFromTarget; 
+        }
         m_destination += m_targetPos;
         transform.position = m_destination;
 
@@ -139,6 +145,7 @@ public class Scr_CameraController : MonoBehaviour {
     }
     void OrbitTarget()
     {
+        m_returnCamera = false;
         m_aimSettings.xRotation += vOrbitInput * m_aimSettings.vOrbitSmooth * Time.deltaTime;
         m_aimSettings.yRotation += -hOrbitInput * m_aimSettings.hOrbitSmooth * Time.deltaTime;
 

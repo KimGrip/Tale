@@ -203,7 +203,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_moveSettings.m_RotationSpeed
-      value: 140
+      value: 190
       objectReference: {fileID: 0}
     - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_moveSettings.m_JumpSpeed
