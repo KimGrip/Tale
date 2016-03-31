@@ -249,4 +249,9 @@ public class scr_ropeAttach : MonoBehaviour
         joints = new GameObject[0];
         segments = 0;
     }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawLine(this.transform.position, target.transform.position);
+    }
 }

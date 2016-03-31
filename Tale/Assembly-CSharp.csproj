@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Player\scr_playerController.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_ropeAttach.cs" />
      <Compile Include="Assets\scr_PSM.cs" />
+     <Compile Include="Assets\scr_SwingTest.cs" />
      <Compile Include="Assets\scr_playerStateManager.cs" />
      <Compile Include="Assets\scr_simpleFollow.cs" />
  <Reference Include="UnityEngine.UI">
