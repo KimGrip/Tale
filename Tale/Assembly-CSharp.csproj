@@ -45,14 +45,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AI\AlertState.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackState.cs" />
+     <Compile Include="Assets\Scripts\AI\ChaseState.cs" />
+     <Compile Include="Assets\Scripts\AI\IEnemyState.cs" />
+     <Compile Include="Assets\Scripts\AI\PatrolState.cs" />
+     <Compile Include="Assets\Scripts\AI\RetreatState.cs" />
+     <Compile Include="Assets\Scripts\AI\StatePatternEnemy.cs" />
      <Compile Include="Assets\Scripts\Player\Scr_CameraController.cs" />
+     <Compile Include="Assets\Scripts\Player\scr_PSM.cs" />
      <Compile Include="Assets\Scripts\Player\scr_playerClimbing.cs" />
      <Compile Include="Assets\Scripts\Player\scr_playerController.cs" />
+     <Compile Include="Assets\Scripts\Rope\scr_SwingTest.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_ropeAttach.cs" />
-     <Compile Include="Assets\scr_PSM.cs" />
-     <Compile Include="Assets\scr_SwingTest.cs" />
-     <Compile Include="Assets\scr_playerStateManager.cs" />
-     <Compile Include="Assets\scr_simpleFollow.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

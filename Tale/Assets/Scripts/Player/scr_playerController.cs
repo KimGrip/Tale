@@ -133,13 +133,13 @@ public class scr_playerController : MonoBehaviour {
     }
     void Turn()
     {
-        if(playerStateManager.GetPlayerPose() == scr_PSM.PlayerPose.pose_idle)
+        if(playerStateManager.GetPlayerPose(true) == scr_PSM.PlayerPose.pose_idle)
         {
             //TurnCharacterToCameraRotation();
             //m_targetRotation *= Quaternion.AngleAxis(m_moveSettings.m_RotationSpeed * turnInput * Time.deltaTime, Vector3.up);
 
         }
-        if(playerStateManager.GetPlayerPose() == scr_PSM.PlayerPose.pose_running)
+        if(playerStateManager.GetPlayerPose(true) == scr_PSM.PlayerPose.pose_running)
         {
             m_targetRotation *= Quaternion.AngleAxis(m_moveSettings.m_RotationSpeed * turnInput * Time.deltaTime, Vector3.up);
 

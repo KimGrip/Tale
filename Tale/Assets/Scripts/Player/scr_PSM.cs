@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class scr_playerStateManager : MonoBehaviour {
+public class scr_PSM : MonoBehaviour {
     private bool playerStateModified, equipStateModified, ropeStateModified, playerposeModified;
 
     void Awake()
@@ -15,6 +15,8 @@ public class scr_playerStateManager : MonoBehaviour {
     }
     public enum RopeState
     {
+        ropestate_none,
+        ropestate_hanging,
         ropestate_climbing,
         ropestate_skimming,
         ropestate_swinging,
