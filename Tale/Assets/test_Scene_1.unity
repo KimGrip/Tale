@@ -199,11 +199,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_moveSettings.m_ForwardSpeed
-      value: 50
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_moveSettings.m_RotationSpeed
-      value: 100
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 11444674, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
       propertyPath: m_moveSettings.m_JumpSpeed
@@ -228,6 +228,32 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &918434612 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 137736, guid: eb69f5724dcd7664f947a6a49440f4c3, type: 2}
+  m_PrefabInternal: {fileID: 918434611}
+--- !u!114 &918434613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 918434612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262cdae62d7c61247b1eb6f0e26e695e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &918434614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 918434612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b70e7f8434208c9448441402ae1d793b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1054395679
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,10 +356,11 @@ MonoBehaviour:
   m_cameraPositionSettings:
     targetPosOffset: {x: 0, y: 3.4, z: 0}
     m_lookSmooth: 100
-    m_distanceFromTarget: -8
+    m_distanceFromTarget: -6
     m_zoomSpeed: 10
-    m_maxZoom: -3
-    minZoom: -9
+    m_maxZoom: -2
+    minZoom: -7
+    m_CameraReturnTime: 1
   m_aimSettings:
     xRotation: -20
     yRotation: -180

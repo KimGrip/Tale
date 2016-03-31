@@ -16,6 +16,8 @@ public class Scr_CameraController : MonoBehaviour {
         public float m_zoomSpeed = 10;
         public float m_maxZoom = -2;
         public float minZoom = -15;
+
+        public float m_CameraReturnTime;
     }
     [System.Serializable]
     public class AimingSettings
@@ -41,14 +43,17 @@ public class Scr_CameraController : MonoBehaviour {
 
     Vector3 m_targetPos = Vector3.zero;
     Vector3 m_destination = Vector3.zero;
-
+    scr_PSM playerStateManager;
     scr_playerController m_charController;
     float vOrbitInput, hOrbitInput, zoomInput, hOrbitSnapInput;
+
+    private float cameraReturnCounter;
+    private bool m_returnCamera;
 
 	void Start ()
     {
         SetCameraTarget(target);
-
+        playerStateManager = GameObject.FindGameObjectWithTag("Player").GetComponent<scr_PSM>();
         m_targetPos = target.position + m_cameraPositionSettings.targetPosOffset;
         m_destination = Quaternion.Euler(m_aimSettings.xRotation, m_aimSettings.yRotation + target.eulerAngles.y, 0) * -Vector3.forward * m_cameraPositionSettings.m_distanceFromTarget;
         m_destination += m_targetPos;
@@ -60,9 +65,35 @@ public class Scr_CameraController : MonoBehaviour {
     {
         GetInput();
         BowCamera();
-        OrbitTarget();
 
+        if(vOrbitInput == 0 && hOrbitInput == 0 && playerStateManager.GetPlayerPose() == scr_PSM.PlayerPose.pose_running)
+        {
+            cameraReturnCounter += Time.deltaTime;
+            if(cameraReturnCounter > m_cameraPositionSettings.m_CameraReturnTime)
+            {
+                m_returnCamera = true;
+            }
+        }
+        else
+        {
+            cameraReturnCounter = 0;
+            OrbitTarget();
+        }
 	}
+    void ResetCamera()
+    {
+        Debug.Log("Return cameraia");
+
+
+        Mathf.MoveTowardsAngle(m_aimSettings.xRotation, -20, 30);
+        Mathf.MoveTowardsAngle(m_aimSettings.yRotation, -20, 30);
+
+
+        //Mathf.Lerp(m_aimSettings.xRotation, -20, m_cameraPositionSettings.m_CameraReturnTime);
+        //Mathf.Lerp(m_aimSettings.yRotation, -180, m_cameraPositionSettings.m_CameraReturnTime);
+
+
+    }
     public void SetCameraTarget(Transform t)
     {
         target = t;

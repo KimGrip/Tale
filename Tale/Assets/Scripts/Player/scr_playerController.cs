@@ -41,7 +41,7 @@ public class scr_playerController : MonoBehaviour {
     public MoveSettings m_moveSettings = new MoveSettings();
     public PhysSettings m_physSeetings = new PhysSettings();
     public InputSettings m_inputSettings = new InputSettings();
-
+    scr_PSM playerStateManager;
     Vector3 velocity = Vector3.zero;
 
     Quaternion m_targetRotation;
@@ -61,6 +61,7 @@ public class scr_playerController : MonoBehaviour {
 	void Start () 
     {
         m_targetRotation = transform.rotation;
+        playerStateManager = this.gameObject.GetComponent<scr_PSM>();
         if (GetComponent<Rigidbody>())
         {
             m_rb = GetComponent<Rigidbody>();
@@ -95,10 +96,12 @@ public class scr_playerController : MonoBehaviour {
     {
         if(Mathf.Abs(forwardInput) > m_inputSettings.m_inputDelay)
         {
+            playerStateManager.SetPlayerPose(scr_PSM.PlayerPose.pose_running);
             velocity.z = m_moveSettings.m_ForwardSpeed * forwardInput;
         }
         else
         {
+            playerStateManager.SetPlayerPose(scr_PSM.PlayerPose.pose_idle);
             velocity.z = 0;
         }
     }
