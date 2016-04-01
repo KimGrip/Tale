@@ -47,6 +47,10 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AI\AlertState.cs" />
      <Compile Include="Assets\Scripts\AI\AttackState.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackStates\AttackDownTime.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackStates\AttackOnGoing.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackStates\AttackWindUp.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackStates\IAttackStates.cs" />
      <Compile Include="Assets\Scripts\AI\ChaseState.cs" />
      <Compile Include="Assets\Scripts\AI\IEnemyState.cs" />
      <Compile Include="Assets\Scripts\AI\PatrolState.cs" />

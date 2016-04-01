@@ -4,7 +4,10 @@ using System.Collections;
 public class PatrolState : IEnemyState{
     private readonly StatePatternEnemy enemy;
     private int nextWayPoint;
+    public void Start()
+    {
 
+    }
     public PatrolState(StatePatternEnemy statePatternEnemy)
     {
         enemy = statePatternEnemy;

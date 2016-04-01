@@ -5,7 +5,10 @@ public class ChaseState : IEnemyState
 {
     private readonly StatePatternEnemy enemy;
     private float chaseTimer;
+    public void Start()
+    {
 
+    }
     public ChaseState(StatePatternEnemy statePatternEnemy)
     {
         enemy = statePatternEnemy;
@@ -33,7 +36,7 @@ public class ChaseState : IEnemyState
     }
     public void ToAttackState()
     {
-
+        enemy.currentState = enemy.attackState;
     }
     public void ToRetreatState()
     {
@@ -59,5 +62,9 @@ public class ChaseState : IEnemyState
         enemy.meshRendererFlag.material.color = Color.red;
         enemy.navMeshAgent.destination = enemy.chaseTarget.position;
         enemy.navMeshAgent.Resume();
+        if (Vector3.Distance(enemy.transform.position, enemy.chaseTarget.position) < enemy.attackRange)
+        {
+            ToAttackState();
+        }
     }
 }

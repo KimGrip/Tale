@@ -5,7 +5,10 @@ public class AlertState: IEnemyState
 {
   private readonly StatePatternEnemy enemy;
   private float searchTimer;
+    public void Start()
+   {
 
+   }
     public AlertState(StatePatternEnemy statePatternEnemy)
     {
         enemy = statePatternEnemy;

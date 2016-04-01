@@ -4,7 +4,10 @@ using System.Collections;
 public class RetreatState : IEnemyState
 {
     private readonly StatePatternEnemy enemy;
+    public void Start()
+    {
 
+    }
     public RetreatState(StatePatternEnemy statePatternEnemy)
     {
         enemy = statePatternEnemy;

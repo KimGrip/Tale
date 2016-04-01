@@ -12,6 +12,11 @@ public class StatePatternEnemy : MonoBehaviour {
     public Vector3 offset = new Vector3(0, 0.5f, 0); //lookoffset
     public MeshRenderer meshRendererFlag;
 
+    public float attackRange = 4.0f;
+    public float attackWindUp = 0.4f;
+    public float attackDuration = 1.0f;
+    public float attackDownTime = 1.4f;
+
     [HideInInspector]public Transform chaseTarget;
     [HideInInspector]public IEnemyState currentState;
     [HideInInspector]public AlertState alertState;
@@ -28,6 +33,8 @@ public class StatePatternEnemy : MonoBehaviour {
         attackState = new AttackState(this);
         retreatState = new RetreatState(this);
 
+        attackState.Start(); // note to self call start on states that it is needed
+        
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 	void Start () {
