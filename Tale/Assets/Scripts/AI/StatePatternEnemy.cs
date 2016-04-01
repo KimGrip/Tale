@@ -13,10 +13,16 @@ public class StatePatternEnemy : MonoBehaviour {
     public MeshRenderer meshRendererFlag;
 
     public float attackRange = 4.0f;
-    public float attackWindUp = 0.4f;
+    public float attackWindUpDuration = 0.4f;
     public float attackDuration = 1.0f;
-    public float attackDownTime = 1.4f;
+    public float attackDownDuration = 1.4f;
 
+    public Transform swingSimulationPoint;
+    public Transform[] weaponWayPoints;
+    public LayerMask playerLayer;
+    [HideInInspector]public LineRenderer weaponSwingRenderer;
+
+    public bool drawGizmos;
     [HideInInspector]public Transform chaseTarget;
     [HideInInspector]public IEnemyState currentState;
     [HideInInspector]public AlertState alertState;
@@ -36,6 +42,7 @@ public class StatePatternEnemy : MonoBehaviour {
         attackState.Start(); // note to self call start on states that it is needed
         
         navMeshAgent = GetComponent<NavMeshAgent>();
+        weaponSwingRenderer = GetComponent<LineRenderer>();
     }
 	void Start () {
         currentState = patrolState;
@@ -47,14 +54,32 @@ public class StatePatternEnemy : MonoBehaviour {
 	}
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        if (waypoints.Length > 0)
+        if (drawGizmos)
         {
-            for (int i = 0; i < waypoints.Length; i++)
+            Gizmos.color = Color.blue;
+            if (waypoints.Length > 0)
             {
-                Gizmos.DrawCube(waypoints[i].position, new Vector3(1, 1, 1));
+                for (int i = 0; i < waypoints.Length; i++)
+                {
+                    Gizmos.DrawCube(waypoints[i].position, new Vector3(1, 1, 1));
+                }
             }
-        }  
+            Gizmos.color = Color.red;
+            if (weaponWayPoints.Length > 0)
+            {
+                for (int i = 0; i < weaponWayPoints.Length-1; i++)
+                {
+                    Gizmos.DrawCube(weaponWayPoints[i].position, new Vector3(0.5f, 0.5f, 0.5f));
+                    if (weaponWayPoints.Length > 1)
+                    {
+                        if (i < weaponWayPoints.Length + 1)
+                        {
+                            Gizmos.DrawLine(weaponWayPoints[i].position, weaponWayPoints[i + 1].position);
+                        }
+                    }
+                }
+            }
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

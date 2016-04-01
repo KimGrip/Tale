@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AlertState: IEnemyState
+public class AlertState : IEnemyState
 {
   private readonly StatePatternEnemy enemy;
   private float searchTimer;

@@ -4,7 +4,7 @@ using System.Collections;
 public class ChaseState : IEnemyState
 {
     private readonly StatePatternEnemy enemy;
-    private float chaseTimer;
+
     public void Start()
     {
 
