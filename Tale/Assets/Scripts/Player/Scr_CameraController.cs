@@ -84,11 +84,10 @@ public class Scr_CameraController : MonoBehaviour {
                 m_CameraIsOrbiting = false;
             }
         }
-        //else if ( playerStateManager.GetPlayerPose() == scr_PSM.PlayerPose.pose_running
-        //    && previousState.GetPlayerPose() ==  scr_PSM.PlayerPose.pose_idle)
-        //{
-        //    Debug.Log("missmatch states");
-        //}
+        else if(playerStateManager.GetPlayerPose(false)) == scr_PSM.PlayerPose.pose_idle)
+        {
+
+        }
         else
         {
             cameraReturnCounter = 0;
