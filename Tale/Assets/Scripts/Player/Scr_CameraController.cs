@@ -75,7 +75,7 @@ public class Scr_CameraController : MonoBehaviour {
         GetInput();
         BowCamera();
 
-        if(vOrbitInput == 0 && hOrbitInput == 0 && playerStateManager.GetPlayerPose() == scr_PSM.PlayerPose.pose_running)
+        if(vOrbitInput == 0 && hOrbitInput == 0 && playerStateManager.GetPlayerPose(true) == scr_PSM.PlayerPose.pose_running)
         {
             cameraReturnCounter += Time.deltaTime;
             if(cameraReturnCounter > m_cameraPositionSettings.m_CameraReturnTime)

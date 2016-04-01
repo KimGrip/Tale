@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/test_Scene_1.unity
+- path: Assets/Scenes/gabrielAIScene.unity
   isLoaded: 1
   isActive: 1
