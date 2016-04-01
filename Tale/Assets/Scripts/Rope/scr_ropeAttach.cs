@@ -53,7 +53,8 @@ public class scr_ropeAttach : MonoBehaviour
     public float lowTwistLimit = -100.0F;					//  The lower limit around the primary axis of the character joint. 
     public float highTwistLimit = 100.0F;					//  The upper limit around the primary axis of the character joint.
     public float swing1Limit = 20.0F;					//	The limit around the primary axis of the character joint starting at the initialization point.
-
+    public bool attachSpaceEnd;
+    public bool attachSpaceStart;
     void Awake()
     {
         BuildRope();
@@ -123,7 +124,30 @@ public class scr_ropeAttach : MonoBehaviour
         // Find the distance between each segment
         var segs = segments - 1;
         var seperation = ((target.position - transform.position) / segs);
+        if (attachSpaceStart)
+        {
+            AddJointsExceptLastLockFirst(seperation);
+            print("asfasfas");
+        }
+        else
+        {
+            AddJointsExceptLast(seperation);
+        }
+      
 
+        // Attach the joints to the target object and parent it to this object	
+
+        AddJoint(target, joints[joints.Length - 1].GetComponent<Rigidbody>(),false);
+        AddJoint(target, joints[joints.Length - 1].GetComponent<Rigidbody>(), attachSpaceEnd);
+        if (attachSpaceStart)
+        {
+            this.transform.GetComponent<Rigidbody>().isKinematic = true;
+        }
+        // Rope = true, The rope now exists in the scene!
+        rope = true;
+    }
+    void AddJointsExceptLast(Vector3 seperation)
+    {
         for (int s = 1; s < segments; s++)
         {
             // Find the each segments position using the slope from above
@@ -133,10 +157,34 @@ public class scr_ropeAttach : MonoBehaviour
             //Add Physics to the segments
             AddJointPhysics(s);
         }
+    }
+    void AddJointsExceptLastLockFirst(Vector3 seperation)
+    {
+        for (int s = 1; s < segments; s++)
+        {
+            if (s == 2)
+            {
+                AddJoint(this.transform, GetComponent<Rigidbody>(), true);
+            }
+            // Find the each segments position using the slope from above
+            Vector3 vector = (seperation * s) + transform.position;
+            segmentPos[s] = vector;
 
-        // Attach the joints to the target object and parent it to this object	
+            //Add Physics to the segments
+            AddJointPhysics(s);
+        }
+    }
+    void AddJoint(Transform target, Rigidbody connectedBody, bool connectToSpace)
+    {
         CharacterJoint end = target.gameObject.AddComponent<CharacterJoint>();
-        end.connectedBody = joints[joints.Length - 1].GetComponent<Rigidbody>();
+        if (!connectToSpace)
+        {
+            end.connectedBody = connectedBody;
+        }
+        else
+        {
+            //connect to nothing aka space(lock in air)
+        }
         end.swingAxis = swingAxis;
         SoftJointLimit limit_setter = end.lowTwistLimit;
         limit_setter.limit = lowTwistLimit;
@@ -148,11 +196,8 @@ public class scr_ropeAttach : MonoBehaviour
         limit_setter.limit = swing1Limit;
         end.swing1Limit = limit_setter;
         target.parent = transform;
-
-        // Rope = true, The rope now exists in the scene!
-        rope = true;
+        //end.enableProjection = true;
     }
-
     void AddJointPhysics(int n)
     {
         joints[n] = new GameObject("Joint_" + n);
@@ -173,7 +218,7 @@ public class scr_ropeAttach : MonoBehaviour
         limit_setter.limit = swing1Limit;
         ph.swing1Limit = limit_setter;
         //ph.breakForce = ropeBreakForce; <--------------- TODO
-
+        //ph.enableProjection = true;
         joints[n].transform.position = segmentPos[n];
 
         rigid.drag = ropeDrag;
@@ -203,5 +248,10 @@ public class scr_ropeAttach : MonoBehaviour
         segmentPos = new Vector3[0];
         joints = new GameObject[0];
         segments = 0;
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawLine(this.transform.position, target.transform.position);
     }
 }
