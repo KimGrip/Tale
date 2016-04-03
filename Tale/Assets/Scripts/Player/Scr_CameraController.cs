@@ -74,26 +74,27 @@ public class Scr_CameraController : MonoBehaviour {
     {
         GetInput();
         BowCamera();
-
-        if(vOrbitInput == 0 && hOrbitInput == 0 && playerStateManager.GetPlayerPose(true) == scr_PSM.PlayerPose.pose_running)
+        // If Player is running and not looking for certain amount of time.
+        if(vOrbitInput == 0 && hOrbitInput == 0 && playerStateManager.GetPlayerPose(true) == scr_PSM.PlayerPose.pose_running)  
         {
             cameraReturnCounter += Time.deltaTime;
-            if(cameraReturnCounter > m_cameraPositionSettings.m_CameraReturnTime)
+            if(cameraReturnCounter > m_cameraPositionSettings.m_CameraReturnTime)  
             {
                 m_returnCamera = true;
                 m_CameraIsOrbiting = false;
             }
         }
-        //else if ( playerStateManager.GetPlayerPose() == scr_PSM.PlayerPose.pose_running
-        //    && previousState.GetPlayerPose() ==  scr_PSM.PlayerPose.pose_idle)
-        //{
-        //    Debug.Log("missmatch states");
-        //}
-        else
+        //if player is looking
+        else if (vOrbitInput != 0 && hOrbitInput != 0)
         {
             cameraReturnCounter = 0;
             OrbitTarget();
         }
+        //if player is starting to move forward and player angle != camera angle.
+        else if(playerStateManager.GetPlayerPose(true) == scr_PSM.PlayerPose.pose_idle && transform.rotation != m_charController.transform.rotation)
+        {
+        }
+
 	}
     public bool IsOrbiting()
     {
