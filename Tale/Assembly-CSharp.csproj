@@ -56,12 +56,18 @@
      <Compile Include="Assets\Scripts\AI\PatrolState.cs" />
      <Compile Include="Assets\Scripts\AI\RetreatState.cs" />
      <Compile Include="Assets\Scripts\AI\StatePatternEnemy.cs" />
+     <Compile Include="Assets\Scripts\Player\Camera\scr_FollowTarget.cs" />
+     <Compile Include="Assets\Scripts\Player\Camera\scr_FreeCameraLook.cs" />
+     <Compile Include="Assets\Scripts\Player\Camera\scr_Pivot.cs" />
      <Compile Include="Assets\Scripts\Player\Scr_CameraController.cs" />
+     <Compile Include="Assets\Scripts\Player\scr_CharacterMovement.cs" />
      <Compile Include="Assets\Scripts\Player\scr_PSM.cs" />
+     <Compile Include="Assets\Scripts\Player\scr_UserInput.cs" />
      <Compile Include="Assets\Scripts\Player\scr_playerClimbing.cs" />
      <Compile Include="Assets\Scripts\Player\scr_playerController.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_SwingTest.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_ropeAttach.cs" />
+     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

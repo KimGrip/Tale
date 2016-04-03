@@ -62,6 +62,7 @@ public class scr_PSM : MonoBehaviour {
         else
         {
             return m_prevPlayerState;
+
         }
     }
     public Equipstate GetEquipState(bool wantCurrent)
@@ -130,7 +131,7 @@ public class scr_PSM : MonoBehaviour {
         ropeStateModified = true;
     }
     public void SetPlayerPose(PlayerPose p_pose){
-        m_prevRopeState = m_ropeState;
+      m_prevPlayerPose = m_playerPose;
         m_playerPose = p_pose;
         playerposeModified = true;
     }

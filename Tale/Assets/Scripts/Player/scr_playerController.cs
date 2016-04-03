@@ -53,6 +53,14 @@ public class scr_playerController : MonoBehaviour {
 
     bool Grounded()
     {
+        if(Physics.Raycast(transform.position, Vector3.down, m_moveSettings.m_DistanceToGround))
+        {
+            playerStateManager.SetPlayerState(scr_PSM.Playerstate.state_grounded);
+        }
+        else
+        {
+            playerStateManager.SetPlayerState(scr_PSM.Playerstate.state_airborne);
+        }
         return Physics.Raycast(transform.position, Vector3.down, m_moveSettings.m_DistanceToGround);
     }
 	// Use this for initialization
