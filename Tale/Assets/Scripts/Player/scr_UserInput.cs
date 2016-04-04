@@ -17,6 +17,15 @@ public class scr_UserInput : MonoBehaviour {
 
     Animator anim;
 
+    public GameObject m_arrow;
+    private Transform m_arrowSpawnpoint;
+    //These variables need to be detailed and set specifically for ALVA
+    public Transform spine;
+    public float aimingZ = 213.46f;
+    public float aimingX = -65.93f;
+    public float aimingY = 20.1f;
+    public float point = 30;
+
     void Start()
     {
         if(Camera.main != null)
@@ -25,10 +34,24 @@ public class scr_UserInput : MonoBehaviour {
         }
         charMove = GetComponent<scr_CharacterMovement>();
         anim = GetComponent<Animator>();
+        m_arrowSpawnpoint = GameObject.FindGameObjectWithTag("arrowSpawnPoint").transform;
+      
+    }
+    void Update()
+    {
+        aim = Input.GetMouseButton(1);
+        if(aim)
+        {
+            if(Input.GetMouseButton(0))
+            {
+                anim.SetTrigger("Fire");
+                Instantiate(m_arrow,m_arrowSpawnpoint.position,Quaternion.identity);
+                //Instantiate(m_arrow, m_arrowSpawnPoint.position, Quaternion.identity);
+            }
+        }
     }
     void LateUpdate()
     {
-        aim = Input.GetMouseButton(1);
         aimingWheight = Mathf.MoveTowards(aimingWheight, (aim) ? 1.0f : 0.0f, Time.deltaTime * 5);
 
         Vector3 normalState = new Vector3(0, 0, -1f);
@@ -36,6 +59,21 @@ public class scr_UserInput : MonoBehaviour {
 
         Vector3 pos = Vector3.Lerp(normalState, aiminngState, aimingWheight);
         cam.transform.localPosition = pos;
+
+        if(aim)
+        {
+            Vector3 eulerAngleOffset = Vector3.zero;
+
+            eulerAngleOffset = new Vector3(aimingX, aimingY, aimingZ);
+
+            Ray ray = new Ray(cam.position, cam.forward);
+
+            Vector3 lookPosition = ray.GetPoint(point);
+            Debug.Log(lookPosition);
+            spine.LookAt(lookPosition);
+            spine.Rotate(eulerAngleOffset, Space.Self);
+        }
+
     }
     void FixedUpdate()
     {
