@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\AI\Melee\AlertState.cs" />
      <Compile Include="Assets\Scripts\AI\Melee\AttackState.cs" />
      <Compile Include="Assets\Scripts\AI\Melee\AttackStatesMelee\AttackDownTime.cs" />
@@ -67,6 +68,20 @@
      <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\IAttackStatesRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\RetreatStateRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\StatePatternEnemyRanged.cs" />
+=======
+     <Compile Include="Assets\Scripts\AI\AlertState.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackState.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackStates\AttackDownTime.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackStates\AttackOnGoing.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackStates\AttackWindUp.cs" />
+     <Compile Include="Assets\Scripts\AI\AttackStates\IAttackStates.cs" />
+     <Compile Include="Assets\Scripts\AI\ChaseState.cs" />
+     <Compile Include="Assets\Scripts\AI\IEnemyState.cs" />
+     <Compile Include="Assets\Scripts\AI\PatrolState.cs" />
+     <Compile Include="Assets\Scripts\AI\RetreatState.cs" />
+     <Compile Include="Assets\Scripts\AI\StatePatternEnemy.cs" />
+     <Compile Include="Assets\Scripts\Player\Bow\Scr_arrow_direction.cs" />
+>>>>>>> d8fdc2d42a77e9e74269e38004ceb5dc63e0890b
      <Compile Include="Assets\Scripts\Player\Camera\scr_FollowTarget.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FreeCameraLook.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_Pivot.cs" />

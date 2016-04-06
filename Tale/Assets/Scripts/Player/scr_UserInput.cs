@@ -17,6 +17,21 @@ public class scr_UserInput : MonoBehaviour {
 
     Animator anim;
 
+    public GameObject m_arrow;
+    private Transform m_arrowSpawnpoint;
+    //These variables need to be detailed and set specifically for ALVA
+    public Transform spine;
+    public float aimingZ = 213.46f;
+    public float aimingX = -65.93f;
+    public float aimingY = 20.1f;
+    public float point = 30;
+
+    public float m_projectileSpeed;
+
+    public float m_ReloadTime;
+    private float m_reloadCounter;
+
+
     void Start()
     {
         if(Camera.main != null)
@@ -25,10 +40,44 @@ public class scr_UserInput : MonoBehaviour {
         }
         charMove = GetComponent<scr_CharacterMovement>();
         anim = GetComponent<Animator>();
+        m_arrowSpawnpoint = GameObject.FindGameObjectWithTag("arrowSpawnPoint").transform;
+      
+    }
+    void Update()
+    {
+        aim = Input.GetMouseButton(1);
+        if(aim)
+        {
+            if(Input.GetMouseButton(0) && m_reloadCounter > m_ReloadTime)
+            {
+                anim.SetTrigger("Fire");
+
+                GameObject arrow = (GameObject)Instantiate(m_arrow,m_arrowSpawnpoint.position,m_arrowSpawnpoint.rotation);
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+
+                Debug.Log(ray.direction);
+
+                arrow.GetComponent<Rigidbody>().AddForce(ray.direction * m_projectileSpeed, ForceMode.Impulse);
+                
+
+
+                m_reloadCounter = 0;
+            }
+            else
+            {
+                m_reloadCounter += Time.deltaTime;
+            }
+       
+        }
+        else
+        {
+            m_reloadCounter += Time.deltaTime;
+        }
+    
     }
     void LateUpdate()
     {
-        aim = Input.GetMouseButton(1);
+        //problemet med att pilen skjuts till skumma ställen finns här eller I update
         aimingWheight = Mathf.MoveTowards(aimingWheight, (aim) ? 1.0f : 0.0f, Time.deltaTime * 5);
 
         Vector3 normalState = new Vector3(0, 0, -1f);
@@ -36,12 +85,26 @@ public class scr_UserInput : MonoBehaviour {
 
         Vector3 pos = Vector3.Lerp(normalState, aiminngState, aimingWheight);
         cam.transform.localPosition = pos;
+
+        if(aim)
+        {
+            Vector3 eulerAngleOffset = Vector3.zero;
+
+            eulerAngleOffset = new Vector3(aimingX, aimingY, aimingZ);
+
+            Ray ray = new Ray(cam.position, cam.forward);
+
+            Vector3 lookPosition = ray.GetPoint(point);
+            spine.LookAt(lookPosition);
+            spine.Rotate(eulerAngleOffset, Space.Self);
+        }
+
     }
     void FixedUpdate()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        if (!aim)
+        if (!aim) // Om vi inte aimar.
         {
             if (cam != null)
             {
@@ -53,11 +116,12 @@ public class scr_UserInput : MonoBehaviour {
                 move = vertical * Vector3.forward + horizontal * Vector3.right;
             }
         }
-        else
+        else // om vi aimar.
         {
-            move = Vector3.zero;
+            move = Vector3.zero; // när man aimar så stannar man
+            camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1)).normalized;
 
-            Vector3 dir = lookPosition - transform.position;
+            Vector3 dir = lookPosition - transform.position;  //direktionen man tittar, 
             dir.y = 0;
 
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 20 * Time.deltaTime);

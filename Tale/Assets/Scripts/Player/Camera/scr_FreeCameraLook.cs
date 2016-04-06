@@ -27,12 +27,23 @@ public class scr_FreeCameraLook : scr_Pivot {
     private float smoothXvelocity = 0;
     private float smoothYvelocity = 0;
 
+    public Vector3 FollowCameraOffset;
+
+    //if no input, player moving, bigger than resettimer'
+    private bool m_takingInput;
+    private bool m_autoFollowPlayer;
+    public float m_CameraResetTime;
+    private float m_CameraResetCounter;
+
+    private Rigidbody m_playerRB;
 
     protected override void Awake()
     {
         base.Awake();
+        m_playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        Cursor.visible = lockCursor;
+        //Add so visible and locked happends togheter
 
-        Screen.lockCursor = lockCursor;
 
         if (lockCursor)
         {
@@ -51,12 +62,23 @@ public class scr_FreeCameraLook : scr_Pivot {
     protected override void Update()
     {
         base.Update();
-
         HandleRotationMovement();
-
+        if(!m_takingInput)
+        {
+            m_CameraResetCounter += Time.deltaTime;
+            if(m_CameraResetCounter > m_CameraResetTime && m_playerRB.velocity != Vector3.zero)
+            {
+                TurnCameraTowardsPlayerForward();
+            }
+        }
+        else
+        {
+            m_CameraResetCounter = 0;
+        }
         if (lockCursor && Input.GetMouseButtonUp(0))
         {
-            Screen.lockCursor = lockCursor;
+            Cursor.visible = lockCursor;
+
         }
     }
 
@@ -74,6 +96,17 @@ public class scr_FreeCameraLook : scr_Pivot {
 
     float offsetX = 0;
     float offsetY = 0;
+    void TurnCameraTowardsPlayerForward()
+    {
+        //Debug.Log("Turning towards player");
+        Vector3 velocity = Vector3.zero;
+        Vector3 forward = target.transform.forward;
+        Vector3 needPos = target.transform.position - forward;
+        transform.position = Vector3.SmoothDamp(transform.position, needPos,
+                                                ref velocity, 0.5f);
+        transform.LookAt(target.transform);
+        transform.rotation = target.transform.rotation;
+    }
 
     void handleOffsets()
     {
@@ -89,13 +122,19 @@ public class scr_FreeCameraLook : scr_Pivot {
     }
 
 
-
     void HandleRotationMovement()
     {
         handleOffsets();
 
         float x = Input.GetAxis("Mouse X") + offsetX;
         float y = Input.GetAxis("Mouse Y") + offsetY;
+         // float x = Input.GetAxis("xbox_rightstick_x") + offsetX;
+       // float y = Input.GetAxis("xbox_rightstick_y") + offsetX;
+        if(x != 0 ||y != 0)
+            m_takingInput = true;
+        else
+            m_takingInput = false;
+        
 
         if (turnsmoothing > 0)
         {

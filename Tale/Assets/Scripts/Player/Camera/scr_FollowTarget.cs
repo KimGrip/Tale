@@ -3,7 +3,6 @@ public abstract class scr_FollowTarget : MonoBehaviour {
 
     [SerializeField] public Transform target;
     [SerializeField] private bool autoTargetPlayer = true;
-    private Rigidbody m_rb;
 
 	// Use this for initialization
 	virtual protected void Start () 
@@ -40,7 +39,6 @@ public abstract class scr_FollowTarget : MonoBehaviour {
             if(targetObj)
             {
                 SeTarget(targetObj.transform);
-                m_rb = target.GetComponent<Rigidbody>();
             }
         }
         

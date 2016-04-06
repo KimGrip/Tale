@@ -29,7 +29,7 @@ public class scr_Pivot : scr_FollowTarget {
         {
             if (target != null)
             {
-                Follow(1);
+                //Follow(1);
                 lastTargetPosition = target.position;
             }
 
@@ -46,4 +46,5 @@ public class scr_Pivot : scr_FollowTarget {
     {
 
     }
+
 }

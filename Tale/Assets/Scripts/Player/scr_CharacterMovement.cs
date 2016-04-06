@@ -25,9 +25,14 @@ public class scr_CharacterMovement : MonoBehaviour {
     float autoTurnspeed = 20;
     bool isAiming;
     Vector3 currentLookPosition;
+
+
+
+
 	// Use this for initialization
 	void Start () 
     {
+
         SetUpAnimator();
 	}
     public void Move(Vector3 move, bool aim, Vector3 lookPos)
@@ -43,13 +48,16 @@ public class scr_CharacterMovement : MonoBehaviour {
         velocity = m_rb.velocity;
         ConvertMoveInput();
 
-        if(!isAiming)
+        if(!isAiming) // när man inte aimar
         {
             TurnTowardsCameraForward();
+            //skapar bugg med FreeCameraLook TurnCameraTowradsPlayerForward()
+
+
             ApplyExtraTurnRotation();
 
         }
-
+        Jump();
         GroundCheeck();
         UpdateAnimator();
     }
@@ -98,6 +106,13 @@ public class scr_CharacterMovement : MonoBehaviour {
         float turnSpeed = Mathf.Lerp(m_stationaryTurnSpeed, m_movingTurnSpeed, m_forwardAmount);
         transform.Rotate(0, m_turnAmount * turnSpeed * Time.deltaTime, 0);
             
+    }
+    void Jump()
+    {
+        if(Input.GetButton("Jump") && onGround == true)
+        {
+            m_rb.AddForce(new Vector3(m_rb.velocity.x, 80, m_rb.velocity.y));
+        }
     }
     void GroundCheeck()
     {
