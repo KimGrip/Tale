@@ -33,6 +33,10 @@ public class AttackState : IEnemyState
     {
 
     }
+    public void OnTriggerStay(Collider colli)
+    {
+
+    }
     public void ToAlertState()
     {
 

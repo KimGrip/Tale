@@ -20,6 +20,10 @@ public class RetreatState : IEnemyState
     {
 
     }
+    public void OnTriggerStay(Collider colli)
+    {
+
+    }
     public void ToAlertState()
     {
 

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class AttackOnGoing : IAttackStates {
+public class AttackOnGoingRanged : IAttackStatesRanged
+{
 
 	// Use this for initialization
     //I have been making a multiplayer brawler, and I go for a variant of solution 2. 
@@ -17,8 +18,8 @@ public class AttackOnGoing : IAttackStates {
     //    in previousPosition. You don't even need to set it to continuous mode for this.
  
 
-    private readonly StatePatternEnemy enemy;
-    private readonly AttackState attackState;
+    private readonly StatePatternEnemyRanged enemy;
+    private readonly AttackStateRanged attackState;
     private List<Transform> hitObjects;
 
     private int cWP;
@@ -27,21 +28,44 @@ public class AttackOnGoing : IAttackStates {
         cWP = 0;
         hitObjects = new List<Transform>();
     }
-    public AttackOnGoing(StatePatternEnemy statePatternEnemy,AttackState p_attackState)
+    public AttackOnGoingRanged(StatePatternEnemyRanged statePatternEnemy,AttackStateRanged p_attackState)
     {
         enemy = statePatternEnemy;
         attackState = p_attackState;
     }
     public void UpdateState()
     {
-        Debug.Log("ATTACKING");
-        SimulateAttackRays();
+        Fire();
+        
     }
     public void ToAttackWindUp()
     {
-
+        attackState.currentAttackState = attackState.windUpAttackState;
     }
     public void ToAttackActive()
+    {
+
+    }
+    void Fire()
+    {
+        if (!enemy.IsPlayerInsideComfortZone())
+        {
+            SpawnProjectile(enemy.transform.position,enemy.transform.forward,3000);
+            Debug.Log("lets say i jsut fired");
+            enemy.isReloaded = false;
+            ToAttackWindUp();
+        }
+        else
+        {
+            ToAttackWindUp();
+            enemy.currentState = enemy.retreatState;
+        }
+    }
+    public void ToAimState()
+    {
+
+    }
+    public void OnTriggerStay(Collider colli)
     {
 
     }
@@ -50,53 +74,17 @@ public class AttackOnGoing : IAttackStates {
         attackState.currentAttackState = attackState.downtimeAttackState;
 
     }
-    void SimulateAttackRays()
+    public void SpawnProjectile(Vector3 p_pos, Vector3 p_dir, float velocity)
     {
-        if (cWP < enemy.weaponWayPoints.Length-1)
-        {
-
-            float distanceBetween = Vector3.Distance(enemy.weaponWayPoints[cWP].position, enemy.weaponWayPoints[cWP + 1].position);
-            Vector3 direction = enemy.weaponWayPoints[cWP + 1].position - enemy.weaponWayPoints[cWP].position;
-            RaycastHit[] hitTargets = Physics.RaycastAll(enemy.weaponWayPoints[cWP].position, direction, distanceBetween,enemy.playerLayer);
-            Debug.DrawLine(enemy.weaponWayPoints[cWP].position, enemy.weaponWayPoints[cWP + 1].position, Color.magenta);
-
-            AddRayHitToList(hitTargets);
-            cWP += 1; 
-        }
-        else
-        {
-            DealDamageToHitTargets();
-        }
-    }
-    void AddRayHitToList(RaycastHit[] p_hitTargets)
-    {
-        for (int i = 0; i < p_hitTargets.Length; i++)
-        {
-            if(!hitObjects.Contains(p_hitTargets[i].transform)){
-                hitObjects.Add(p_hitTargets[i].transform);
-            }
-        }
-    }
-    void DealDamageToHitTargets()
-    {
-        
-        if (hitObjects.Count > 0)
-        {
-            foreach (Transform transform in hitObjects)
-            {
-                Debug.Log(transform.name); //add damage calulation here later<-------------------------
-            }
-        }
-        ToAttackDownTime();
-        ResetState();
-    }
-    void SimulateAttackRaysWithSwingSpeed()
-    {
-        
+        GameObject newProj= enemy.SpawnProjectile();
+        newProj.transform.position = p_pos;
+        scr_projectileMovement scr_newProj= newProj.GetComponent<scr_projectileMovement>();
+        scr_newProj.OnProjectileSpawn();
+        scr_newProj.AddVelocity(p_dir, velocity);
+       
     }
     void ResetState()
     {
-        hitObjects.Clear();//do at end
-        cWP = 0;
+  
     }
 }

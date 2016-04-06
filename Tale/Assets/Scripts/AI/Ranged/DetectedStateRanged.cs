@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChaseState : IEnemyState
+public class DetectedStateRanged : IEnemyState
 {
-    private readonly StatePatternEnemy enemy;
+    private readonly StatePatternEnemyRanged enemy;
 
     public void Start()
     {
 
     }
-    public ChaseState(StatePatternEnemy statePatternEnemy)
+    public DetectedStateRanged(StatePatternEnemyRanged statePatternEnemy)
     {
         enemy = statePatternEnemy;
     }
@@ -19,6 +19,10 @@ public class ChaseState : IEnemyState
         Chase();
     }
     public void OnTriggerEnter(Collider colli)
+    {
+
+    }
+    public void OnTriggerStay(Collider colli)
     {
 
     }
@@ -37,6 +41,7 @@ public class ChaseState : IEnemyState
     public void ToAttackState()
     {
         enemy.currentState = enemy.attackState;
+        enemy.navMeshAgent.Stop();
     }
     public void ToRetreatState()
     {

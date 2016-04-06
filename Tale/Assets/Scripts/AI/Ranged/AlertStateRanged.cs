@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AlertState : IEnemyState
+public class AlertStateRanged : IEnemyState
 {
-  private readonly StatePatternEnemy enemy;
+  private readonly StatePatternEnemyRanged enemy;
   private float searchTimer;
     public void Start()
    {
 
    }
-    public AlertState(StatePatternEnemy statePatternEnemy)
+    public AlertStateRanged(StatePatternEnemyRanged statePatternEnemy)
     {
         enemy = statePatternEnemy;
     }
@@ -34,7 +34,7 @@ public class AlertState : IEnemyState
     }
     public void ToChaseState()
     {
-        enemy.currentState = enemy.chaseState;
+        enemy.currentState = enemy.detectedState;
         searchTimer = 0f;
     }
     public void ToAttackState()
@@ -64,5 +64,9 @@ public class AlertState : IEnemyState
         {
             ToPatrolState();
         }
+    }
+    public void OnTriggerStay(Collider colli)
+    {
+
     }
 }
