@@ -26,6 +26,12 @@ public class scr_UserInput : MonoBehaviour {
     public float aimingY = 20.1f;
     public float point = 30;
 
+    public float m_projectileSpeed;
+
+    public float m_ReloadTime;
+    private float m_reloadCounter;
+
+
     void Start()
     {
         if(Camera.main != null)
@@ -42,16 +48,36 @@ public class scr_UserInput : MonoBehaviour {
         aim = Input.GetMouseButton(1);
         if(aim)
         {
-            if(Input.GetMouseButton(0))
+            if(Input.GetMouseButton(0) && m_reloadCounter > m_ReloadTime)
             {
                 anim.SetTrigger("Fire");
-                Instantiate(m_arrow,m_arrowSpawnpoint.position,Quaternion.identity);
-                //Instantiate(m_arrow, m_arrowSpawnPoint.position, Quaternion.identity);
+
+                GameObject arrow = (GameObject)Instantiate(m_arrow,m_arrowSpawnpoint.position,m_arrowSpawnpoint.rotation);
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+
+                Debug.Log(ray.direction);
+
+                arrow.GetComponent<Rigidbody>().AddForce(ray.direction * m_projectileSpeed, ForceMode.Impulse);
+                
+
+
+                m_reloadCounter = 0;
             }
+            else
+            {
+                m_reloadCounter += Time.deltaTime;
+            }
+       
         }
+        else
+        {
+            m_reloadCounter += Time.deltaTime;
+        }
+    
     }
     void LateUpdate()
     {
+        //problemet med att pilen skjuts till skumma ställen finns här eller I update
         aimingWheight = Mathf.MoveTowards(aimingWheight, (aim) ? 1.0f : 0.0f, Time.deltaTime * 5);
 
         Vector3 normalState = new Vector3(0, 0, -1f);
@@ -69,7 +95,6 @@ public class scr_UserInput : MonoBehaviour {
             Ray ray = new Ray(cam.position, cam.forward);
 
             Vector3 lookPosition = ray.GetPoint(point);
-            Debug.Log(lookPosition);
             spine.LookAt(lookPosition);
             spine.Rotate(eulerAngleOffset, Space.Self);
         }
@@ -79,7 +104,7 @@ public class scr_UserInput : MonoBehaviour {
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        if (!aim)
+        if (!aim) // Om vi inte aimar.
         {
             if (cam != null)
             {
@@ -91,11 +116,12 @@ public class scr_UserInput : MonoBehaviour {
                 move = vertical * Vector3.forward + horizontal * Vector3.right;
             }
         }
-        else
+        else // om vi aimar.
         {
-            move = Vector3.zero;
+            move = Vector3.zero; // när man aimar så stannar man
+            camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1)).normalized;
 
-            Vector3 dir = lookPosition - transform.position;
+            Vector3 dir = lookPosition - transform.position;  //direktionen man tittar, 
             dir.y = 0;
 
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 20 * Time.deltaTime);

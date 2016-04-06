@@ -3,52 +3,43 @@ using System.Collections;
 
 public class Scr_arrow_direction : MonoBehaviour {
 
-    //public Transform weapon;
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //    transform.position = weapon.TransformPoint(Vector3.zero);
-    //    transform.forward = weapon.TransformDirection(Vector3.forward);
-    //    Debug.Log("Test");
-    //}
-
-    //void OnParticleCollision(GameObject other)
-    //{
-    //    if (other.gameObject.GetComponent<Rigidbody>())
-    //    {
-    //        Vector3 direction = other.transform.position - transform.position;
-    //        direction = direction.normalized;
-
-    //        other.GetComponent<Rigidbody>().AddForce(direction * 50);
-    //    }
-    //}
-
+  
     private Transform weapon;
+    private Transform weaponTF;
     private Rigidbody m_rb;
    // public float arrowSpeed;
    // public Vector3 m_arrowVelocity;
 
     public LayerMask m_layer;
+    private bool DoOnce = false;
     // Update is called once per frame
-    void Start()
-    {
-        //  m_rb = this.GetComponent<Rigidbody>();
+    void OnEnable()
+    {        
         weapon = GameObject.FindGameObjectWithTag("arrowSpawnPoint").GetComponent<Transform>();
 
+        if (DoOnce == false)
+        {
+
+            weaponTF = weapon.transform;
+            DoOnce = true;
+        }
     }
     void Update()
     {
 
-        transform.forward = weapon.transform.TransformDirection(Vector3.forward);
-        transform.position += weapon.TransformPoint(Vector3.forward);
+
+       // transform.forward = weapon.transform.TransformDirection(Vector3.forward);
+    //    transform.position += weaponTF.TransformPoint(Vector3.forward) / 4;
 
         // m_rb.velocity = m_arrowVelocity * arrowSpeed;
 
     }
+
+
     void OnTriggerEnter(Collider colli)
     {
+       // Debug.Log("arrow deleted");
+
         Destroy(this.gameObject);
     }
 }
