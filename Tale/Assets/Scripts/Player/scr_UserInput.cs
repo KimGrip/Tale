@@ -55,11 +55,7 @@ public class scr_UserInput : MonoBehaviour {
 
                 GameObject arrow = (GameObject)Instantiate(m_arrow,m_arrowSpawnpoint.position,m_player.GetComponent<Transform>().rotation);
                 Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
-
-
                 arrow.GetComponent<Rigidbody>().AddForce(ray.direction * m_projectileSpeed, ForceMode.Impulse);
-                
-
 
                 m_reloadCounter = 0;
             }
