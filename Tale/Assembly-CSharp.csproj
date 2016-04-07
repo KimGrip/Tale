@@ -38,24 +38,35 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AI\AlertState.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackState.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackStates\AttackDownTime.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackStates\AttackOnGoing.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackStates\AttackWindUp.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackStates\IAttackStates.cs" />
-     <Compile Include="Assets\Scripts\AI\ChaseState.cs" />
-     <Compile Include="Assets\Scripts\AI\IEnemyState.cs" />
-     <Compile Include="Assets\Scripts\AI\PatrolState.cs" />
-     <Compile Include="Assets\Scripts\AI\RetreatState.cs" />
-     <Compile Include="Assets\Scripts\AI\StatePatternEnemy.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\AlertState.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\AttackState.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\AttackStatesMelee\AttackDownTime.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\AttackStatesMelee\AttackOnGoing.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\AttackStatesMelee\AttackWindUp.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\AttackStatesMelee\IAttackStates.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\ChaseState.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\IEnemyState.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\PatrolState.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\RetreatState.cs" />
+     <Compile Include="Assets\Scripts\AI\Melee\StatePatternEnemy.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\AlertStateRanged.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\AttackStateRanged.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\DetectedStateRanged.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\PatrolStateRanged.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\AttackAimTowardsRange.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\AttackDownTimeRanged.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\AttackOnGoingRanged.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\AttackWindUpRanged.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\IAttackStatesRanged.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\RetreatStateRanged.cs" />
+     <Compile Include="Assets\Scripts\AI\Ranged\StatePatternEnemyRanged.cs" />
      <Compile Include="Assets\Scripts\Player\Bow\Scr_arrow_direction.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FollowTarget.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FreeCameraLook.cs" />
@@ -66,16 +77,27 @@
      <Compile Include="Assets\Scripts\Player\scr_UserInput.cs" />
      <Compile Include="Assets\Scripts\Player\scr_playerClimbing.cs" />
      <Compile Include="Assets\Scripts\Player\scr_playerController.cs" />
+     <Compile Include="Assets\Scripts\Projectile\scr_projectileMovement.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_SwingTest.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_ropeAttach.cs" />
+<<<<<<< HEAD
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+=======
+     <Compile Include="Assets\Scripts\TriggersAndButtons\scr_triggerButton.cs" />
+     <Compile Include="Assets\Scripts\TriggersAndButtons\scr_triggerReciever.cs" />
+     <Compile Include="Assets\scr_PlayerTriggerChecker.cs" />
+     <Compile Include="Assets\scr_Player_Pulling.cs" />
+     <Compile Include="Assets\scr_generic_simpleMove.cs" />
+     <Compile Include="Assets\scr_pullable_object.cs" />
+     <Compile Include="Assets\scr_shooting_rope.cs" />
+>>>>>>> cadaeaf69ae251660aea04c443fb63247e28b2ed
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

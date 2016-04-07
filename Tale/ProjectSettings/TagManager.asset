@@ -15,12 +15,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - RopeLayer
+  - Player
+  - PlayerTrigger
+  - PullPush
+  - Enemy_Proj_Layer
+  - EnemyLayer
   - 
   - 
   - 

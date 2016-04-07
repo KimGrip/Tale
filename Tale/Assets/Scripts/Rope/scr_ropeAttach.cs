@@ -55,6 +55,7 @@ public class scr_ropeAttach : MonoBehaviour
     public float swing1Limit = 20.0F;					//	The limit around the primary axis of the character joint starting at the initialization point.
     public bool attachSpaceEnd;
     public bool attachSpaceStart;
+    
     void Awake()
     {
         BuildRope();

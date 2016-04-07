@@ -13,11 +13,22 @@ public class scr_playerClimbing : MonoBehaviour {
     public float pullForce;
     public ForceMode pullPushForceMode;
     [SerializeField]
-    private KeyCode k_traverseForward, k_traverseBackwards, k_holdOntoRope, k_pullRope, k_pushRope;
-
+    public string s_holdOntoRope, s_pullRope, s_pushRope;
+    private bool currentlyClimbing;
+    public string name_grabRopeButton;
+    public string name_jumpButton;
+    Rigidbody m_rgd;
+    CapsuleCollider m_capsuleCollider;
+    scr_CharacterMovement m_movementScript;
+    bool currentlyAttached;
 	void Start () {
         ropeLayer = LayerMask.NameToLayer("RopeLayer");
         m_PSM = GetComponent<scr_PSM>();
+        currentlyClimbing = false;
+        m_rgd = GetComponent<Rigidbody>();
+        m_capsuleCollider = GetComponent<CapsuleCollider>();
+        m_movementScript = GetComponent<scr_CharacterMovement>();
+        currentlyAttached = false;
 	}
 	
 	// Update is called once per frame
@@ -31,55 +42,67 @@ public class scr_playerClimbing : MonoBehaviour {
             case ropeState.ropestate_swinging:
                 break;
         }*/
-        if (Input.GetKey(k_traverseForward))
+        //float hInput = Input.GetAxis("Horizontal");
+        
+        float vInput=Input.GetAxis("Vertical");
+        if (currentlyAttached)
         {
-            TraverseForward();
-            m_PSM.SetPlayerPose(scr_PSM.PlayerPose.pose_climbing);
-
+            if (vInput > 0)
+            {
+                print("forward");
+                TraverseForward(vInput);
+                m_PSM.SetPlayerPose(scr_PSM.PlayerPose.pose_climbing);
+            }
+            else if (vInput < 0)
+            {
+                print("backward");
+                TraverseBackward(vInput);
+                m_PSM.SetPlayerPose(scr_PSM.PlayerPose.pose_climbing);
+            }
         }
-        else if (Input.GetKey(k_traverseBackwards))
-        {
-            TraverseBackward();
-            m_PSM.SetPlayerPose(scr_PSM.PlayerPose.pose_climbing);
-        }
-        if (Input.GetKey(k_pullRope))
+  
+        if (Input.GetButton(s_pullRope))
         {
             PullRope();
             m_PSM.SetRopeState(scr_PSM.RopeState.ropestate_pulling);
         }
-        if (Input.GetKey(k_pushRope))
+        if (Input.GetButton(s_pushRope))
         {
             PushRope();
         }
-        if(Input.GetKey(k_holdOntoRope))
+        if (Input.GetButton(s_holdOntoRope))
         {
             HoldOntoRope();
             m_PSM.SetPlayerPose(scr_PSM.PlayerPose.pose_climbing);
             m_PSM.SetRopeState(scr_PSM.RopeState.ropestate_hanging);
         }
-        else if (Input.GetKeyUp(k_holdOntoRope))
+        else if (Input.GetButtonUp(s_holdOntoRope))
         {
             m_PSM.SetRopeState(scr_PSM.RopeState.ropestate_none);
         }
 	}
-    void OnTriggerStay(Collider colli)
+  
+    public void AttachToRope()
     {
-        if (colli.gameObject.layer == ropeLayer)
-        {
-            UpdateJoints(colli.transform);
-            /*switch (m_playerState)
-            {
-                case playerstate.state_airborne:
-                    HandleRopeCollisionAirBorne();
-                    break;
-                case playerstate.state_grounded:
-                    HandleRopeCollisionGrounded();
-                    break;
-            }*/
-        }
+        print("Attaching to rope");
+        m_PSM.SetPlayerPose(scr_PSM.PlayerPose.pose_climbing);
+        m_rgd.useGravity = false;
+        //m_capsuleCollider.enabled = false;
+        m_rgd.isKinematic = true;
+        m_movementScript.enabled = false;//temporary fix for movement turnoff
+        currentlyAttached = true;
     }
-
-    void UpdateJoints(Transform newJoint){
+    public void Deattach()
+    {
+        print("Deattaching from rope");
+        m_PSM.SetPlayerPose(scr_PSM.PlayerPose.pose_standing);
+        m_rgd.useGravity = true;
+        //m_capsuleCollider.enabled = true;
+        m_rgd.isKinematic = false;
+        m_movementScript.enabled = true;
+        currentlyAttached = false; 
+    }
+    public void UpdateJoints(Transform newJoint){
         if (newJoint != currentJoint)
         {
             int jointNumber= int.Parse(StringManip(newJoint));
@@ -113,16 +136,16 @@ public class scr_playerClimbing : MonoBehaviour {
          //print(name);
          return name;
     }
-    void TraverseForward(){
+    void TraverseForward(float inputStr){
         if (nextJoint != null)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, nextJoint.position, climbingSpeed*Time.deltaTime);//get axis later, +=movement
+            this.transform.position = Vector3.MoveTowards(this.transform.position, nextJoint.position, climbingSpeed*inputStr*Time.deltaTime);//get axis later, +=movement
         }
     }
-    void TraverseBackward(){
+    void TraverseBackward(float inputStr){
         if (previousJoint != null)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, previousJoint.position, climbingSpeed*Time.deltaTime);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, previousJoint.position, climbingSpeed*-inputStr*Time.deltaTime);
         }
         
     }

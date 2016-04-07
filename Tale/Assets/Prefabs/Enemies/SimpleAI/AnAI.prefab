@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 462630}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ GameObject:
   - 33: {fileID: 3317508}
   - 65: {fileID: 6531214}
   - 23: {fileID: 2345622}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400838}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: wwaypoint (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - 65: {fileID: 6581452}
   - 23: {fileID: 2302046}
   - 54: {fileID: 5443638}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 427268}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: weaponWayPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,10 +93,11 @@ GameObject:
   - 33: {fileID: 3300782}
   - 136: {fileID: 13667226}
   - 23: {fileID: 2340582}
-  - 114: {fileID: 11466366}
   - 135: {fileID: 13568958}
   - 195: {fileID: 19563994}
-  m_Layer: 0
+  - 120: {fileID: 12095780}
+  - 114: {fileID: 11441288}
+  m_Layer: 13
   m_Name: AnAI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +112,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 450080}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: wwaypoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +127,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 474588}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: wwaypoint (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +142,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 411016}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: wwaypoint (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 125416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.89, y: 0, z: 0.94}
+  m_LocalPosition: {x: -1.37, y: 0, z: 1.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 427268}
@@ -219,7 +220,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 331.13397, y: 63.954, z: 247.14507}
+  m_LocalPosition: {x: 331.13397, y: 63.954, z: 234.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 429132}
@@ -402,7 +403,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11466366
+--- !u!114 &11441288
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -422,20 +423,65 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   eyes: {fileID: 462630}
-  sightRange: 100
+  sightRange: 20
   offset: {x: 0, y: 0.5, z: 0}
   meshRendererFlag: {fileID: 2345622}
   attackRange: 4
   attackWindUpDuration: 0.4
   attackDuration: 1
   attackDownDuration: 1.4
+  swingSimulationPoint: {fileID: 0}
   weaponWayPoints:
   - {fileID: 450080}
   - {fileID: 474588}
   - {fileID: 411016}
   - {fileID: 400838}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  weaponSwingRenderer: {fileID: 0}
+  drawGizmos: 0
   chaseTarget: {fileID: 0}
   navMeshAgent: {fileID: 0}
+--- !u!120 &12095780
+LineRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159076}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    startWidth: 1
+    endWidth: 1
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4294967295
+  m_UseWorldSpace: 1
 --- !u!135 &13568958
 SphereCollider:
   m_ObjectHideFlags: 1

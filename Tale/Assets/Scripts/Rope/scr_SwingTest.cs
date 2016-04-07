@@ -16,7 +16,16 @@ public class scr_SwingTest : MonoBehaviour {
     [SerializeField]
     float teatherLength;
     public Transform aPoint;
- 
+    float distanceFromPlayer;
+    public float closestPullRange;//move to player //should be changed depending of size of object
+    Vector3 directionToPlayer;
+    void GetDirectionToTarget()
+    {
+        Vector3 heading = aPoint.position - this.transform.position;
+        distanceFromPlayer = Vector3.Distance(this.transform.position, aPoint.transform.position);
+        directionToPlayer = heading / distanceFromPlayer;
+
+    }
 	void Start () {
         currentPos = this.transform.position;
         previousPos = currentPos;

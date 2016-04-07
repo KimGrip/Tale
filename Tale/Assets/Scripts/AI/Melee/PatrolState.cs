@@ -25,6 +25,10 @@ public class PatrolState : IEnemyState{
             ToAlertState();
         }
     }
+    public void OnTriggerStay(Collider colli)
+    {
+
+    }
     public void ToAlertState()
     {
         enemy.currentState = enemy.alertState;

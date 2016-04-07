@@ -27,6 +27,7 @@ public class AttackWindUp : IAttackStates {
     public void ToAttackActive()
     {
         attackState.currentAttackState = attackState.ongoingAttackState;
+        Debug.Log("asdasdasdasdsad");
         attackWindUpDuration = 0;
     }
     public void ToAttackDownTime()
