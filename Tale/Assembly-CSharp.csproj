@@ -38,10 +38,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -67,7 +67,6 @@
      <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\IAttackStatesRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\RetreatStateRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\StatePatternEnemyRanged.cs" />
-     <Compile Include="Assets\Scripts\Player\Bow\Scr_arrow_direction.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FollowTarget.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FreeCameraLook.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_Pivot.cs" />
@@ -80,9 +79,6 @@
      <Compile Include="Assets\Scripts\Projectile\scr_projectileMovement.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_SwingTest.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_ropeAttach.cs" />
-<<<<<<< HEAD
-     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-=======
      <Compile Include="Assets\Scripts\TriggersAndButtons\scr_triggerButton.cs" />
      <Compile Include="Assets\Scripts\TriggersAndButtons\scr_triggerReciever.cs" />
      <Compile Include="Assets\scr_PlayerTriggerChecker.cs" />
@@ -90,14 +86,14 @@
      <Compile Include="Assets\scr_generic_simpleMove.cs" />
      <Compile Include="Assets\scr_pullable_object.cs" />
      <Compile Include="Assets\scr_shooting_rope.cs" />
->>>>>>> cadaeaf69ae251660aea04c443fb63247e28b2ed
+     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

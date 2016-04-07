@@ -16,7 +16,7 @@ public class scr_UserInput : MonoBehaviour {
     Vector3 lookPosition;
 
     Animator anim;
-
+    private GameObject m_player;
     public GameObject m_arrow;
     private Transform m_arrowSpawnpoint;
     //These variables need to be detailed and set specifically for ALVA
@@ -39,6 +39,7 @@ public class scr_UserInput : MonoBehaviour {
             cam = Camera.main.transform;
         }
         charMove = GetComponent<scr_CharacterMovement>();
+        m_player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         m_arrowSpawnpoint = GameObject.FindGameObjectWithTag("arrowSpawnPoint").transform;
       
@@ -52,10 +53,9 @@ public class scr_UserInput : MonoBehaviour {
             {
                 anim.SetTrigger("Fire");
 
-                GameObject arrow = (GameObject)Instantiate(m_arrow,m_arrowSpawnpoint.position,m_arrowSpawnpoint.rotation);
+                GameObject arrow = (GameObject)Instantiate(m_arrow,m_arrowSpawnpoint.position,m_player.GetComponent<Transform>().rotation);
                 Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
 
-            //    Debug.Log(ray.direction);
 
                 arrow.GetComponent<Rigidbody>().AddForce(ray.direction * m_projectileSpeed, ForceMode.Impulse);
                 
@@ -98,7 +98,6 @@ public class scr_UserInput : MonoBehaviour {
           //  spine.LookAt(lookPosition);
             //spine.Rotate(eulerAngleOffset, Space.Self);
         }
-
     }
     void FixedUpdate()
     {

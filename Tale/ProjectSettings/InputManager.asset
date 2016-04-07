@@ -246,7 +246,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Submit
+    m_Name: xbox_rightstick_x
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -254,15 +254,15 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: joystick button 0
     gravity: 1000
-    dead: 0.001
+    dead: 0.1
     sensitivity: 1000
     snap: 0
     invert: 0
-    type: 0
+    type: 2
     axis: 0
-    joyNum: 0
+    joyNum: 5
   - serializedVersion: 3
-    m_Name: Submit
+    m_Name: xbox_rightstick_y
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -270,13 +270,13 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: space
     gravity: 1000
-    dead: 0.001
+    dead: 0.1
     sensitivity: 1000
     snap: 0
     invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
+    type: 2
+    axis: 1
+    joyNum: 4
   - serializedVersion: 3
     m_Name: Cancel
     descriptiveName: 
