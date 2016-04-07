@@ -16,13 +16,6 @@ public class Scr_arrow_direction : MonoBehaviour {
     void OnEnable()
     {        
         weapon = GameObject.FindGameObjectWithTag("arrowSpawnPoint").GetComponent<Transform>();
-
-        if (DoOnce == false)
-        {
-
-            weaponTF = weapon.transform;
-            DoOnce = true;
-        }
     }
     void Update()
     {

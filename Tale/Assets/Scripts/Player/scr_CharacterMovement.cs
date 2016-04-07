@@ -26,9 +26,6 @@ public class scr_CharacterMovement : MonoBehaviour {
     bool isAiming;
     Vector3 currentLookPosition;
 
-
-
-
 	// Use this for initialization
 	void Start () 
     {
@@ -50,7 +47,7 @@ public class scr_CharacterMovement : MonoBehaviour {
 
         if(!isAiming) // när man inte aimar
         {
-            TurnTowardsCameraForward();
+            //TurnTowardsCameraForward();
             //skapar bugg med FreeCameraLook TurnCameraTowradsPlayerForward()
 
 
@@ -97,8 +94,9 @@ public class scr_CharacterMovement : MonoBehaviour {
         m_aim.applyRootMotion = true;
         m_aim.SetFloat("Forward", m_forwardAmount, 0.1f, Time.deltaTime);
         m_aim.SetFloat("Turn", m_turnAmount, 0.1f, Time.deltaTime);
-
-        m_aim.SetBool("Aim", isAiming);
+        
+        // Säger till animator att spelaren siktar.
+       // m_aim.SetBool("Aim", isAiming);
 
     }
     void ApplyExtraTurnRotation()

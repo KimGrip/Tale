@@ -20,7 +20,7 @@ public class scr_UserInput : MonoBehaviour {
     public GameObject m_arrow;
     private Transform m_arrowSpawnpoint;
     //These variables need to be detailed and set specifically for ALVA
-    public Transform spine;
+  //  public Transform spine;
     public float aimingZ = 213.46f;
     public float aimingX = -65.93f;
     public float aimingY = 20.1f;
@@ -55,7 +55,7 @@ public class scr_UserInput : MonoBehaviour {
                 GameObject arrow = (GameObject)Instantiate(m_arrow,m_arrowSpawnpoint.position,m_arrowSpawnpoint.rotation);
                 Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
 
-                Debug.Log(ray.direction);
+            //    Debug.Log(ray.direction);
 
                 arrow.GetComponent<Rigidbody>().AddForce(ray.direction * m_projectileSpeed, ForceMode.Impulse);
                 
@@ -95,8 +95,8 @@ public class scr_UserInput : MonoBehaviour {
             Ray ray = new Ray(cam.position, cam.forward);
 
             Vector3 lookPosition = ray.GetPoint(point);
-            spine.LookAt(lookPosition);
-            spine.Rotate(eulerAngleOffset, Space.Self);
+          //  spine.LookAt(lookPosition);
+            //spine.Rotate(eulerAngleOffset, Space.Self);
         }
 
     }

@@ -27,46 +27,56 @@ public class scr_FreeCameraLook : scr_Pivot {
     private float smoothXvelocity = 0;
     private float smoothYvelocity = 0;
 
-    public Vector3 FollowCameraOffset;
-
+    private Vector3 velocity = Vector3.zero;
     //if no input, player moving, bigger than resettimer'
     private bool m_takingInput;
     private bool m_autoFollowPlayer;
     public float m_CameraResetTime;
     private float m_CameraResetCounter;
 
+    private GameObject m_player;
     private Rigidbody m_playerRB;
+
+    private Vector3 m_forward = Vector3.zero;
+    private Vector3 m_wantedPos = Vector3.zero;
+
+
+ 
+    private Vector3 refVel;
+    private float smoothVel = 10;
 
     protected override void Awake()
     {
+        //lookAngle needs to be rested with TurnCameraTowardsPlayerForward
+        //Otherwise it snaps to the angle as soon as input is taken
+
         base.Awake();
-        m_playerRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        m_player = GameObject.FindGameObjectWithTag("Player");
+        m_playerRB = m_player.GetComponent<Rigidbody>();
         Cursor.visible = lockCursor;
         //Add so visible and locked happends togheter
 
 
         if (lockCursor)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+         //   Cursor.lockState = CursorLockMode.Locked;
+         //   Cursor.visible = lockCursor;
         }
 
         cam = GetComponentInChildren<Camera>().transform;
-
         pivot = cam.parent;
     }
 
 
 
-    // Update is called once per frame
     protected override void Update()
     {
         base.Update();
         HandleRotationMovement();
-        if(!m_takingInput)
+        if(m_takingInput == false)
         {
             m_CameraResetCounter += Time.deltaTime;
-            if(m_CameraResetCounter > m_CameraResetTime && m_playerRB.velocity != Vector3.zero)
+            if(m_CameraResetCounter > m_CameraResetTime && m_playerRB.velocity != Vector3.zero && !Input.GetMouseButton(1))
             {
                 TurnCameraTowardsPlayerForward();
             }
@@ -77,7 +87,7 @@ public class scr_FreeCameraLook : scr_Pivot {
         }
         if (lockCursor && Input.GetMouseButtonUp(0))
         {
-            Cursor.visible = lockCursor;
+           // Cursor.visible = !lockCursor;
 
         }
     }
@@ -98,14 +108,34 @@ public class scr_FreeCameraLook : scr_Pivot {
     float offsetY = 0;
     void TurnCameraTowardsPlayerForward()
     {
-        //Debug.Log("Turning towards player");
-        Vector3 velocity = Vector3.zero;
-        Vector3 forward = target.transform.forward;
-        Vector3 needPos = target.transform.position - forward;
-        transform.position = Vector3.SmoothDamp(transform.position, needPos,
-                                                ref velocity, 0.5f);
-        transform.LookAt(target.transform);
-        transform.rotation = target.transform.rotation;
+        lookAngle = Mathf.MoveTowardsAngle(lookAngle, m_player.transform.localEulerAngles.y, 0.8f);
+        Debug.Log(lookAngle);
+
+        //m_forward = m_player.transform.forward;
+        //m_wantedPos = m_player.transform.position - m_forward;
+
+        //transform.position = Vector3.SmoothDamp(transform.position, m_wantedPos,ref refVel, smoothVel);
+        //transform.LookAt(target.transform);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, m_player.transform.rotation, 1);
+
+        //Vector3 forward = m_player.transform.forward;
+        //Vector3 needPos = m_player.transform.position - forward;
+        //transform.position = Vector3.SmoothDamp(transform.position, needPos, ref velocity, 0.05f);
+        //// transform.LookAt(target.transform);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, m_player.transform.rotation, 1);
+
+
+        //if (Mathf.Abs(m_forwardAmount) < .01f)
+        //{
+        //    Vector3 lookDelta = transform.InverseTransformDirection(currentLookPosition - transform.position);
+        //    float lookAngle = Mathf.Atan2(lookDelta.x, lookDelta.z) * Mathf.Rad2Deg;
+
+        //    if (Mathf.Abs(lookAngle) > autoTurnThreshold)
+        //    {
+        //        m_turnAmount += lookAngle * autoTurnspeed * 0.001f;
+        //    }
+        //}
+
     }
 
     void handleOffsets()
@@ -146,7 +176,6 @@ public class scr_FreeCameraLook : scr_Pivot {
             smoothX = x;
             smoothY = y;
         }
-
         lookAngle += smoothX * turnSpeed;
 
         transform.rotation = Quaternion.Euler(0f, lookAngle, 0);
