@@ -37,13 +37,6 @@ public class scr_FreeCameraLook : scr_Pivot {
     private GameObject m_player;
     private Rigidbody m_playerRB;
 
-    private Vector3 m_forward = Vector3.zero;
-    private Vector3 m_wantedPos = Vector3.zero;
-
-
- 
-    private Vector3 refVel;
-    private float smoothVel = 10;
 
     protected override void Awake()
     {
@@ -108,8 +101,8 @@ public class scr_FreeCameraLook : scr_Pivot {
     float offsetY = 0;
     void TurnCameraTowardsPlayerForward()
     {
+        //lookAngle = Mathf.Lerp(lookAngle, m_player.transform.eulerAngles.y, 10);
         lookAngle = Mathf.MoveTowardsAngle(lookAngle, m_player.transform.localEulerAngles.y, 0.8f);
-        Debug.Log(lookAngle);
 
         //m_forward = m_player.transform.forward;
         //m_wantedPos = m_player.transform.position - m_forward;
@@ -156,16 +149,16 @@ public class scr_FreeCameraLook : scr_Pivot {
     {
         handleOffsets();
 
-        float x = Input.GetAxis("Mouse X") + offsetX;
-        float y = Input.GetAxis("Mouse Y") + offsetY;
-         // float x = Input.GetAxis("xbox_rightstick_x") + offsetX;
-       // float y = Input.GetAxis("xbox_rightstick_y") + offsetX;
+        //float x = Input.GetAxis("Mouse X") + offsetX;
+     //   float y = Input.GetAxis("Mouse Y") + offsetY;
+          float x = Input.GetAxis("xbox_rightstick_x") + offsetX;
+        float y = Input.GetAxis("xbox_rightstick_y") + offsetX;
         if(x != 0 ||y != 0)
             m_takingInput = true;
         else
             m_takingInput = false;
-        
 
+        Debug.Log(m_takingInput);
         if (turnsmoothing > 0)
         {
             smoothX = Mathf.SmoothDamp(smoothX, x, ref smoothXvelocity, turnsmoothing);
