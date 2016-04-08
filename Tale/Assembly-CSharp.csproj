@@ -45,7 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
      <Compile Include="Assets\Scripts\AI\Melee\AlertState.cs" />
      <Compile Include="Assets\Scripts\AI\Melee\AttackState.cs" />
      <Compile Include="Assets\Scripts\AI\Melee\AttackStatesMelee\AttackDownTime.cs" />
@@ -68,20 +67,7 @@
      <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\IAttackStatesRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\RetreatStateRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\StatePatternEnemyRanged.cs" />
-=======
-     <Compile Include="Assets\Scripts\AI\AlertState.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackState.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackStates\AttackDownTime.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackStates\AttackOnGoing.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackStates\AttackWindUp.cs" />
-     <Compile Include="Assets\Scripts\AI\AttackStates\IAttackStates.cs" />
-     <Compile Include="Assets\Scripts\AI\ChaseState.cs" />
-     <Compile Include="Assets\Scripts\AI\IEnemyState.cs" />
-     <Compile Include="Assets\Scripts\AI\PatrolState.cs" />
-     <Compile Include="Assets\Scripts\AI\RetreatState.cs" />
-     <Compile Include="Assets\Scripts\AI\StatePatternEnemy.cs" />
      <Compile Include="Assets\Scripts\Player\Bow\Scr_arrow_direction.cs" />
->>>>>>> d8fdc2d42a77e9e74269e38004ceb5dc63e0890b
      <Compile Include="Assets\Scripts\Player\Camera\scr_FollowTarget.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FreeCameraLook.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_Pivot.cs" />
@@ -93,21 +79,32 @@
      <Compile Include="Assets\Scripts\Player\scr_playerController.cs" />
      <Compile Include="Assets\Scripts\Projectile\scr_projectileMovement.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_SwingTest.cs" />
+     <Compile Include="Assets\Scripts\Rope\scr_attachRopeTo.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_ropeAttach.cs" />
      <Compile Include="Assets\Scripts\TriggersAndButtons\scr_triggerButton.cs" />
      <Compile Include="Assets\Scripts\TriggersAndButtons\scr_triggerReciever.cs" />
      <Compile Include="Assets\scr_PlayerTriggerChecker.cs" />
      <Compile Include="Assets\scr_Player_Pulling.cs" />
+     <Compile Include="Assets\scr_arrow_rope.cs" />
      <Compile Include="Assets\scr_generic_simpleMove.cs" />
+     <Compile Include="Assets\scr_healthManager.cs" />
      <Compile Include="Assets\scr_pullable_object.cs" />
      <Compile Include="Assets\scr_shooting_rope.cs" />
+     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
+     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
+     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
+     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{502A2231-9635-5562-3F45-5FB2A628E01F}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/gabrielAIScene.unity
-=======
-- path: Assets/Scenes/AniamtionAndCameraTestScene/AnimationAndCameraTestScene.unity
->>>>>>> d8fdc2d42a77e9e74269e38004ceb5dc63e0890b
+- path: Assets/Scenes/gabrielsRopeScene.unity
   isLoaded: 1
   isActive: 1
