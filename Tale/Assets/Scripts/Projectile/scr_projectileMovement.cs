@@ -13,6 +13,7 @@ public class scr_projectileMovement : MonoBehaviour {
     private float arrowStuckDuration;
     private bool stuck = false;
     public int arrowDamage;
+    scr_shooting_rope shooting_rope;
     RaycastHit hit;
 	void Start () 
     {
@@ -59,6 +60,7 @@ public class scr_projectileMovement : MonoBehaviour {
     }
     void MakeArrowIntoProp(Transform p_targetParent)
     {
+        shooting_rope.SetTarget(transform);
         this.transform.parent = p_targetParent;
         if(m_rgd != null)
         {
