@@ -109,7 +109,11 @@ MonoBehaviour:
   vurnerableLayer:
     serializedVersion: 2
     m_Bits: 32768
+  livingLayer:
+    serializedVersion: 2
+    m_Bits: 0
   arrowStuckDuration: 4
+  arrowDamage: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

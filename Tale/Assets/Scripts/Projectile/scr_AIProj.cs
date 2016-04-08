@@ -1,31 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class scr_projectileMovement : MonoBehaviour {
+public class scr_AIProj : MonoBehaviour
+{
 
-	// Use this for initialization
+    // Use this for initialization
     Rigidbody m_rgd;
     Collider m_collider;
     public LayerMask obstacleLayer;
     public LayerMask vurnerableLayer;
-    public LayerMask livingLayer;
     [SerializeField]
     private float arrowStuckDuration;
     private bool stuck = false;
-    public int arrowDamage;
+
     RaycastHit hit;
-	void Start () 
+    void Start()
     {
         m_collider = GetComponent<Collider>();
         m_rgd = GetComponent<Rigidbody>();
-	}
+    }
     void Update()
     {
-        RayCastingCollision();
+        //RayCastingCollision();
     }
-    public void AddVelocity(Vector3 dir,float velocity)
+    public void AddVelocity(Vector3 dir, float velocity)
     {
-        m_rgd.AddForce(dir*velocity);
+        m_rgd.AddForce(dir * velocity);
     }
     public void OnProjectileSpawn()
     {
@@ -50,17 +50,11 @@ public class scr_projectileMovement : MonoBehaviour {
             MakeArrowIntoProp(colli.transform);
             StartCoroutine(DestroyProjectile(arrowStuckDuration));
         }
-        else if ((livingLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer)
-        {
-            scr_healthManager hitHealth = colli.gameObject.GetComponent<scr_healthManager>();
-            hitHealth.DealDamage(arrowDamage);
-        }
-
     }
     void MakeArrowIntoProp(Transform p_targetParent)
     {
         this.transform.parent = p_targetParent;
-        if(m_rgd != null)
+        if (m_rgd != null)
         {
             m_rgd.velocity = new Vector3(0, 0, 0);
             Destroy(m_rgd);
@@ -77,10 +71,10 @@ public class scr_projectileMovement : MonoBehaviour {
     }
     void RayCastingCollision()
     {
-        Debug.DrawRay(transform.position,  transform.forward);
+        Debug.DrawRay(transform.position, transform.forward);
 
 
-        if(Physics.Raycast(transform.position, transform.forward, out hit, vurnerableLayer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, vurnerableLayer))
         {
             MakeArrowIntoProp(hit.transform);
             StartCoroutine(DestroyProjectile(arrowStuckDuration));

@@ -11,8 +11,8 @@ GameObject:
   - 33: {fileID: 3345892}
   - 23: {fileID: 2392364}
   - 54: {fileID: 5429326}
-  - 114: {fileID: 11482050}
   - 65: {fileID: 6561902}
+  - 114: {fileID: 11431438}
   m_Layer: 12
   m_Name: Arrow_Bolt
   m_TagString: Untagged
@@ -87,12 +87,12 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102964}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 1, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0.5, z: -0.00000008940697}
---- !u!114 &11482050
+--- !u!114 &11431438
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -100,12 +100,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 102964}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0c327b7295ab84cb45f8576d6966d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7aedcc1cbdab355489ab48df504f6f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 4294958591
+    m_Bits: 4294925823
   vurnerableLayer:
     serializedVersion: 2
     m_Bits: 512

@@ -60,6 +60,7 @@ GameObject:
   - 195: {fileID: 19552472}
   - 120: {fileID: 12092128}
   - 114: {fileID: 11402208}
+  - 114: {fileID: 11482970}
   m_Layer: 13
   m_Name: AnAIRanged
   m_TagString: Untagged
@@ -438,6 +439,7 @@ MonoBehaviour:
   isReloaded: 0
   comfortZoneRange: 7
   FOV_angle: 0
+  projectileSpeed: 0
   m_sphereCol: {fileID: 0}
   distanceFromPlayer: 0
   retreatLength: 3
@@ -446,6 +448,18 @@ MonoBehaviour:
   drawGizmos: 1
   chaseTarget: {fileID: 0}
   navMeshAgent: {fileID: 0}
+--- !u!114 &11482970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79219cb831589ad46b4093a41837f402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_health: 5
 --- !u!120 &12092128
 LineRenderer:
   m_ObjectHideFlags: 1
