@@ -149,10 +149,10 @@ public class scr_FreeCameraLook : scr_Pivot {
     {
         handleOffsets();
 
-        //float x = Input.GetAxis("Mouse X") + offsetX;
-     //   float y = Input.GetAxis("Mouse Y") + offsetY;
-          float x = Input.GetAxis("xbox_rightstick_x") + offsetX;
-        float y = Input.GetAxis("xbox_rightstick_y") + offsetX;
+        float x = Input.GetAxis("Mouse X") + offsetX;
+        float y = Input.GetAxis("Mouse Y") + offsetY;
+         // float x = Input.GetAxis("xbox_rightstick_x") + offsetX;
+      //  float y = Input.GetAxis("xbox_rightstick_y") + offsetX;
         if(x != 0 ||y != 0)
             m_takingInput = true;
         else
