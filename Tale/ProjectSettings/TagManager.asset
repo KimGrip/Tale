@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - arrowSpawnPoint
+  - Obstacle
   layers:
   - Default
   - TransparentFX

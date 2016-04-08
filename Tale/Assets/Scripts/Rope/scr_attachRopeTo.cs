@@ -6,29 +6,36 @@ public class scr_attachRopeTo : MonoBehaviour
 
     // Use this for initialization
     Transform attachmentPoint;
-    Collider2D m_collider;
-    Vector2 velocity;
-    Vector2 position;
-    Vector2 acceleration;
+    Collider m_collider;
+    Vector3 velocity;
+    Vector3 position;
+    Vector3 acceleration;
     public LayerMask hitLayer;
     public float maxVelocity;
     public float minVelocity;
     public Transform tetherObject;
     public bool amITethered;
-    public float gravityLimit;
     Vector3 prevPosition;
     Vector3 prevVelocity;
     Vector3 newVelocity;
+    Transform thisOffsetTransform;
     public float reelInMultiplier;
     public bool autoShortenRope;
     public bool triesToReachDesired;
     public float desiredLength;
     public float maxTetherLength;
     public float tetherLength;
+    [SerializeField]
+    private float swingSpeed;
+    public float downwardAcc;
+     float hInput;
+     float vInput;
+     LineRenderer m_lineRenderer;
     void Start()
     {
-        m_collider = GetComponent<Collider2D>();
+        m_collider = GetComponent<Collider>();
         position = this.transform.position;
+        m_lineRenderer = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
@@ -37,7 +44,7 @@ public class scr_attachRopeTo : MonoBehaviour
         VariousInputs();
         NewVelocity();
         //this.transform.Translate(velocity);
-        this.transform.Translate(prevVelocity);
+           this.transform.Translate(prevVelocity);
            TetherRestriction();
            PrevVelocity();
            PrevPosition();
@@ -49,19 +56,8 @@ public class scr_attachRopeTo : MonoBehaviour
            {
                ResizeTowardsDesired();
            }
-           //if (newVelocity.y > gravityLimit)
-           //{
-           //    newVelocity.y = gravityLimit;
-           //}
+           UpdateLineRenderer();
         //CheckCollision();
-    }
-    void UpdateMovement()
-    {
-        //velocity = velocity + acceleration * Time.deltaTime;
-        //velocity = VelocityMaintainer();
-        //position = position + velocity * Time.deltaTime;
-        //this.transform.position = position;
-
     }
     void ResizeTowardsDesired()
     {
@@ -74,13 +70,19 @@ public class scr_attachRopeTo : MonoBehaviour
             tetherLength += Time.deltaTime;
         }
     }
+    void InputDuringSwing()
+    {
+        //disable other input
+    
+
+    }
     void ShrinkRope(){
-        tetherLength =Vector2.Distance(this.transform.position,tetherObject.transform.position);
+        tetherLength =Vector3.Distance(this.transform.position,tetherObject.transform.position);
     }
     void FlipForces()
     {
-        Vector2 newVel=new Vector2(-GetComponent<Rigidbody2D>().velocity.x,-GetComponent<Rigidbody2D>().velocity.y);
-        GetComponent<Rigidbody2D>().velocity =VelocityMaintainer( newVel) ;
+        Vector3 newVel=new Vector3(-GetComponent<Rigidbody>().velocity.x,-GetComponent<Rigidbody>().velocity.y, -GetComponent<Rigidbody>().velocity.z);
+        GetComponent<Rigidbody>().velocity =VelocityMaintainer( newVel) ;
         
     }
    
@@ -92,7 +94,7 @@ public class scr_attachRopeTo : MonoBehaviour
             {
                 // we're past the end of our rope
                 // pull the avatar back in.
-               
+                //this.transform.Translate(prevVelocity); 
                 this.transform.position =tetherObject.transform.position+ (this.transform.position - tetherObject.transform.position).normalized * tetherLength;
                 //FlipForces();
             }//if vel.y<0 when teather restriction mean reset gravity?
@@ -110,8 +112,24 @@ public class scr_attachRopeTo : MonoBehaviour
     {
         newVelocity=VelocityMaintainer( prevPosition-this.transform.position);
     }
+    void UpdateLineRenderer()
+    {
+        if (amITethered)
+        {
+            m_lineRenderer.SetPosition(0, this.transform.position);
+            m_lineRenderer.SetPosition(1, tetherObject.transform.position);
+        }
+    }
     void VariousInputs()
     {
+        if (amITethered)
+        {
+            float hInput = Input.GetAxis("Horizontal");
+            float vInput = Input.GetAxis("Vertical");
+
+            HandleMoveInput(vInput, hInput);
+        }
+      
         if(Input.GetKey(KeyCode.H)){
             if (tetherLength > 0)
             {
@@ -125,6 +143,11 @@ public class scr_attachRopeTo : MonoBehaviour
                 tetherLength += Time.deltaTime*reelInMultiplier;
             }
         }
+    }
+    void HandleMoveInput(float vInput, float hInput)
+    {
+        this.transform.Translate(new Vector3(0, hInput*swingSpeed, vInput*swingSpeed),Space.World);
+        this.transform.Translate(new Vector3(0,downwardAcc,0),Space.World);
     }
     //void OnCollisionEnter2D(Collision2D colli)
     //{
@@ -148,31 +171,39 @@ public class scr_attachRopeTo : MonoBehaviour
         acceleration.x = Input.GetAxis("Horizontal");
         acceleration.y = Input.GetAxis("Vertical");
     }
-    Vector2 VelocityMaintainer(Vector2 p_velocity)
+    Vector3 VelocityMaintainer(Vector3 p_velocity)
     {
         //check max
-        Vector2 newVelocity = p_velocity;
+        Vector3 newVelocity = p_velocity;
         if (p_velocity.x > maxVelocity)
         {
-            newVelocity = new Vector2(maxVelocity, newVelocity.y);
+            newVelocity = new Vector3(maxVelocity, newVelocity.y, newVelocity.z);
         }
         if (p_velocity.y > maxVelocity)
         {
-            newVelocity = new Vector2(newVelocity.x, maxVelocity);
+            newVelocity = new Vector3(newVelocity.x, maxVelocity,newVelocity.z);
+        }
+        if (p_velocity.z > maxVelocity)
+        {
+            newVelocity = new Vector3(newVelocity.x, newVelocity.y, maxVelocity);
         }
         //check min
         if (p_velocity.x < minVelocity)
         {
-            newVelocity = new Vector2(minVelocity, newVelocity.y);
+            newVelocity = new Vector3(minVelocity, newVelocity.y, newVelocity.z);
         }
         if (p_velocity.y < minVelocity)
         {
-            newVelocity = new Vector2(newVelocity.x, minVelocity);
+            newVelocity = new Vector3(newVelocity.x, minVelocity, newVelocity.z);
+        }
+        if (p_velocity.z < minVelocity)
+        {
+            newVelocity = new Vector3(newVelocity.x, newVelocity.y, minVelocity);
         }
        // Debug.Log(newVelocity);
         return newVelocity;
     }
-    void OnCollisionEnter2D(Collision2D colli)
+    void OnCollisionEnter(Collision colli)
     {
         if (colli.gameObject.CompareTag("Obstacle"))
         {

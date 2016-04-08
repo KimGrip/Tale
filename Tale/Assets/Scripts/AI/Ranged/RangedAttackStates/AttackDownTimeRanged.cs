@@ -51,7 +51,7 @@ public class AttackDownTimeRanged : IAttackStatesRanged
     }
     void ChannelDownTime()
     {
-        Debug.Log("Im reloading(ranged AI)");
+        //Debug.Log("Im reloading(ranged AI)");
         downTime += Time.deltaTime;
         if (downTime > enemy.attackDownDuration)
         {
