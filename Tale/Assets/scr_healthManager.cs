@@ -47,6 +47,7 @@ public class scr_healthManager : MonoBehaviour {
         if (m_health <= 0)
         {
             m_alive = false;
+            Destroy(this.gameObject);
         }
     }
  

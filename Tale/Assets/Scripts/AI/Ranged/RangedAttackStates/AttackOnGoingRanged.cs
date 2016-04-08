@@ -81,7 +81,7 @@ public class AttackOnGoingRanged : IAttackStatesRanged
         GameObject newProj= enemy.SpawnProjectile();
         newProj.transform.position = p_pos;
         newProj.transform.rotation =Quaternion.Euler( enemy.transform.rotation.x,enemy.transform.rotation.y,70);
-        scr_projectileMovement scr_newProj = newProj.GetComponent<scr_projectileMovement>();
+        scr_AIProj scr_newProj = newProj.GetComponent<scr_AIProj>();
         scr_newProj.OnProjectileSpawn();
         scr_newProj.AddVelocity(p_dir, velocity);
         newProj.transform.LookAt(newProj.transform.position + enemy.chaseTarget.position);
