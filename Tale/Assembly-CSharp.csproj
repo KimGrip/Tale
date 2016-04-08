@@ -78,27 +78,28 @@
      <Compile Include="Assets\Scripts\Player\scr_playerController.cs" />
      <Compile Include="Assets\Scripts\Projectile\scr_projectileMovement.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_SwingTest.cs" />
+     <Compile Include="Assets\Scripts\Rope\scr_attachRopeTo.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_ropeAttach.cs" />
      <Compile Include="Assets\Scripts\TriggersAndButtons\scr_triggerButton.cs" />
      <Compile Include="Assets\Scripts\TriggersAndButtons\scr_triggerReciever.cs" />
      <Compile Include="Assets\scr_PlayerTriggerChecker.cs" />
      <Compile Include="Assets\scr_Player_Pulling.cs" />
+     <Compile Include="Assets\scr_arrow_rope.cs" />
      <Compile Include="Assets\scr_generic_simpleMove.cs" />
+     <Compile Include="Assets\scr_healthManager.cs" />
      <Compile Include="Assets\scr_pullable_object.cs" />
      <Compile Include="Assets\scr_shooting_rope.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
+     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
+     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity 5/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>D:/Unity 5/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{502A2231-9635-5562-3F45-5FB2A628E01F}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
