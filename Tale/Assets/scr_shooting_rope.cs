@@ -149,6 +149,10 @@ public class scr_shooting_rope : MonoBehaviour
         end.gameObject.AddComponent<SphereCollider>();
         rope = true;
     }
+    public void SetTarget(Transform m_target)
+    {
+        target = m_target;
+    }
     void AddJointsExceptLast(Vector3 seperation)
     {
         for (int s = 1; s < segments; s++)

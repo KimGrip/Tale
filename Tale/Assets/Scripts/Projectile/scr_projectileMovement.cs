@@ -11,12 +11,13 @@ public class scr_projectileMovement : MonoBehaviour {
     [SerializeField]
     private float arrowStuckDuration;
     private bool stuck = false;
-
+    scr_shooting_rope shooting_rope;
     RaycastHit hit;
 	void Start () 
     {
         m_collider = GetComponent<Collider>();
         m_rgd = GetComponent<Rigidbody>();
+        shooting_rope = GameObject.FindGameObjectWithTag("arrowSpawnPoint").GetComponent<scr_shooting_rope>();
 	}
     void Update()
     {
@@ -52,6 +53,7 @@ public class scr_projectileMovement : MonoBehaviour {
     }
     void MakeArrowIntoProp(Transform p_targetParent)
     {
+        shooting_rope.SetTarget(transform);
         this.transform.parent = p_targetParent;
         if(m_rgd != null)
         {
@@ -73,7 +75,7 @@ public class scr_projectileMovement : MonoBehaviour {
         Debug.DrawRay(transform.position,  transform.forward);
 
 
-        if(Physics.Raycast(transform.position, transform.forward, out hit, vurnerableLayer.value))
+        if(Physics.Raycast(transform.position, transform.forward, out hit, 2,vurnerableLayer.value))
         {
             MakeArrowIntoProp(hit.transform);
             StartCoroutine(DestroyProjectile(arrowStuckDuration));
