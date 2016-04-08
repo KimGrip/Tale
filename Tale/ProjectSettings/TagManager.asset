@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - arrowSpawnPoint
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -21,9 +22,9 @@ TagManager:
   - PullPush
   - Enemy_Proj_Layer
   - EnemyLayer
-  - 
-  - 
-  - 
+  - RopeAttachLayer
+  - arrowStuckLayer
+  - terrainLayer
   - 
   - 
   - 

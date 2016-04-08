@@ -97,6 +97,7 @@ GameObject:
   - 195: {fileID: 19563994}
   - 120: {fileID: 12095780}
   - 114: {fileID: 11441288}
+  - 114: {fileID: 11487926}
   m_Layer: 13
   m_Name: AnAI
   m_TagString: Untagged
@@ -443,6 +444,18 @@ MonoBehaviour:
   drawGizmos: 0
   chaseTarget: {fileID: 0}
   navMeshAgent: {fileID: 0}
+--- !u!114 &11487926
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79219cb831589ad46b4093a41837f402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_health: 10
 --- !u!120 &12095780
 LineRenderer:
   m_ObjectHideFlags: 1

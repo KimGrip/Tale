@@ -1,13 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
-[RequireComponent(typeof(Rigidbody))]
+
 public class scr_projectileMovement : MonoBehaviour {
 
 	// Use this for initialization
     Rigidbody m_rgd;
-	void Start () {
-        
+    Collider m_collider;
+    public LayerMask obstacleLayer;
+    public LayerMask vurnerableLayer;
+    public LayerMask livingLayer;
+    [SerializeField]
+    private float arrowStuckDuration;
+    private bool stuck = false;
+    public int arrowDamage;
+    scr_shooting_rope shooting_rope;
+    RaycastHit hit;
+	void Start () 
+    {
+        m_collider = GetComponent<Collider>();
+        m_rgd = GetComponent<Rigidbody>();
 	}
+    void Update()
+    {
+        RayCastingCollision();
+    }
     public void AddVelocity(Vector3 dir,float velocity)
     {
         m_rgd.AddForce(dir*velocity);
@@ -16,9 +32,66 @@ public class scr_projectileMovement : MonoBehaviour {
     {
         m_rgd = GetComponent<Rigidbody>();
     }
-    void OnCollisionEnter(Collision colli)
+    public Vector3 GetPosition()
     {
-        //Destroy(m_rgd); 
+        return transform.position;
     }
-	// Update is called once per frame
+    public bool GetStuck()
+    {
+        return stuck;
+    }
+    void OnTriggerEnter(Collider colli)
+    {
+        if ((obstacleLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer)
+        {
+            Destroy(this.gameObject);
+        }
+        else if ((vurnerableLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer)
+        {
+            MakeArrowIntoProp(colli.transform);
+            StartCoroutine(DestroyProjectile(arrowStuckDuration));
+        }
+        else if ((livingLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer)
+        {
+            scr_healthManager hitHealth = colli.gameObject.GetComponent<scr_healthManager>();
+            hitHealth.DealDamage(arrowDamage);
+        }
+
+    }
+    void MakeArrowIntoProp(Transform p_targetParent)
+    {
+        if (p_targetParent != null)
+        {
+
+            shooting_rope.SetTarget(transform);
+
+            this.transform.parent = p_targetParent;
+            if (m_rgd != null)
+            {
+                m_rgd.velocity = new Vector3(0, 0, 0);
+                Destroy(m_rgd);
+            }
+
+            Destroy(m_collider);
+            stuck = true;
+        }
+    }
+    IEnumerator DestroyProjectile(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        Destroy(this.gameObject);
+
+    }
+    void RayCastingCollision()
+    {
+        Debug.DrawRay(transform.position,  transform.forward);
+
+
+        if(Physics.Raycast(transform.position, transform.forward, out hit, vurnerableLayer))
+        {
+            MakeArrowIntoProp(hit.transform);
+            StartCoroutine(DestroyProjectile(arrowStuckDuration));
+        }
+
+    }
 }

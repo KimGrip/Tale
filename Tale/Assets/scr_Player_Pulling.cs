@@ -22,11 +22,11 @@ public class scr_Player_Pulling : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        AtAttach();
-        PullRope(-GetDirectionTo(currentlyAttachedObject.transform),pushForce);
-        //Push(GetDirectionToAttached(), pushForce);
-        UpdateLineRenderer();
+    void Update () {
+    //    AtAttach();
+    //    PullRope(-GetDirectionTo(currentlyAttachedObject.transform),pushForce);
+    //    //Push(GetDirectionToAttached(), pushForce);
+    //    UpdateLineRenderer();
 	}
     void AtAttach()
     {
@@ -53,7 +53,7 @@ public class scr_Player_Pulling : MonoBehaviour {
     }
     void OnCollisionStay(Collision colli)
     {
-        //add some input cooldown or smth
+        //add some input cooldown or smth   
           if((pushableLayer.value & 1<<colli.gameObject.layer) == 1<<colli.gameObject.layer){
             Push(colli.transform, GetDirectionTo(colli.transform), pushForce);
             print("Pushing");

@@ -14,20 +14,24 @@ public class scr_SwingTest : MonoBehaviour {
     float maxVelocity, minVelocity;
     //teather
     [SerializeField]
-    float teatherLength;
+    float maximumTeatherLength;
     public Transform aPoint;
     float distanceFromPlayer;
-    public float closestPullRange;//move to player //should be changed depending of size of object
     Vector3 directionToPlayer;
+    bool amITethered;
+    Vector3 tetherPoint;
+    float tetherLength;
+    public Transform playerBody;
+
     void GetDirectionToTarget()
     {
-        Vector3 heading = aPoint.position - this.transform.position;
-        distanceFromPlayer = Vector3.Distance(this.transform.position, aPoint.transform.position);
+        Vector3 heading = aPoint.position - playerBody.transform.position;
+        distanceFromPlayer = Vector3.Distance(playerBody.transform.position, aPoint.transform.position);
         directionToPlayer = heading / distanceFromPlayer;
 
     }
 	void Start () {
-        currentPos = this.transform.position;
+        currentPos = playerBody.transform.position;
         previousPos = currentPos;
         m_rgd = GetComponent<Rigidbody>();
 	}
@@ -42,7 +46,7 @@ public class scr_SwingTest : MonoBehaviour {
 	}
     void LateUpdate()
     {
-        previousPos = this.transform.position;//do at end
+        previousPos = playerBody.transform.position;//do at end
         lastVelocity = m_rgd.velocity;
     }
     Vector3 VelocityMaintainer()
@@ -78,7 +82,7 @@ public class scr_SwingTest : MonoBehaviour {
     }
     void CalculateMovement()
     { //avatar.position = avatar.position + (avatar.oldvelocity + avatar.velocity) * deltaT / 2.0f
-        currentPos = this.transform.position;
+        currentPos = playerBody.transform.position;
 
         Vector3 velocity = (currentPos - previousPos) / Time.deltaTime;
 
@@ -86,31 +90,41 @@ public class scr_SwingTest : MonoBehaviour {
 
         m_rgd.velocity = m_rgd.velocity + acceleration * Time.deltaTime;
         m_rgd.velocity=VelocityMaintainer();
-        currentPos = this.transform.position + (lastVelocity + m_rgd.velocity) * Time.deltaTime / 2.0f;
-        this.transform.position = this.transform.position + (lastVelocity + m_rgd.velocity) * Time.deltaTime/2.0f;
+        currentPos = playerBody.transform.position + (lastVelocity + m_rgd.velocity) * Time.deltaTime / 2.0f;
+        playerBody.transform.position = playerBody.transform.position + (lastVelocity + m_rgd.velocity) * Time.deltaTime / 2.0f;
         
         
         // print(m_rgd.velocity);
     }
     void CalculateTeather(Vector3 teatherPoint)
     {
-        float teatherStretchLength=Vector3.Distance(this.transform.position,teatherPoint);
+        float teatherStretchLength = Vector3.Distance(playerBody.transform.position, teatherPoint);
         //testPosition = (testPosition - tetherPoint).Normalized() * tetherLength;}
 
-        if (teatherStretchLength > teatherLength)
+        if (teatherStretchLength > maximumTeatherLength)
         {
             Vector3 teatherFixPoint;
-            teatherFixPoint= ((this.transform.position - teatherPoint).normalized) * teatherLength;
-            //m_rgd.velocity = (previousPos - this.transform.position) / Time.deltaTime;
-            this.transform.position = teatherFixPoint+aPoint.position;
-            Debug.DrawLine(this.transform.position, teatherFixPoint, Color.red); 
+            teatherFixPoint = ((playerBody.transform.position - teatherPoint).normalized) * maximumTeatherLength;
+            //m_rgd.velocity = (previousPos - playerBody.transform.position) / Time.deltaTime;
+            playerBody.transform.position = teatherFixPoint+aPoint.position;
+            Debug.DrawLine(playerBody.transform.position, teatherFixPoint, Color.red); 
         }
         //print(teatherStretchLength);
     }
     void DrawCrap()
     {
-        Debug.DrawLine(this.transform.position, aPoint.transform.position);
+        Debug.DrawLine(playerBody.transform.position, aPoint.transform.position);
        
+    }
+    void GetPoint()
+    {
+        RaycastHit wallData;
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out wallData, maximumTeatherLength))
+        {
+            amITethered = true;
+            tetherPoint = wallData.point;
+            tetherLength = Vector3.Distance(wallData.point, playerBody.position);
+        }
     }
     //void CollisionStuff(Vector3 pos, Vector3 vel)
     //{

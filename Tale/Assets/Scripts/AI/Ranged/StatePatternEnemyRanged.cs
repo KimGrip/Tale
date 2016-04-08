@@ -24,6 +24,7 @@ public class StatePatternEnemyRanged : MonoBehaviour
     public bool isReloaded;
     public float comfortZoneRange;
     public float FOV_angle;
+    public float projectileSpeed;
     public SphereCollider m_sphereCol;
     [HideInInspector]public float distanceFromPlayer;
     [HideInInspector] public float retreatLength;

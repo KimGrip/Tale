@@ -28,8 +28,9 @@ public abstract class scr_FollowTarget : MonoBehaviour {
     protected abstract void Follow(float deltatime);
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+    {
+        
 	}
     public void FindTargetPlayer()
     {

@@ -15,16 +15,81 @@ public class DetectedStateRanged : IEnemyState
     }
     public void UpdateState()
     {
-        Look();
+        //Look();
+        BetterRay();
         Chase();
     }
     public void OnTriggerEnter(Collider colli)
     {
 
     }
-    public void OnTriggerStay(Collider colli)
-    {
+    public void OnTriggerStay(Collider other){
 
+    } 
+    //public void OnTriggerStay(Collider other)
+    //{
+    //    Debug.Log("ASdasdas");
+    //    // If the player has entered the trigger sphere...
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        // By default the player is not in sight.
+    //        // Create a vector from the enemy to the player and store the angle between it and forward.
+    //        Vector3 direction = other.transform.position - enemy.eyes.transform.position;
+    //        float angle = Vector3.Angle(direction, enemy.eyes.transform.forward);
+
+    //        // If the angle between forward and where the player is, is less than half the angle of view...
+    //        if (angle < enemy.FOV_angle * 0.5f)
+    //        {
+    //            RaycastHit hit;
+
+    //            // ... and if a raycast towards the player hits something...
+    //            if (Physics.Raycast(enemy.eyes.transform.position + enemy.eyes.transform.up, direction.normalized, out hit, enemy.m_sphereCol.radius))
+    //            {
+    //                // ... and if the raycast hits the player...
+    //                if (hit.collider.gameObject.CompareTag("Player"))
+    //                {
+    //                    // ... the player is in sight.
+    //                   enemy.chaseTarget=hit.transform;
+    //                    ToChaseState();
+    //                    // Set the last global sighting is the players current position.
+    //                    //lastPlayerSighting.position = player.transform.position;
+    //                }
+    //                else
+    //                {
+    //                    ToAlertState();
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+    void BetterRay()
+    {
+        Vector3 direction = enemy.chaseTarget.transform.position - enemy.eyes.transform.position;
+        float angle = Vector3.Angle(direction, enemy.eyes.transform.forward);
+
+        // If the angle between forward and where the player is, is less than half the angle of view...
+        if (angle < enemy.FOV_angle * 0.5f)
+        {
+            RaycastHit hit;
+
+            // ... and if a raycast towards the player hits something...
+            if (Physics.Raycast(enemy.eyes.transform.position + enemy.eyes.transform.up, direction.normalized, out hit, enemy.m_sphereCol.radius * 2))
+            {
+                // ... and if the raycast hits the player...
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    // ... the player is in sight.
+                    ToChaseState();
+
+                    // Set the last global sighting is the players current position.
+                    //lastPlayerSighting.position = player.transform.position;
+                }
+            }
+            else
+            {
+                ToAlertState();
+            }
+        }
     }
     public void ToAlertState()
     {

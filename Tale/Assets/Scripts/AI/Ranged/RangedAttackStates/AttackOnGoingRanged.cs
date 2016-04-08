@@ -50,7 +50,9 @@ public class AttackOnGoingRanged : IAttackStatesRanged
     {
         if (!enemy.IsPlayerInsideComfortZone())
         {
-            SpawnProjectile(enemy.transform.position,enemy.transform.forward,3000);
+            Vector3 directionToPlayerWithOffset=enemy.GetDirectionTo(enemy.chaseTarget);
+            directionToPlayerWithOffset= new Vector3(directionToPlayerWithOffset.x,directionToPlayerWithOffset.y+0.10f,directionToPlayerWithOffset.z);
+            SpawnProjectile(enemy.transform.position,directionToPlayerWithOffset,enemy.projectileSpeed);
             Debug.Log("lets say i jsut fired");
             enemy.isReloaded = false;
             ToAttackWindUp();
@@ -78,10 +80,15 @@ public class AttackOnGoingRanged : IAttackStatesRanged
     {
         GameObject newProj= enemy.SpawnProjectile();
         newProj.transform.position = p_pos;
-        scr_projectileMovement scr_newProj= newProj.GetComponent<scr_projectileMovement>();
+        newProj.transform.rotation =Quaternion.Euler( enemy.transform.rotation.x,enemy.transform.rotation.y,70);
+        scr_AIProj scr_newProj = newProj.GetComponent<scr_AIProj>();
         scr_newProj.OnProjectileSpawn();
         scr_newProj.AddVelocity(p_dir, velocity);
+        newProj.transform.LookAt(newProj.transform.position + enemy.chaseTarget.position);
+
        
+      
+
     }
     void ResetState()
     {

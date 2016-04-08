@@ -18,7 +18,7 @@ public class AttackWindUpRanged : IAttackStatesRanged
     }
     public void UpdateState()
     {
-        Debug.Log("YO IM WINDING UP MY ATTACK(AI)");
+        // Debug.Log("YO IM WINDING UP MY ATTACK(AI)");
         WindUpAttack();
     }
     public void ToAttackWindUp()
