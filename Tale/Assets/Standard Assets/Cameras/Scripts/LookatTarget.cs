@@ -13,6 +13,10 @@ namespace UnityStandardAssets.Cameras
 
         // Works in local coordinates, so if this object is parented
         // to another moving gameobject, its local constraints will
+<<<<<<< HEAD
+=======
+
+>>>>>>> bbd29eb21305cc3dde998824ba18d2d5933ab307
         // operate correctly
         // (Think: looking out the side window of a car, or a gun turret
         // on a moving spaceship with a limited angular range)

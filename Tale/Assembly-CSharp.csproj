@@ -67,7 +67,10 @@
      <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\IAttackStatesRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\RetreatStateRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\StatePatternEnemyRanged.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\Player\Bow\Scr_arrow_direction.cs" />
+=======
+>>>>>>> bbd29eb21305cc3dde998824ba18d2d5933ab307
      <Compile Include="Assets\Scripts\Player\Camera\scr_FollowTarget.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FreeCameraLook.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_Pivot.cs" />
@@ -93,8 +96,11 @@
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
+<<<<<<< HEAD
      <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
+=======
+>>>>>>> bbd29eb21305cc3dde998824ba18d2d5933ab307
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
