@@ -204,7 +204,7 @@ public class scr_ropeAttach : MonoBehaviour
         joints[n] = new GameObject("Joint_" + n);
         joints[n].transform.parent = transform;
         joints[n].layer = 8;
-        print(joints[n].layer);
+       // print(joints[n].layer);
         Rigidbody rigid = joints[n].AddComponent<Rigidbody>();
         SphereCollider col = joints[n].AddComponent<SphereCollider>();
         CharacterJoint ph = joints[n].AddComponent<CharacterJoint>();

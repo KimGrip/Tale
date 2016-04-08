@@ -60,16 +60,21 @@ public class scr_projectileMovement : MonoBehaviour {
     }
     void MakeArrowIntoProp(Transform p_targetParent)
     {
-        shooting_rope.SetTarget(transform);
-        this.transform.parent = p_targetParent;
-        if(m_rgd != null)
+        if (p_targetParent != null)
         {
-            m_rgd.velocity = new Vector3(0, 0, 0);
-            Destroy(m_rgd);
-        }
 
-        Destroy(m_collider);
-        stuck = true;
+            shooting_rope.SetTarget(transform);
+
+            this.transform.parent = p_targetParent;
+            if (m_rgd != null)
+            {
+                m_rgd.velocity = new Vector3(0, 0, 0);
+                Destroy(m_rgd);
+            }
+
+            Destroy(m_collider);
+            stuck = true;
+        }
     }
     IEnumerator DestroyProjectile(float waitTime)
     {

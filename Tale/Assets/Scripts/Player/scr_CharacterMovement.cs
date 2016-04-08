@@ -54,8 +54,8 @@ public class scr_CharacterMovement : MonoBehaviour {
             ApplyExtraTurnRotation();
 
         }
-        Jump();
-        GroundCheeck();
+        JumpHandler();
+     //   GroundCheeck();
         UpdateAnimator();
     }
     void SetUpAnimator()
@@ -105,42 +105,56 @@ public class scr_CharacterMovement : MonoBehaviour {
         transform.Rotate(0, m_turnAmount * turnSpeed * Time.deltaTime, 0);
             
     }
-    void Jump()
+    void JumpHandler()
     {
         if(Input.GetButton("Jump") && onGround == true)
         {
-            m_rb.AddForce(new Vector3(m_rb.velocity.x, m_jumpPower, m_rb.velocity.y));
+            m_rb.AddForce(new Vector3(m_rb.velocity.x, m_jumpPower, m_rb.velocity.y),ForceMode.Impulse);
         }
-    }
-    void GroundCheeck()
-    {
-        Ray ray = new Ray(transform.position + Vector3.up  * .5f, -Vector3.up);
-
-        RaycastHit[] hits = Physics.RaycastAll(ray, 1.0f);
-        rayHitComparer = new RayHitComparer();
-
-        System.Array.Sort(hits, rayHitComparer);
-
-        if(velocity.y <  m_jumpPower * .5f)
+        Debug.DrawRay(transform.position, -transform.up / 2,Color.green);
+        if(Physics.Raycast(transform.position,-transform.up,0.8f))
         {
-            onGround = false;
-            m_rb.useGravity = true;
-            foreach(var hit in hits)
-            {
-                if(!hit.collider.isTrigger)
-                {
-                    if(velocity.y <= 0 )
-                    {
-                        m_rb.position = Vector3.MoveTowards(m_rb.position, hit.point, Time.deltaTime * 5);
-                    }
-                    onGround = true;
-                    m_rb.useGravity = false;
-
-                    break;
-                }
-            }
+            Debug.Log("grounded");
         }
+        else
+        {
+            Debug.Log("air");
+        }
+        //Get distance to ground from player height, if the distance to the ground is bigger than that on ground = false;
+        // om det händer gravity = true;
+
+
     }
+    //void GroundCheeck()
+    //{
+    //    Ray ray = new Ray(transform.position + Vector3.up  * .5f, -Vector3.up);
+
+    //    RaycastHit[] hits = Physics.RaycastAll(ray, 3.0f);
+    //    rayHitComparer = new RayHitComparer();
+
+    //    System.Array.Sort(hits, rayHitComparer);
+
+    //    if(velocity.y <  m_jumpPower * .5f)
+    //    {
+    //        onGround = false;
+    //        m_rb.useGravity = true;
+
+    //        foreach(var hit in hits)
+    //        {
+    //            if(!hit.collider.isTrigger)
+    //            {
+    //                if(velocity.y <= 0 )
+    //                {
+    //                    m_rb.position = Vector3.MoveTowards(m_rb.position, hit.point, Time.deltaTime * 5);
+    //                }
+    //                onGround = true;
+    //                m_rb.useGravity = false;
+
+    //                break;
+    //            }
+    //        }
+    //    }
+    //}
     void TurnTowardsCameraForward()
     {
         if(Mathf.Abs(m_forwardAmount) < .01f)

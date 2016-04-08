@@ -14,7 +14,7 @@ public class RetreatStateRanged : IEnemyState
     }
     public void UpdateState()
     {
-        Debug.Log("Damn you too close for me man");
+       // Debug.Log("Damn you too close for me man");
         //DONT DO IN UPDATE CHECK ONCE THEN MOVE TO THAT POINT <<<<<note self optimize later perhaps 
         if (enemy.IsPlayerInsideComfortZone())//if player is NOT in i safe, and i aim again
         {

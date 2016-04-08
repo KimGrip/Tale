@@ -105,13 +105,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65536
   vurnerableLayer:
     serializedVersion: 2
     m_Bits: 32768
   livingLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   arrowStuckDuration: 4
   arrowDamage: 2
 --- !u!1001 &100100000
