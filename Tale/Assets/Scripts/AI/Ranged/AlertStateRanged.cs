@@ -67,7 +67,6 @@ public class AlertStateRanged : IEnemyState
     }
     public void OnTriggerStay(Collider other)
     {
-        Debug.Log("ASdasdas");
         // If the player has entered the trigger sphere...
         if (other.gameObject.CompareTag("Player"))
         {

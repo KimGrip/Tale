@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/Prototype_Map/Prototype_04_08_2016.unity
+=======
+- path: Assets/Scenes/AniamtionAndCameraTestScene/AnimationAndCameraTestScene.unity
+>>>>>>> 57eb374576f798bdfc61481091a6307da076539a
   isLoaded: 1
   isActive: 1
