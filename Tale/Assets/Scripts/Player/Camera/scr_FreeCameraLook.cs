@@ -158,7 +158,7 @@ public class scr_FreeCameraLook : scr_Pivot {
         else
             m_takingInput = false;
 
-        Debug.Log(m_takingInput);
+       // Debug.Log(m_takingInput);
         if (turnsmoothing > 0)
         {
             smoothX = Mathf.SmoothDamp(smoothX, x, ref smoothXvelocity, turnsmoothing);
