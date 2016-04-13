@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 
 public class scr_FreeCameraLook : scr_Pivot {
 

@@ -124,7 +124,7 @@ public class scr_CharacterMovement : MonoBehaviour {
         if(velocity.y <  m_jumpPower * .5f)
         {
             onGround = false;
-            m_rb.useGravity = true;
+            //m_rb.useGravity = true; <-------------------------- tempdisable
             foreach(var hit in hits)
             {
                 if(!hit.collider.isTrigger)

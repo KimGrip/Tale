@@ -10,7 +10,6 @@ public class scr_attachRopeTo : MonoBehaviour
     Vector3 velocity;
     Vector3 position;
     Vector3 acceleration;
-    public LayerMask hitLayer;
     public float maxVelocity;
     public float minVelocity;
     public Transform tetherObject;
@@ -19,6 +18,7 @@ public class scr_attachRopeTo : MonoBehaviour
     Vector3 prevVelocity;
     Vector3 newVelocity;
     Transform thisOffsetTransform;
+    public float speedMultiplier;
     public float reelInMultiplier;
     public bool autoShortenRope;
     public bool triesToReachDesired;
@@ -28,53 +28,86 @@ public class scr_attachRopeTo : MonoBehaviour
     [SerializeField]
     private float swingSpeed;
     public float downwardAcc;
-     float hInput;
-     float vInput;
      LineRenderer m_lineRenderer;
+     Rigidbody m_rgd;
+     public float vInput=0;
+     public float hInput=0;
+    [SerializeField]
+     private float playerHeigthTetherOffset;
+
     void Start()
     {
         m_collider = GetComponent<Collider>();
         position = this.transform.position;
         m_lineRenderer = GetComponent<LineRenderer>();
+        m_rgd = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
         VariousInputs();
+        if (amITethered)
+        {
+            UpdateLineRenderer();
+        }
+    }
+    void FixedUpdate()
+    {
+        if (amITethered)
+        {
+            HandleMoveInput(vInput, hInput);
+          
+        }
         NewVelocity();
-        //this.transform.Translate(velocity);
-           this.transform.Translate(prevVelocity);
-           TetherRestriction();
-           PrevVelocity();
-           PrevPosition();
-           if (autoShortenRope)
-           {
-               ShrinkRope();
-           }
-           if (triesToReachDesired)
-           {
-               ResizeTowardsDesired();
-           }
-           UpdateLineRenderer();
+        if (amITethered)
+        {
+            this.transform.Translate(prevVelocity * speedMultiplier * Time.deltaTime,Space.World);
+            m_rgd.velocity = prevVelocity * speedMultiplier * Time.deltaTime;
+            TetherRestriction();
+        }
+        PrevVelocity();
+        PrevPosition();
+        if (amITethered)
+        {
+           
+            if (autoShortenRope)
+            {
+                ShrinkRope();
+            }
+            if (triesToReachDesired)
+            {
+                ResizeTowardsDesired();
+            }
+        }
         //CheckCollision();
     }
+    public void SetAttachTarget(Transform p_transform)
+    {
+        tetherLength = Vector3.Distance(this.transform.position, p_transform.position) - playerHeigthTetherOffset; //add a little length so it doesnt restrict immideatly // probably - tether if on ground so that it doesnt hit the ground. 
+        attachmentPoint = p_transform;
+        
+    }
+    public void SetTeatherObject(Transform p_transform)
+    {
+        tetherLength = Vector3.Distance(this.transform.position, p_transform.position) -playerHeigthTetherOffset;
+        tetherObject = p_transform;
+        
+    } 
     void ResizeTowardsDesired()
     {
         if (desiredLength < tetherLength)
         {
-            tetherLength -= Time.deltaTime;
+            tetherLength -= Time.deltaTime*reelInMultiplier;
         }
         else if (desiredLength > tetherLength)
         {
-            tetherLength += Time.deltaTime;
+            tetherLength += Time.deltaTime*reelInMultiplier;
         }
     }
-    void InputDuringSwing()
+    public void SetAmITethered(bool trueOrFalse)
     {
-        //disable other input
-    
-
+        amITethered = trueOrFalse;
     }
     void ShrinkRope(){
         tetherLength =Vector3.Distance(this.transform.position,tetherObject.transform.position);
@@ -122,32 +155,58 @@ public class scr_attachRopeTo : MonoBehaviour
     }
     void VariousInputs()
     {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            amITethered = true;  
+            tetherLength= Vector3.Distance(this.transform.position, tetherObject.transform.position);
+            ///m_rgd.useGravity = false;
+            /// //downwardAcc = -0.01f;
+        }
+        if (Input.GetKeyUp(KeyCode.U))
+        {
+            amITethered = false;
+           // m_rgd.useGravity = true;
+           // downwardAcc = 0;
+        }
         if (amITethered)
         {
-            float hInput = Input.GetAxis("Horizontal");
-            float vInput = Input.GetAxis("Vertical");
-
-            HandleMoveInput(vInput, hInput);
+            hInput = Input.GetAxis("Horizontal");
+            vInput = Input.GetAxis("Vertical");
+           
+            
+        }
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            amITethered = false;
+            print("DEATTACH");
         }
       
         if(Input.GetKey(KeyCode.H)){
-            if (tetherLength > 0)
+            //if (tetherLength > 0)
+            //{
+            //    tetherLength -= Time.deltaTime*reelInMultiplier;
+            //}
+            if (desiredLength > 2.0f)
             {
-                tetherLength -= Time.deltaTime*reelInMultiplier;
+                desiredLength -= Time.deltaTime;
             }
         }
         if (Input.GetKey(KeyCode.G))
         {
-            if (tetherLength < maxTetherLength)
+            //if (tetherLength < maxTetherLength)
+            //{
+            //    tetherLength += Time.deltaTime*reelInMultiplier;
+            //}
+            if (desiredLength < maxTetherLength)
             {
-                tetherLength += Time.deltaTime*reelInMultiplier;
+                desiredLength += Time.deltaTime;
             }
         }
     }
     void HandleMoveInput(float vInput, float hInput)
     {
-        this.transform.Translate(new Vector3(0, hInput*swingSpeed, vInput*swingSpeed),Space.World);
-        this.transform.Translate(new Vector3(0,downwardAcc,0),Space.World);
+        this.transform.Translate(new Vector3(0, hInput * swingSpeed, vInput * swingSpeed) * Time.deltaTime, Space.World);
+        this.transform.Translate(new Vector3(0,downwardAcc,0)*Time.deltaTime,Space.World);
     }
     //void OnCollisionEnter2D(Collision2D colli)
     //{
@@ -203,13 +262,13 @@ public class scr_attachRopeTo : MonoBehaviour
        // Debug.Log(newVelocity);
         return newVelocity;
     }
-    void OnCollisionEnter(Collision colli)
-    {
-        if (colli.gameObject.CompareTag("Obstacle"))
-        {
+    //void OnCollisionEnter(Collision colli)
+    //{
+    //    if (colli.gameObject.CompareTag("Obstacle"))
+    //    {
            
-          //  FlipForces();
-        }
+    //      //  FlipForces();
+    //    }
         
-    }
+    //}
 }

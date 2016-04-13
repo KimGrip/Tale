@@ -358,6 +358,7 @@ MonoBehaviour:
   minVelocity: -5
   tetherObject: {fileID: 1841905536}
   amITethered: 1
+  speedMultiplier: 0
   reelInMultiplier: 4
   autoShortenRope: 0
   triesToReachDesired: 1
@@ -366,6 +367,8 @@ MonoBehaviour:
   tetherLength: 10
   swingSpeed: 0
   downwardAcc: 0
+  vInput: 0
+  hInput: 0
 --- !u!1 &622374418
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,11 +796,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 464608, guid: e9abcde77942c094684dc024614dec22, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 75.84
+      value: 24.4
       objectReference: {fileID: 0}
     - target: {fileID: 464608, guid: e9abcde77942c094684dc024614dec22, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 120.8
+      value: 168.4
       objectReference: {fileID: 0}
     - target: {fileID: 464608, guid: e9abcde77942c094684dc024614dec22, type: 2}
       propertyPath: m_LocalRotation.x
@@ -823,14 +826,6 @@ Prefab:
       propertyPath: tetherObject
       value: 
       objectReference: {fileID: 1841905536}
-    - target: {fileID: 11481898, guid: e9abcde77942c094684dc024614dec22, type: 2}
-      propertyPath: maxVelocity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11481898, guid: e9abcde77942c094684dc024614dec22, type: 2}
-      propertyPath: minVelocity
-      value: -1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e9abcde77942c094684dc024614dec22, type: 2}
   m_IsPrefabParent: 0
@@ -1507,49 +1502,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
---- !u!1 &1501883735 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 125110, guid: e9abcde77942c094684dc024614dec22, type: 2}
-  m_PrefabInternal: {fileID: 964612345}
---- !u!120 &1501883742
-LineRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1501883735}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 0aa87e5e29aedb64cb3d459f68317736, type: 2}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
-  m_ProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  m_Parameters:
-    startWidth: 0.1
-    endWidth: 0.1
-    m_StartColor:
-      serializedVersion: 2
-      rgba: 4279966607
-    m_EndColor:
-      serializedVersion: 2
-      rgba: 4280361372
-  m_UseWorldSpace: 1
 --- !u!1 &1532038883
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,7 +1679,7 @@ GameObject:
   - 4: {fileID: 1821004713}
   - 218: {fileID: 1821004712}
   - 154: {fileID: 1821004711}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1836,7 +1788,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1841905535}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 94, y: 72.6, z: 108}
+  m_LocalPosition: {x: 97.69, y: 38.11, z: 179.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -11,7 +11,6 @@ public class scr_AIProj : MonoBehaviour
     public LayerMask vurnerableLayer;
     [SerializeField]
     private float arrowStuckDuration;
-    private bool stuck = false;
 
     RaycastHit hit;
     void Start()
@@ -35,10 +34,6 @@ public class scr_AIProj : MonoBehaviour
     {
         return transform.position;
     }
-    public bool GetStuck()
-    {
-        return stuck;
-    }
     void OnTriggerEnter(Collider colli)
     {
         if ((obstacleLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer)
@@ -61,7 +56,6 @@ public class scr_AIProj : MonoBehaviour
         }
 
         Destroy(m_collider);
-        stuck = true;
     }
     IEnumerator DestroyProjectile(float waitTime)
     {
