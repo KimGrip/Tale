@@ -101,6 +101,21 @@ public class scr_projectileMovement : MonoBehaviour {
         }
         DGTT.enabled = false;
         Destroy(m_collider);
+        if (p_targetParent != null)
+        {
+
+            shooting_rope.SetTarget(transform);
+
+            this.transform.parent = p_targetParent;
+            if (m_rgd != null)
+            {
+                m_rgd.velocity = new Vector3(0, 0, 0);
+                Destroy(m_rgd);
+            }
+
+            Destroy(m_collider);
+            stuck = true;
+        }
     }
     IEnumerator DestroyProjectile(float waitTime)
     {

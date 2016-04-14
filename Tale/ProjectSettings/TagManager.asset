@@ -27,6 +27,7 @@ TagManager:
   - RopeAttachLayer
   - arrowStuckLayer
   - Terrain
+  - terrainLayer
   - 
   - 
   - 
