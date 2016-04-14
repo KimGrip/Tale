@@ -121,10 +121,10 @@ public class scr_CharacterMovement : MonoBehaviour {
 
         System.Array.Sort(hits, rayHitComparer);
 
-        if(velocity.y <  m_jumpPower * .5f)
+        if(velocity.y <  m_jumpPower * .5f) // 
         {
             onGround = false;
-            //m_rb.useGravity = true; <-------------------------- tempdisable
+            m_rb.useGravity = true;// <-------------------------- tempdisable need a check if in air+ move+ rb.velocity otherwise stuck in air
             foreach(var hit in hits)
             {
                 if(!hit.collider.isTrigger)

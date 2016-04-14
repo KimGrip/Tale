@@ -36,7 +36,7 @@ public class scr_UserInput : MonoBehaviour {
     private float currentArrowForce;
     [SerializeField]
     private float bowAccumulationMultiplier;
-
+    public bool currentlyDisabled;
     void Start()
     {
         if(Camera.main != null)
@@ -180,6 +180,9 @@ public class scr_UserInput : MonoBehaviour {
             : transform.position + transform.forward * 100;
 
         move *= walkMultiplier;
-        //charMove.Move(move,aim,lookPosition);
+        if (!currentlyDisabled)
+        {
+            charMove.Move(move, aim, lookPosition);
+        }
     }
 }

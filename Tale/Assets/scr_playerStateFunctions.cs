@@ -28,6 +28,7 @@ public class scr_playerStateFunctions : MonoBehaviour {
     {
         pAttach.enabled = true;
         //pInput.enabled = false;
+        pInput.currentlyDisabled = true;
         pMove.enabled = false;
         DGTT.enabled = true;
        
@@ -42,18 +43,20 @@ public class scr_playerStateFunctions : MonoBehaviour {
     }
     public void SetRunning()
     {
-        pAttach.enabled = false;
+        //pAttach.enabled = false;
         pAttach.SetAmITethered(false);
-        pInput.enabled = true;
-        pMove.enabled = true;
-        DGTT.enabled = false;
+        //pInput.enabled = true;
+        //pInput.currentlyDisabled = false;
+        //pMove.enabled = true;
+        //DGTT.enabled = false;
 
         //FixRigidbodyConstraints(true, true, true);
-        pRigidbody.constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY;
-        pRigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
-        pRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        pRigidbody.isKinematic = true;
-        SetRigidBody(1, 0.1f, 0.05f, false, false);
+        //pRigidbody.constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY;
+        //pRigidbody.interpolation = RigidbodyInterpolation.None;
+        //pRigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+       // pRigidbody.isKinematic = false;
+
+        SetRigidBody(1, 0f, 0.05f, true, false);
         print("RunningAgain");
     }
     void SetRigidBody(float mass, float drag, float angDrag, bool useGravity, bool isKinematic)

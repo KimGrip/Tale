@@ -34,13 +34,16 @@ public class scr_attachRopeTo : MonoBehaviour
      public float hInput=0;
     [SerializeField]
      private float playerHeigthTetherOffset;
-
+    scr_playerStateFunctions PSF;
+    public float detachJumpPowerUpward;
+    public float detachJumpPowerForward;
     void Start()
     {
         m_collider = GetComponent<Collider>();
         position = this.transform.position;
         m_lineRenderer = GetComponent<LineRenderer>();
         m_rgd = GetComponent<Rigidbody>();
+        PSF = GameObject.FindGameObjectWithTag("SingletonHandler").GetComponent<scr_playerStateFunctions>();
     }
 
     // Update is called once per frame
@@ -54,16 +57,25 @@ public class scr_attachRopeTo : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (!amITethered)
+        {
+            m_lineRenderer.enabled = false;
+        }
+        else if (amITethered && m_lineRenderer.enabled == false)
+        {
+            m_lineRenderer.enabled = true;
+        }
         if (amITethered)
         {
             HandleMoveInput(vInput, hInput);
           
         }
         NewVelocity();
-        if (amITethered)
-        {
+  
             this.transform.Translate(prevVelocity * speedMultiplier * Time.deltaTime,Space.World);
             m_rgd.velocity = prevVelocity * speedMultiplier * Time.deltaTime;
+            if (amITethered)
+            {
             TetherRestriction();
         }
         PrevVelocity();
@@ -145,6 +157,11 @@ public class scr_attachRopeTo : MonoBehaviour
     {
         newVelocity=VelocityMaintainer( prevPosition-this.transform.position);
     }
+    void NonTetheredAirMovement()
+    {
+        print("MovingThroughAir");
+
+    }
     void UpdateLineRenderer()
     {
         if (amITethered)
@@ -177,8 +194,7 @@ public class scr_attachRopeTo : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.C))
         {
-            amITethered = false;
-            print("DEATTACH");
+            PSF.SetRunning();
         }
       
         if(Input.GetKey(KeyCode.H)){
@@ -206,7 +222,16 @@ public class scr_attachRopeTo : MonoBehaviour
     void HandleMoveInput(float vInput, float hInput)
     {
         this.transform.Translate(new Vector3(0, hInput * swingSpeed, vInput * swingSpeed) * Time.deltaTime, Space.World);
-        this.transform.Translate(new Vector3(0,downwardAcc,0)*Time.deltaTime,Space.World);
+        if (amITethered)
+        {//fake gravity 
+            this.transform.Translate(new Vector3(0, downwardAcc, 0) * Time.deltaTime, Space.World);
+        }
+       
+    }
+    void JumpAtDetach()
+    {
+        //depending on input?
+        m_rgd.AddForce(new Vector3(0, detachJumpPowerUpward, detachJumpPowerForward));//MAYBE ADD forward force aswell(probably)
     }
     //void OnCollisionEnter2D(Collision2D colli)
     //{

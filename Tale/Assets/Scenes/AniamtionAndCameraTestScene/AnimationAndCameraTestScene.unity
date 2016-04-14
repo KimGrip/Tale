@@ -558,6 +558,38 @@ Prefab:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 11460910, guid: 1281d17fd14f6b04eacb0d496eb44e53, type: 2}
+      propertyPath: bowAccumulationMultiplier
+      value: 36.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11462954, guid: 1281d17fd14f6b04eacb0d496eb44e53, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11462954, guid: 1281d17fd14f6b04eacb0d496eb44e53, type: 2}
+      propertyPath: detachJumpPowerUpward
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11462954, guid: 1281d17fd14f6b04eacb0d496eb44e53, type: 2}
+      propertyPath: detachJumpPowerForward
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 11462954, guid: 1281d17fd14f6b04eacb0d496eb44e53, type: 2}
+      propertyPath: desiredLength
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11462954, guid: 1281d17fd14f6b04eacb0d496eb44e53, type: 2}
+      propertyPath: maxTetherLength
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11462954, guid: 1281d17fd14f6b04eacb0d496eb44e53, type: 2}
+      propertyPath: reelInMultiplier
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 11462954, guid: 1281d17fd14f6b04eacb0d496eb44e53, type: 2}
+      propertyPath: triesToReachDesired
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1281d17fd14f6b04eacb0d496eb44e53, type: 2}
   m_IsPrefabParent: 0
@@ -1411,7 +1443,7 @@ Transform:
   m_GameObject: {fileID: 445740513}
   m_LocalRotation: {x: 0, y: 0.5340001, z: 0, w: 0.8454845}
   m_LocalPosition: {x: 0.7, y: 25.1, z: -27.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 51, y: 5, z: 2}
   m_Children: []
   m_Father: {fileID: 191074322}
   m_RootOrder: 11
