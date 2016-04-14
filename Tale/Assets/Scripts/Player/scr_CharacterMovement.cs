@@ -54,6 +54,8 @@ public class scr_CharacterMovement : MonoBehaviour {
             ApplyExtraTurnRotation();
 
         }
+        Jump();
+        GroundCheeck();
         JumpHandler();
      //   GroundCheeck();
         UpdateAnimator();
@@ -105,12 +107,41 @@ public class scr_CharacterMovement : MonoBehaviour {
         transform.Rotate(0, m_turnAmount * turnSpeed * Time.deltaTime, 0);
             
     }
+    void Jump()
     void JumpHandler()
     {
         if(Input.GetButton("Jump") && onGround == true)
         {
             m_rb.AddForce(new Vector3(m_rb.velocity.x, m_jumpPower, m_rb.velocity.y),ForceMode.Impulse);
         }
+    }
+    void GroundCheeck()
+    {
+        Ray ray = new Ray(transform.position + Vector3.up  * .5f, -Vector3.up);
+
+        RaycastHit[] hits = Physics.RaycastAll(ray, 1.0f);
+        rayHitComparer = new RayHitComparer();
+
+        System.Array.Sort(hits, rayHitComparer);
+
+        if(velocity.y <  m_jumpPower * .5f) // 
+        {
+            onGround = false;
+            m_rb.useGravity = true;// <-------------------------- tempdisable need a check if in air+ move+ rb.velocity otherwise stuck in air
+            foreach(var hit in hits)
+            {
+                if(!hit.collider.isTrigger)
+                {
+                    if(velocity.y <= 0 )
+                    {
+                        m_rb.position = Vector3.MoveTowards(m_rb.position, hit.point, Time.deltaTime * 5);
+                    }
+                    onGround = true;
+                    m_rb.useGravity = false;
+
+                    break;
+                }
+            }
         Debug.DrawRay(transform.position, -transform.up / 2,Color.green);
         if(Physics.Raycast(transform.position,-transform.up,0.8f))
         {
