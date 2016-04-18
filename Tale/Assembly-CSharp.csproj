@@ -73,11 +73,13 @@
      <Compile Include="Assets\Scripts\Player\Camera\scr_FreeCameraLook.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_Pivot.cs" />
      <Compile Include="Assets\Scripts\Player\Scr_CameraController.cs" />
+     <Compile Include="Assets\Scripts\Player\old_scr_playerController.cs" />
      <Compile Include="Assets\Scripts\Player\scr_CharacterMovement.cs" />
      <Compile Include="Assets\Scripts\Player\scr_PSM.cs" />
+     <Compile Include="Assets\Scripts\Player\scr_ThirdPersonCharacter.cs" />
+     <Compile Include="Assets\Scripts\Player\scr_ThirdPersonUserControl.cs" />
      <Compile Include="Assets\Scripts\Player\scr_UserInput.cs" />
      <Compile Include="Assets\Scripts\Player\scr_playerClimbing.cs" />
-     <Compile Include="Assets\Scripts\Player\scr_playerController.cs" />
      <Compile Include="Assets\Scripts\Projectile\scr_AIProj.cs" />
      <Compile Include="Assets\Scripts\Projectile\scr_projectileMovement.cs" />
      <Compile Include="Assets\Scripts\Rope\scr_SwingTest.cs" />
@@ -92,6 +94,7 @@
      <Compile Include="Assets\scr_Player_Pulling.cs" />
      <Compile Include="Assets\scr_TimeScaler.cs" />
      <Compile Include="Assets\scr_arrow_rope.cs" />
+     <Compile Include="Assets\scr_crosshairScript.cs" />
      <Compile Include="Assets\scr_generic_simpleMove.cs" />
      <Compile Include="Assets\scr_healthManager.cs" />
      <Compile Include="Assets\scr_playerStateFunctions.cs" />
