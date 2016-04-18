@@ -4,7 +4,7 @@ using System.Collections;
 public class scr_playerStateFunctions : MonoBehaviour {
 
 	// Use this for initialization
-    public GameObject m_player;
+    private GameObject m_player;
     scr_attachRopeTo pAttach;
     DontGoThroughThings DGTT;
     scr_UserInput pInput;

@@ -50,7 +50,7 @@ public class DontGoThroughThings : MonoBehaviour
 
                 if (!hitInfo.collider.isTrigger)
                 {
-                    print("PLEASE DONT GO INTO WALL");
+              //      print("PLEASE DONT GO INTO WALL");
                     myRigidbody.position = hitInfo.point - (movementThisStep / movementMagnitude) * partialExtent;
                     this.transform.position = hitInfo.point - (movementThisStep / movementMagnitude) * partialExtent;
                 }

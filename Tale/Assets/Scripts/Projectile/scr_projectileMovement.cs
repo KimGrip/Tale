@@ -33,9 +33,14 @@ public class scr_projectileMovement : MonoBehaviour
         DGTT = GetComponent<DontGoThroughThings>();
         singletonHandler = GameObject.FindGameObjectWithTag("SingletonHandler");
         PSF = singletonHandler.GetComponent<scr_playerStateFunctions>();
+<<<<<<< HEAD
+        player = GameObject.FindGameObjectWithTag("Player");
+	}
+=======
         m_lineRenderer = GetComponent<LineRenderer>();
         currentSoarDuration = 0; 
     }
+>>>>>>> 28572044c618fd7acfd290c7cd060ea0a31994c0
     void Update()
     {
         if (m_rgd)
@@ -69,7 +74,6 @@ public class scr_projectileMovement : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerAttach = player.GetComponent<scr_attachRopeTo>();
-        print("asdfasdfas");
         m_rgd = GetComponent<Rigidbody>();
         inAir = true;
     }
@@ -110,6 +114,23 @@ public class scr_projectileMovement : MonoBehaviour
         inAir = false;
         m_lineRenderer.enabled = false;
         Destroy(m_collider);
+<<<<<<< HEAD
+        if (p_targetParent != null)
+        {
+
+            shooting_rope.SetTarget(transform);
+
+            this.transform.parent = p_targetParent;
+            if (m_rgd != null)
+            {
+                m_rgd.velocity = new Vector3(0, 0, 0);
+                Destroy(m_rgd);
+            }
+
+            Destroy(m_collider);
+        }
+=======
+>>>>>>> 28572044c618fd7acfd290c7cd060ea0a31994c0
     }
     IEnumerator DestroyProjectile(float waitTime)
     {
