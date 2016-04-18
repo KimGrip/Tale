@@ -91,7 +91,6 @@ public class scr_UserInput : MonoBehaviour {
     }
     void LateUpdate()
     {
-        //problemet med att pilen skjuts till skumma ställen finns här eller I update
         aimingWheight = Mathf.MoveTowards(aimingWheight, (aim) ? 1.0f : 0.0f, Time.deltaTime * 5);
 
         Vector3 normalState = new Vector3(0, 0, -1f);
@@ -117,6 +116,8 @@ public class scr_UserInput : MonoBehaviour {
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+
+        Debug.Log(horizontal + " h v " + vertical);
         if (!aim) // Om vi inte aimar.
         {
             if (cam != null)
@@ -148,7 +149,7 @@ public class scr_UserInput : MonoBehaviour {
         if (move.magnitude > 1)
             move.Normalize();
 
-        bool walkToggle = Input.GetKey(KeyCode.LeftShift) || aim;
+        bool walkToggle = Input.GetKey(KeyCode.LeftShift);
 
 
 

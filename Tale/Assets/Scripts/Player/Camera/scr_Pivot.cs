@@ -13,6 +13,10 @@ public class scr_Pivot : scr_FollowTarget {
         cam = GetComponentInChildren<Camera>().transform;
         pivot = cam.parent;
     }
+    public Transform GetPivotTF()
+    {
+        return pivot;
+    }
 
     // Use this for initialization
     protected override void Start()

@@ -29,6 +29,7 @@ public class scr_projectileMovement : MonoBehaviour {
         DGTT = GetComponent<DontGoThroughThings>();
         singletonHandler = GameObject.FindGameObjectWithTag("SingletonHandler");
         PSF = singletonHandler.GetComponent<scr_playerStateFunctions>();
+        player = GameObject.FindGameObjectWithTag("Player");
 	}
     void Update()
     {
@@ -54,7 +55,6 @@ public class scr_projectileMovement : MonoBehaviour {
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerAttach = player.GetComponent<scr_attachRopeTo>();
-        print("asdfasdfas");
         m_rgd = GetComponent<Rigidbody>();
     }
     public Vector3 GetPosition()
@@ -114,7 +114,6 @@ public class scr_projectileMovement : MonoBehaviour {
             }
 
             Destroy(m_collider);
-            stuck = true;
         }
     }
     IEnumerator DestroyProjectile(float waitTime)

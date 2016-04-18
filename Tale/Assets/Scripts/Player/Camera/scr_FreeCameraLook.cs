@@ -34,10 +34,13 @@ public class scr_FreeCameraLook : scr_Pivot {
     public float m_CameraResetTime;
     private float m_CameraResetCounter;
 
+    public float m_AngleDistance;
+
     private GameObject m_player;
     private Rigidbody m_playerRB;
 
-
+    private Transform m_pivot;
+    public Vector3 m_naturalOffset;
     protected override void Awake()
     {
         //lookAngle needs to be rested with TurnCameraTowardsPlayerForward
@@ -47,8 +50,9 @@ public class scr_FreeCameraLook : scr_Pivot {
         m_player = GameObject.FindGameObjectWithTag("Player");
         m_playerRB = m_player.GetComponent<Rigidbody>();
         Cursor.visible = lockCursor;
+  
         //Add so visible and locked happends togheter
-
+        m_pivot = GetComponentInChildren<scr_Pivot>().GetPivotTF();
 
         if (lockCursor)
         {
@@ -58,6 +62,9 @@ public class scr_FreeCameraLook : scr_Pivot {
 
         cam = GetComponentInChildren<Camera>().transform;
         pivot = cam.parent;
+
+       
+
     }
 
 
@@ -66,6 +73,7 @@ public class scr_FreeCameraLook : scr_Pivot {
     {
         base.Update();
         HandleRotationMovement();
+  //      MoveCameraPivotCloserToPlayer();
         if(m_takingInput == false)
         {
             m_CameraResetCounter += Time.deltaTime;
@@ -84,7 +92,13 @@ public class scr_FreeCameraLook : scr_Pivot {
 
         }
     }
+    void MoveCameraPivotCloserToPlayer()
+    {
+         float moveOffset = tiltAngle / tiltMax;
+         m_pivot.position = Vector3.MoveTowards(m_pivot.position, m_player.transform.TransformDirection(m_naturalOffset) * (moveOffset / 10), 0.5f);
 
+
+    }
     void OnDisable()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -95,8 +109,6 @@ public class scr_FreeCameraLook : scr_Pivot {
     {
         transform.position = Vector3.Lerp(transform.position , target.position , deltaTime * moveSpeed);
     }
-
-
     float offsetX = 0;
     float offsetY = 0;
     void TurnCameraTowardsPlayerForward()
