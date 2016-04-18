@@ -100,7 +100,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131120}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87295b783d510054f873c333c081f9bc, type: 3}
   m_Name: 
@@ -130,7 +130,7 @@ MonoBehaviour:
   livingLayer:
     serializedVersion: 2
     m_Bits: 8192
-  arrowStuckDuration: 4
+  arrowStuckDuration: 999
   orginArrowSoarDuration: 5
   arrowDamage: 2
   playerRopeAttachPoint: {fileID: 190654, guid: ce1598cb56f47004ea610ce31624f524,

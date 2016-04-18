@@ -43,6 +43,7 @@ public class scr_attachRopeTo : MonoBehaviour
     public LayerMask groundLayer;
     private bool isGrounded;
     private Transform ropeRenderpoint1, ropeRenderpoint2;
+    private Transform attachedArrowsHitTransform;
     void Start()
     {
         m_collider = GetComponent<Collider>();
@@ -64,10 +65,14 @@ public class scr_attachRopeTo : MonoBehaviour
         {
             TetherInput();
         }
-        if (wantsToSwing)
-        {
-            VariousInputs();
-        }
+    }
+    public float GetMaxTetherLength()
+    {
+        return maxTetherLength;
+    }
+    public Transform GetTetherObject()
+    {
+        return tetherObject; 
     }
     void TetherInput()
     {
@@ -76,13 +81,13 @@ public class scr_attachRopeTo : MonoBehaviour
             hInput = Input.GetAxis("Horizontal");
             vInput = Input.GetAxis("Vertical");
         }
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetButton("PullRope"))
         {
             Pullrope();
         }
         if (Input.GetKey(KeyCode.H))
         {
-            if (tetherLength > 0)
+            if (tetherLength > 2)
             {
                 tetherLength -= Time.deltaTime * reelInMultiplier;
             }
@@ -105,17 +110,17 @@ public class scr_attachRopeTo : MonoBehaviour
         //if not grounded, if input ANY direction Input, 
         if (!isGrounded)
         {
-            if (Input.GetKey(KeyCode.Q)) //optimize set key down later maybe
-            {
-                PSF.SetSwinging();
-            }
-            if (Input.GetKeyUp(KeyCode.Q))
+            PSF.SetSwinging();
+            //if (Input.GetKey(KeyCode.Q)) //optimize set key down later maybe
+            //{
+            //    PSF.SetSwinging();
+            //}
+            if (Input.GetButtonDown("Jump") && !isGrounded)
             {
                 PSF.SetRunning();
                 PSF.DeattachTether();
             }
         }
-      
     }
     public void SetRoperenderingpoints(Transform from, Transform to)
     {
@@ -124,7 +129,6 @@ public class scr_attachRopeTo : MonoBehaviour
     }
     void LateUpdate()
     {
-     
         if (amITethered)
         {
             UpdateLineRenderer();
@@ -144,12 +148,15 @@ public class scr_attachRopeTo : MonoBehaviour
         if (amITethered && !wantsToSwing)
         {//extend rope when moving with it and not swinging    <------ add when this check exists
             if(isGrounded){
-             
-            tetherLength = Vector3.Distance(this.transform.position, tetherObject.transform.position);
-            //when grounded works add restriction when falling with rope
+                if (tetherObject != null)
+                {
+                    tetherLength = Vector3.Distance(this.transform.position, tetherObject.transform.position);
+                    //when grounded works add restriction when falling with rope
+                }
+       
             }
         }
-        if (wantsToSwing)
+        if (!isGrounded)
         {
             if (amITethered)
             {
@@ -158,7 +165,7 @@ public class scr_attachRopeTo : MonoBehaviour
             }
         }
             NewVelocity();
-            if (wantsToSwing)
+            if (!isGrounded)
             {
                 this.transform.Translate(prevVelocity * speedMultiplier * Time.deltaTime, Space.World);
                 m_rgd.velocity = prevVelocity * speedMultiplier * Time.deltaTime;
@@ -170,7 +177,7 @@ public class scr_attachRopeTo : MonoBehaviour
             
             PrevVelocity();  //always update velocity thingies 
             PrevPosition();
-            if (wantsToSwing)
+            if (!isGrounded)
             {
                 if (amITethered)
                 {
@@ -189,12 +196,20 @@ public class scr_attachRopeTo : MonoBehaviour
     {
         wantsToSwing = trueOrFalse;
     }
+    public void SetAttachedArrowsHitTransform(Transform p_transform)
+    {
+        attachedArrowsHitTransform = p_transform;
+    }
     public void SetTeatherObject(Transform p_transform)
     {
         tetherLength = Vector3.Distance(this.transform.position, p_transform.position) -playerHeigthTetherOffset;
         tetherObject = p_transform;
         
-    } 
+    }
+    public void RemoveTetherObject()
+    {
+        tetherObject = null;
+    }
     void ResizeTowardsDesired()
     {
         if (desiredLength < tetherLength)
@@ -261,28 +276,6 @@ public class scr_attachRopeTo : MonoBehaviour
             }
         }
     }
-    void VariousInputs()
-    {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            amITethered = true;  
-            tetherLength= Vector3.Distance(this.transform.position, tetherObject.transform.position);
-            ///m_rgd.useGravity = false;
-            /// //downwardAcc = -0.01f;
-        }
-        if (Input.GetKeyUp(KeyCode.U))
-        {
-            amITethered = false;
-           // m_rgd.useGravity = true;
-           // downwardAcc = 0;
-        }
-        //check input when tethered
-
-        if (Input.GetKeyUp(KeyCode.C))
-        {
-            PSF.SetRunning();
-        }
-    }
     void HandleMoveInput(float vInput, float hInput)
     {
         this.transform.Translate(new Vector3(0, hInput * swingSpeed, vInput * swingSpeed) * Time.deltaTime, Space.World);
@@ -335,8 +328,11 @@ public class scr_attachRopeTo : MonoBehaviour
     }
     private void Pullrope()
     {
-        m_pullRope.PullRope(tetherObject,m_ropePullForce);
-        print("hnnnnnnnnnng");
+        if (attachedArrowsHitTransform != null)
+        {
+            m_pullRope.PullRope(attachedArrowsHitTransform, m_ropePullForce);
+            print("hnnnnnnnnnng");
+        }
     }
     public bool IsGrounded()
      {

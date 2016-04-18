@@ -24,18 +24,32 @@ public class scr_playerStateFunctions : MonoBehaviour {
         pInput = m_player.GetComponent<scr_UserInput>();
         pMove = m_player.GetComponent<scr_CharacterMovement>();
 	}
-    public void SetTethered(Collider p_attachPoint)
+    public void SetTethered(Collider p_attachArrow, Collider p_arrowAttachCollider)
     {
         //pAttach.enabled = true;
-        pAttach.SetTeatherObject(p_attachPoint.gameObject.transform);
-        pAttach.SetRoperenderingpoints(m_player.transform, p_attachPoint.transform);
-        pAttach.SetAmITethered(true);
+        if(Vector3.Distance(p_attachArrow.transform.position, this.transform.position) <= pAttach.GetMaxTetherLength())
+        {
+            pAttach.SetTeatherObject(p_attachArrow.gameObject.transform);
+            pAttach.SetAttachedArrowsHitTransform(p_arrowAttachCollider.transform);
+            pAttach.SetRoperenderingpoints(m_player.transform, p_attachArrow.transform);
+            pAttach.SetAmITethered(true);
+            print(pAttach.GetMaxTetherLength());
+            print(Vector3.Distance(p_attachArrow.transform.position, this.transform.position)); 
+        }
+        else
+        {
+            print("SNAP, MAX TETHER LENGTH IS SHORTER THEN TRIED TO ATTACH-LENGTH");
+        }
     }
     public void DeattachTether()
     {
         //pAttach.enabled = false;
         pAttach.SetAmITethered(false);
-        pAttach.JumpAtDetach();                         
+        pAttach.RemoveTetherObject();              
+    }
+    public void DeattachJump()
+    {
+        pAttach.JumpAtDetach();        
     }
     public void SetSwinging()
     {
