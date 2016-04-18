@@ -47,6 +47,12 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
     private float bowAccumulationMultiplier;
     public bool currentlyDisabled;
 
+    [SerializeField]
+    public Vector3 normalOffset = new Vector3(0, 0, -1);
+
+    [SerializeField]
+    public Vector3 aimingOffset = new Vector3(0, -0.3f, 0.7f);
+
     private void Start()
     {
         // get the transform of the main camera
@@ -73,6 +79,7 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
 
     private void Update()
     {
+
         if (!m_Jump)
         {
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
@@ -116,8 +123,8 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
     {
         aimingWheight = Mathf.MoveTowards(aimingWheight, (aim) ? 1.0f : 0.0f, Time.deltaTime * 5);
 
-        Vector3 normalState = new Vector3(0, 0, -1f);
-        Vector3 aiminngState = new Vector3(0, -0.3f, 0.7f);
+        Vector3 normalState = normalOffset;
+        Vector3 aiminngState = aimingOffset;
 
         Vector3 pos = Vector3.Lerp(normalState, aiminngState, aimingWheight);
         cam.transform.localPosition = pos;
@@ -134,6 +141,14 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
             //  spine.LookAt(lookPosition);
             //spine.Rotate(eulerAngleOffset, Space.Self);
         }
+    }
+    public Vector3 GetNormalCameraOffset()
+    {
+        return normalOffset;
+    }
+    public Vector3 GetAimCameraOffset()
+    {
+        return aimingOffset;
     }
     // Fixed update is called in sync with physics
     private void FixedUpdate()

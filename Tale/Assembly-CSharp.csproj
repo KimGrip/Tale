@@ -93,6 +93,7 @@
      <Compile Include="Assets\scr_Player_Pulling.cs" />
      <Compile Include="Assets\scr_TimeScaler.cs" />
      <Compile Include="Assets\scr_arrow_rope.cs" />
+     <Compile Include="Assets\scr_crosshairScript.cs" />
      <Compile Include="Assets\scr_generic_simpleMove.cs" />
      <Compile Include="Assets\scr_healthManager.cs" />
      <Compile Include="Assets\scr_playerStateFunctions.cs" />

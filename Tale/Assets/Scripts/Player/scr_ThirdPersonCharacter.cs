@@ -186,7 +186,6 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
 
         m_Rigidbody.AddRelativeForce(new Vector3(h * m_InAirMovementSpeed, 0, v * m_InAirMovementSpeed));
 
-		m_Rigidbody.AddForce(extraGravityForce);
 
 
 		m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
