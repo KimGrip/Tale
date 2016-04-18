@@ -1,36 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class scr_projectileMovement : MonoBehaviour {
+public class scr_projectileMovement : MonoBehaviour
+{
 
-	// Use this for initialization
+    // Use this for initialization
     Rigidbody m_rgd;
     Collider m_collider;
     public LayerMask obstacleLayer;
     public LayerMask vurnerableLayer;
     public LayerMask livingLayer;
     [SerializeField]
-    private float arrowStuckDuration;
+    private float arrowStuckDuration, orginArrowSoarDuration;
+    private float currentSoarDuration;
     public int arrowDamage;
-    scr_shooting_rope shooting_rope;
     RaycastHit hit;
     private GameObject projectileOriginator;
     DontGoThroughThings DGTT;
     [SerializeField]
+    private GameObject playerRopeAttachPoint;
     private GameObject player;
     private scr_attachRopeTo playerAttach;
-    public GameObject singletonHandler; 
+    [HideInInspector]
+    public GameObject singletonHandler;
     scr_playerStateFunctions PSF;
-	void Start () 
+    LineRenderer m_lineRenderer;
+    bool inAir;
+    void Start()
     {
         m_collider = GetComponent<Collider>();
         m_rgd = GetComponent<Rigidbody>();
-        shooting_rope = GetComponent<scr_shooting_rope>();
         DGTT = GetComponent<DontGoThroughThings>();
         singletonHandler = GameObject.FindGameObjectWithTag("SingletonHandler");
         PSF = singletonHandler.GetComponent<scr_playerStateFunctions>();
+<<<<<<< HEAD
         player = GameObject.FindGameObjectWithTag("Player");
 	}
+=======
+        m_lineRenderer = GetComponent<LineRenderer>();
+        currentSoarDuration = 0; 
+    }
+>>>>>>> 28572044c618fd7acfd290c7cd060ea0a31994c0
     void Update()
     {
         if (m_rgd)
@@ -42,20 +52,30 @@ public class scr_projectileMovement : MonoBehaviour {
                 m_rgd.MoveRotation(slerp);
             }
         }
+        if (m_lineRenderer)
+        {
+            RenderRopeLine();
+        }
+        currentSoarDuration += Time.deltaTime;
+        if (currentSoarDuration > orginArrowSoarDuration)
+        {
+            Destroy(this.gameObject);
+        }
     }
     public void SetProjectileOriginator(GameObject p_originator)
     {
         projectileOriginator = p_originator;
     }
-    public void AddVelocity(Vector3 dir,float velocity)
+    public void AddVelocity(Vector3 dir, float velocity)
     {
-        m_rgd.AddForce(dir*velocity);
+        m_rgd.AddForce(dir * velocity);
     }
     public void OnProjectileSpawn()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerAttach = player.GetComponent<scr_attachRopeTo>();
         m_rgd = GetComponent<Rigidbody>();
+        inAir = true;
     }
     public Vector3 GetPosition()
     {
@@ -71,7 +91,7 @@ public class scr_projectileMovement : MonoBehaviour {
         {
             MakeArrowIntoProp(colli.transform);
             //attach to thing make func if bigger
-            PSF.SetSwinging(colli);
+            PSF.SetTethered(colli);
             //<<
             StartCoroutine(DestroyProjectile(arrowStuckDuration));
         }
@@ -79,28 +99,22 @@ public class scr_projectileMovement : MonoBehaviour {
         {
             scr_healthManager hitHealth = colli.gameObject.GetComponent<scr_healthManager>();
             hitHealth.DealDamage(arrowDamage);
+            Destroy(this.gameObject);
         }
-
     }
     void MakeArrowIntoProp(Transform p_targetParent)
     {
-        if (shooting_rope == null)
-        {
-            print("No shooting rope scrpt attached to player");
-        }
-        else
-        {
-            shooting_rope.SetTarget(transform);
-        }
-     
         this.transform.parent = p_targetParent;
-        if(m_rgd != null)
+        if (m_rgd != null)
         {
             m_rgd.velocity = new Vector3(0, 0, 0);
             Destroy(m_rgd);
         }
         DGTT.enabled = false;
+        inAir = false;
+        m_lineRenderer.enabled = false;
         Destroy(m_collider);
+<<<<<<< HEAD
         if (p_targetParent != null)
         {
 
@@ -115,6 +129,8 @@ public class scr_projectileMovement : MonoBehaviour {
 
             Destroy(m_collider);
         }
+=======
+>>>>>>> 28572044c618fd7acfd290c7cd060ea0a31994c0
     }
     IEnumerator DestroyProjectile(float waitTime)
     {
@@ -124,14 +140,19 @@ public class scr_projectileMovement : MonoBehaviour {
     }
     void RayCastingCollision()
     {
-        Debug.DrawRay(transform.position,  transform.forward);
+        Debug.DrawRay(transform.position, transform.forward);
 
 
-        if(Physics.Raycast(transform.position, transform.forward, out hit, vurnerableLayer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, vurnerableLayer))
         {
             MakeArrowIntoProp(hit.transform);
             StartCoroutine(DestroyProjectile(arrowStuckDuration));
         }
 
+    }
+    void RenderRopeLine()
+    {
+        m_lineRenderer.SetPosition(0, this.transform.position);
+        m_lineRenderer.SetPosition(1, player.transform.position);
     }
 }

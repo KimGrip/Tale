@@ -136,12 +136,23 @@ public class scr_CharacterMovement : MonoBehaviour {
                     break;
                 }
             }
+<<<<<<< HEAD
  
             Debug.DrawRay(transform.position, -transform.up / 2, Color.green);
             if (Physics.Raycast(transform.position, -transform.up, 1.8f))
             {
                 Debug.Log("grounded");
                 m_rb.useGravity = false;
+=======
+            Debug.DrawRay(transform.position, -transform.up / 2, Color.green);
+            if (Physics.Raycast(transform.position, -transform.up, 0.8f))
+            {
+                Debug.Log("grounded");
+            }
+            else
+            {
+                Debug.Log("air");
+>>>>>>> 28572044c618fd7acfd290c7cd060ea0a31994c0
             }
             //Get distance to ground from player height, if the distance to the ground is bigger than that on ground = false;
             // om det händer gravity = true;

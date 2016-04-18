@@ -24,10 +24,23 @@ public class scr_playerStateFunctions : MonoBehaviour {
         pInput = m_player.GetComponent<scr_UserInput>();
         pMove = m_player.GetComponent<scr_CharacterMovement>();
 	}
-    public void SetSwinging(Collider p_attachPoint)
+    public void SetTethered(Collider p_attachPoint)
     {
-        pAttach.enabled = true;
+        //pAttach.enabled = true;
+        pAttach.SetTeatherObject(p_attachPoint.gameObject.transform);
+        pAttach.SetRoperenderingpoints(m_player.transform, p_attachPoint.transform);
+        pAttach.SetAmITethered(true);
+    }
+    public void DeattachTether()
+    {
+        //pAttach.enabled = false;
+        pAttach.SetAmITethered(false);
+        pAttach.JumpAtDetach();                         
+    }
+    public void SetSwinging()
+    {
         //pInput.enabled = false;
+        pAttach.SetWantsToSwing(true);
         pInput.currentlyDisabled = true;
         pMove.enabled = false;
         DGTT.enabled = true;
@@ -37,24 +50,23 @@ public class scr_playerStateFunctions : MonoBehaviour {
         pRigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
         pRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
         SetRigidBody(1, 0.1f, 0.05f, false, false);
-        pAttach.SetTeatherObject(p_attachPoint.gameObject.transform);
-        pAttach.SetAmITethered(true);
-        print("AttachedAgain");
+      
+        //print("AttachedAgain");
     }
     public void SetRunning()
     {
-        //pAttach.enabled = false;
         pAttach.SetAmITethered(false);
-        //pInput.enabled = true;
-        //pInput.currentlyDisabled = false;
-        //pMove.enabled = true;
-        //DGTT.enabled = false;
+        pAttach.SetWantsToSwing(false);
+        pInput.enabled = true;
+        pInput.currentlyDisabled = false;
+        pMove.enabled = true;
+        DGTT.enabled = false;
 
         //FixRigidbodyConstraints(true, true, true);
-        //pRigidbody.constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationY;
-        //pRigidbody.interpolation = RigidbodyInterpolation.None;
-        //pRigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
-       // pRigidbody.isKinematic = false;
+        pRigidbody.constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationZ;
+        pRigidbody.interpolation = RigidbodyInterpolation.None;
+        pRigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+        pRigidbody.isKinematic = false;
 
         SetRigidBody(1, 0f, 0.05f, true, false);
         print("RunningAgain");
