@@ -71,18 +71,11 @@ public class DetectedStateRanged : IEnemyState
         if (angle < enemy.FOV_angle * 0.5f)
         {
             RaycastHit hit;
-
-            // ... and if a raycast towards the player hits something...
             if (Physics.Raycast(enemy.eyes.transform.position + enemy.eyes.transform.up, direction.normalized, out hit, enemy.m_sphereCol.radius * 2))
             {
-                // ... and if the raycast hits the player...
                 if (hit.collider.gameObject.CompareTag("Player"))
                 {
-                    // ... the player is in sight.
                     ToChaseState();
-
-                    // Set the last global sighting is the players current position.
-                    //lastPlayerSighting.position = player.transform.position;
                 }
             }
             else

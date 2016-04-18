@@ -49,6 +49,7 @@ public class scr_UserInput : MonoBehaviour {
         m_arrowSpawnpoint = GameObject.FindGameObjectWithTag("arrowSpawnPoint").transform;
         m_rgd=m_player.GetComponent<Rigidbody>();
         currentArrowForce = 0;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     void Update()
     {
@@ -77,7 +78,7 @@ public class scr_UserInput : MonoBehaviour {
                 Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
                 //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
                 Rigidbody arrowRgd = arrow.GetComponent<Rigidbody>();
-                arrowRgd.AddForce((ray.direction + (m_rgd.velocity / 2)) * (m_projectileSpeed+(currentArrowForce*bowAccumulationMultiplier)), ForceMode.Impulse);
+                arrowRgd.AddForce((ray.direction ) * (m_projectileSpeed+(currentArrowForce*bowAccumulationMultiplier)), ForceMode.Impulse);
                 m_reloadCounter = 0;
                 currentArrowForce = 0;
             }

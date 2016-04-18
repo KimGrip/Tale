@@ -54,7 +54,6 @@ public class scr_CharacterMovement : MonoBehaviour {
             ApplyExtraTurnRotation();
 
         }
-        Jump();
         GroundCheeck();
         JumpHandler();
      //   GroundCheeck();
@@ -107,7 +106,6 @@ public class scr_CharacterMovement : MonoBehaviour {
         transform.Rotate(0, m_turnAmount * turnSpeed * Time.deltaTime, 0);
             
     }
-    void Jump()
     void JumpHandler()
     {
         if(Input.GetButton("Jump") && onGround == true)
@@ -117,22 +115,22 @@ public class scr_CharacterMovement : MonoBehaviour {
     }
     void GroundCheeck()
     {
-        Ray ray = new Ray(transform.position + Vector3.up  * .5f, -Vector3.up);
+        Ray ray = new Ray(transform.position + Vector3.up * .5f, -Vector3.up);
 
         RaycastHit[] hits = Physics.RaycastAll(ray, 1.0f);
         rayHitComparer = new RayHitComparer();
 
         System.Array.Sort(hits, rayHitComparer);
 
-        if(velocity.y <  m_jumpPower * .5f) // 
+        if (velocity.y < m_jumpPower * .5f) // 
         {
             onGround = false;
             m_rb.useGravity = true;// <-------------------------- tempdisable need a check if in air+ move+ rb.velocity otherwise stuck in air
-            foreach(var hit in hits)
+            foreach (var hit in hits)
             {
-                if(!hit.collider.isTrigger)
+                if (!hit.collider.isTrigger)
                 {
-                    if(velocity.y <= 0 )
+                    if (velocity.y <= 0)
                     {
                         m_rb.position = Vector3.MoveTowards(m_rb.position, hit.point, Time.deltaTime * 5);
                     }
@@ -142,19 +140,20 @@ public class scr_CharacterMovement : MonoBehaviour {
                     break;
                 }
             }
-        Debug.DrawRay(transform.position, -transform.up / 2,Color.green);
-        if(Physics.Raycast(transform.position,-transform.up,0.8f))
-        {
-            Debug.Log("grounded");
-        }
-        else
-        {
-            Debug.Log("air");
-        }
-        //Get distance to ground from player height, if the distance to the ground is bigger than that on ground = false;
-        // om det händer gravity = true;
+            Debug.DrawRay(transform.position, -transform.up / 2, Color.green);
+            if (Physics.Raycast(transform.position, -transform.up, 0.8f))
+            {
+                Debug.Log("grounded");
+            }
+            else
+            {
+                Debug.Log("air");
+            }
+            //Get distance to ground from player height, if the distance to the ground is bigger than that on ground = false;
+            // om det händer gravity = true;
 
 
+        }
     }
     //void GroundCheeck()
     //{
