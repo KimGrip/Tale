@@ -47,6 +47,14 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
     private float bowAccumulationMultiplier;
     public bool currentlyDisabled;
 
+    [SerializeField]
+    public Vector3 normalOffset = new Vector3(0, 0, -1);
+
+    [SerializeField]
+    public Vector3 aimingOffset = new Vector3(0, -0.3f, 0.7f);
+
+    private scr_AudioManager m_audioManager;
+
     private void Start()
     {
         // get the transform of the main camera
@@ -67,12 +75,14 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
         m_arrowSpawnpoint = GameObject.FindGameObjectWithTag("arrowSpawnPoint").transform;
         m_player = GameObject.FindGameObjectWithTag("Player");
         m_rgd = gameObject.GetComponent<Rigidbody>();
+        m_audioManager = Camera.main.GetComponent<scr_AudioManager>();
 
     }
 
 
     private void Update()
     {
+
         if (!m_Jump)
         {
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
@@ -101,7 +111,10 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
                 Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
                 //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
                 Rigidbody arrowRgd = (Rigidbody)arrow.GetComponent<Rigidbody>();
-                arrowRgd.AddForce((ray.direction + (m_rgd.velocity / 2)) * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier)), ForceMode.Impulse);
+
+                // + (m_rgd.velocity / 1))
+
+                arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
                 m_reloadCounter = 0;
                 currentArrowForce = 0;
             }
@@ -116,8 +129,8 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
     {
         aimingWheight = Mathf.MoveTowards(aimingWheight, (aim) ? 1.0f : 0.0f, Time.deltaTime * 5);
 
-        Vector3 normalState = new Vector3(0, 0, -1f);
-        Vector3 aiminngState = new Vector3(0, -0.3f, 0.7f);
+        Vector3 normalState = normalOffset;
+        Vector3 aiminngState = aimingOffset;
 
         Vector3 pos = Vector3.Lerp(normalState, aiminngState, aimingWheight);
         cam.transform.localPosition = pos;
@@ -134,6 +147,14 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
             //  spine.LookAt(lookPosition);
             //spine.Rotate(eulerAngleOffset, Space.Self);
         }
+    }
+    public Vector3 GetNormalCameraOffset()
+    {
+        return normalOffset;
+    }
+    public Vector3 GetAimCameraOffset()
+    {
+        return aimingOffset;
     }
     // Fixed update is called in sync with physics
     private void FixedUpdate()

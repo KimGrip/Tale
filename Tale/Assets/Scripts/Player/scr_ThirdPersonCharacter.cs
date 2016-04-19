@@ -25,12 +25,13 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
 	CapsuleCollider m_Capsule;
 	bool m_Crouching;
     public float m_InAirMovementSpeed;
-
+    scr_PSM m_PSM;
     float autoTurnThreshold = 10;
     float autoTurnspeed = 20;
     bool isAiming;
     Vector3 currentLookPosition;
     private GameObject m_Player;
+    public float m_InAirMaxSpeed;
 
 	void Start()
 	{
@@ -42,6 +43,7 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
         m_Player = this.gameObject;
 		m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 		m_OrigGroundCheckDistance = m_GroundCheckDistance;
+        m_PSM = GetComponent<scr_PSM>();
 	}
 
 
@@ -60,27 +62,28 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
 
         this.isAiming = aim;
         this.currentLookPosition = lookPos;
-
-
-        if(!isAiming)
+        if(!isAiming && m_PSM.GetPlayerState(true) == scr_PSM.Playerstate.state_grounded )
         {
             ApplyExtraTurnRotation();
         }
         else if(isAiming)
         {
-            m_Player.transform.forward = Camera.main.transform.forward;
+           // m_Player.transform.forward = Camera.main.transform.forward;
+            //
+            m_Player.transform.forward = new Vector3(Camera.main.transform.forward.x, m_Player.transform.forward.y, Camera.main.transform.forward.z);
         }
 
 		// control and velocity handling is different when grounded and airborne:
 		if (m_IsGrounded)
 		{
 			HandleGroundedMovement(crouch, jump);
+            m_PSM.SetPlayerState(scr_PSM.Playerstate.state_grounded);
 		}
 		else
 		{
 			HandleAirborneMovement();
+           m_PSM.SetPlayerState(scr_PSM.Playerstate.state_airborne);
 		}
-
 		ScaleCapsuleForCrouching(crouch);
 		PreventStandingInLowHeadroom();
 
@@ -179,16 +182,22 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
 	void HandleAirborneMovement()
 	{
 		// apply extra gravity from multiplier:
+        // dont allow the player to rotate with vertical - while in air.
 		Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        m_Rigidbody.AddRelativeForce(new Vector3(h * m_InAirMovementSpeed, 0, v * m_InAirMovementSpeed));
 
-		m_Rigidbody.AddForce(extraGravityForce);
-
-
+        if(v != 0 && Mathf.Abs(m_Rigidbody.velocity.z) < m_InAirMaxSpeed)
+        {
+            m_Rigidbody.AddRelativeForce(new Vector3(0, 0,  v* m_InAirMovementSpeed));
+        }
+        if(h != 0 && Mathf.Abs(m_Rigidbody.velocity.x) < m_InAirMaxSpeed)
+        {
+            m_Rigidbody.AddRelativeForce(new Vector3(h * m_InAirMovementSpeed, 0, 0));
+        }
+        m_Rigidbody.AddRelativeForce(extraGravityForce, ForceMode.Acceleration);
 		m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
 	}
 

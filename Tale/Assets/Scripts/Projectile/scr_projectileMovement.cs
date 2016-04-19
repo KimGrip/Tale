@@ -25,6 +25,7 @@ public class scr_projectileMovement : MonoBehaviour
     public GameObject singletonHandler;
     scr_playerStateFunctions PSF;
     LineRenderer m_lineRenderer;
+    bool shouldBeDestroyed;
     bool inAir;
     void Start()
     {
@@ -33,14 +34,14 @@ public class scr_projectileMovement : MonoBehaviour
         DGTT = GetComponent<DontGoThroughThings>();
         singletonHandler = GameObject.FindGameObjectWithTag("SingletonHandler");
         PSF = singletonHandler.GetComponent<scr_playerStateFunctions>();
-<<<<<<< HEAD
         player = GameObject.FindGameObjectWithTag("Player");
-	}
-=======
         m_lineRenderer = GetComponent<LineRenderer>();
-        currentSoarDuration = 0; 
+        currentSoarDuration = 0;
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerAttach = player.GetComponent<scr_attachRopeTo>();
+        shouldBeDestroyed = false;
     }
->>>>>>> 28572044c618fd7acfd290c7cd060ea0a31994c0
+
     void Update()
     {
         if (m_rgd)
@@ -56,8 +57,19 @@ public class scr_projectileMovement : MonoBehaviour
         {
             RenderRopeLine();
         }
-        currentSoarDuration += Time.deltaTime;
-        if (currentSoarDuration > orginArrowSoarDuration)
+        if (m_collider)//if still in air
+        {
+            currentSoarDuration += Time.deltaTime;
+            if (currentSoarDuration > orginArrowSoarDuration)
+            {
+                SetShouldBeDestroyed();
+            }
+        }
+   
+    }
+    void LateUpdate()
+    {
+        if (shouldBeDestroyed)
         {
             Destroy(this.gameObject);
         }
@@ -90,17 +102,23 @@ public class scr_projectileMovement : MonoBehaviour
         else if ((vurnerableLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer)
         {
             MakeArrowIntoProp(colli.transform);
-            //attach to thing make func if bigger
-            PSF.SetTethered(colli);
-            //<<
-            StartCoroutine(DestroyProjectile(arrowStuckDuration));
+            //attach to thing
+            PSF.SetTethered(this.transform.GetComponent<Collider>(),colli);
+            //StartCoroutine(DestroyProjectile(arrowStuckDuration));
+            Invoke("DestroyProjectile", arrowStuckDuration);
         }
         else if ((livingLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer)
         {
             scr_healthManager hitHealth = colli.gameObject.GetComponent<scr_healthManager>();
             hitHealth.DealDamage(arrowDamage);
-            Destroy(this.gameObject);
+            MakeArrowIntoProp(colli.transform);
+            Invoke("DestroyProjectile", arrowStuckDuration);
+            //StartCoroutine(DestroyProjectile(arrowStuckDuration));
         }
+    }
+    void SetShouldBeDestroyed()
+    {
+        shouldBeDestroyed = true;
     }
     void MakeArrowIntoProp(Transform p_targetParent)
     {
@@ -114,12 +132,8 @@ public class scr_projectileMovement : MonoBehaviour
         inAir = false;
         m_lineRenderer.enabled = false;
         Destroy(m_collider);
-<<<<<<< HEAD
         if (p_targetParent != null)
         {
-
-            shooting_rope.SetTarget(transform);
-
             this.transform.parent = p_targetParent;
             if (m_rgd != null)
             {
@@ -129,26 +143,35 @@ public class scr_projectileMovement : MonoBehaviour
 
             Destroy(m_collider);
         }
-=======
->>>>>>> 28572044c618fd7acfd290c7cd060ea0a31994c0
     }
-    IEnumerator DestroyProjectile(float waitTime)
+    void DestroyProjectile()
     {
-        yield return new WaitForSeconds(waitTime);
-        Destroy(this.gameObject);
-
+        //if player is attached to this, deattach player 
+        if (this.transform != null)
+        {
+            SetShouldBeDestroyed();
+            if (playerAttach.GetTetherObject().GetInstanceID() != null)
+            {
+            if (playerAttach.GetTetherObject().GetInstanceID() == this.transform.GetInstanceID())
+            {
+                //PSF.SetRunning();
+                PSF.SetRunning();
+                PSF.DeattachTether();
+                print("DEAATTACHING ROPE, SINCE THE ARROW THAT IM STUCK ON IS NOW GAWN");
+            }
+            }
+        }
     }
     void RayCastingCollision()
     {
         Debug.DrawRay(transform.position, transform.forward);
 
-
         if (Physics.Raycast(transform.position, transform.forward, out hit, vurnerableLayer))
         {
             MakeArrowIntoProp(hit.transform);
-            StartCoroutine(DestroyProjectile(arrowStuckDuration));
+            Invoke("DestroyProjectile", arrowStuckDuration);
+            //StartCoroutine(DestroyProjectile(arrowStuckDuration));
         }
-
     }
     void RenderRopeLine()
     {

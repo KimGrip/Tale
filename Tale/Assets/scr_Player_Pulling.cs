@@ -13,20 +13,6 @@ public class scr_Player_Pulling : MonoBehaviour {
     [HideInInspector]
     public float pushForce;
     public LayerMask pushableLayer;
-	// Use this for initialization
-
-	// Update is called once per frame
-    void Update () {
-    //    AtAttach();
-    //    PullRope(-GetDirectionTo(currentlyAttachedObject.transform),pushForce);
-    //    //Push(GetDirectionToAttached(), pushForce);
-    //    UpdateLineRenderer();
-	}
-    void AtAttach()
-    {
-        //closestPullRange = currentlyAttachedObject.transform.GetComponent<BoxCollider>().bounds.size.x;
-    }
-
     public void PullRope(Transform p_attachedObject, float p_pullforce)
     {
         distanceFromPlayer = Vector3.Distance(this.transform.position, p_attachedObject.transform.position);

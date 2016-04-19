@@ -67,6 +67,8 @@
      <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\AttackWindUpRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\RetreatStateRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\StatePatternEnemyRanged.cs" />
+     <Compile Include="Assets\Scripts\AudioScripts\scr_AudioManager.cs" />
+     <Compile Include="Assets\Scripts\ForFun\scr_rotateLikeCray.cs" />
      <Compile Include="Assets\Scripts\HighSpeedCheck\DontGoThroughThings.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FollowTarget.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FreeCameraLook.cs" />
@@ -93,6 +95,7 @@
      <Compile Include="Assets\scr_Player_Pulling.cs" />
      <Compile Include="Assets\scr_TimeScaler.cs" />
      <Compile Include="Assets\scr_arrow_rope.cs" />
+     <Compile Include="Assets\scr_crosshairScript.cs" />
      <Compile Include="Assets\scr_generic_simpleMove.cs" />
      <Compile Include="Assets\scr_healthManager.cs" />
      <Compile Include="Assets\scr_playerStateFunctions.cs" />

@@ -53,7 +53,7 @@ public class scr_UserInput : MonoBehaviour {
     }
     void Update()
     {
-        aim = Input.GetMouseButton(1);
+        aim = Input.GetButton("Fire2");
         if(aim)
         {
             if(Input.GetMouseButton(0) && m_reloadCounter > m_ReloadTime)
@@ -67,7 +67,7 @@ public class scr_UserInput : MonoBehaviour {
             {
                 m_reloadCounter += Time.deltaTime;
             }
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetButtonUp("Fire1"))
             {
                 anim.SetTrigger("Fire");
 
