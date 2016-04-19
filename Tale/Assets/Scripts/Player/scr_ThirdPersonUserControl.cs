@@ -53,6 +53,8 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
     [SerializeField]
     public Vector3 aimingOffset = new Vector3(0, -0.3f, 0.7f);
 
+    private scr_AudioManager m_audioManager;
+
     private void Start()
     {
         // get the transform of the main camera
@@ -73,6 +75,7 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
         m_arrowSpawnpoint = GameObject.FindGameObjectWithTag("arrowSpawnPoint").transform;
         m_player = GameObject.FindGameObjectWithTag("Player");
         m_rgd = gameObject.GetComponent<Rigidbody>();
+        m_audioManager = Camera.main.GetComponent<scr_AudioManager>();
 
     }
 
@@ -108,7 +111,10 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
                 Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
                 //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
                 Rigidbody arrowRgd = (Rigidbody)arrow.GetComponent<Rigidbody>();
-                arrowRgd.AddForce((ray.direction + (m_rgd.velocity / 2)) * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier)), ForceMode.Impulse);
+
+                // + (m_rgd.velocity / 1))
+
+                arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
                 m_reloadCounter = 0;
                 currentArrowForce = 0;
             }

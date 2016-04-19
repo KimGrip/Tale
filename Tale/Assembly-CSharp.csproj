@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\AI\Ranged\RangedAttackStates\AttackWindUpRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\RetreatStateRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\StatePatternEnemyRanged.cs" />
+     <Compile Include="Assets\Scripts\AudioScripts\scr_AudioManager.cs" />
      <Compile Include="Assets\Scripts\ForFun\scr_rotateLikeCray.cs" />
      <Compile Include="Assets\Scripts\HighSpeedCheck\DontGoThroughThings.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FollowTarget.cs" />
