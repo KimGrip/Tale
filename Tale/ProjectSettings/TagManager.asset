@@ -9,6 +9,8 @@ TagManager:
   - Obstacle
   - TestSphere
   - SingletonHandler
+  - checkpoint
+  - death
   layers:
   - Default
   - TransparentFX
@@ -28,7 +30,6 @@ TagManager:
   - arrowStuckLayer
   - Terrain
   - terrainLayer
-  - 
   - 
   - 
   - 

@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\AI\Ranged\RetreatStateRanged.cs" />
      <Compile Include="Assets\Scripts\AI\Ranged\StatePatternEnemyRanged.cs" />
      <Compile Include="Assets\Scripts\AudioScripts\scr_AudioManager.cs" />
+     <Compile Include="Assets\Scripts\AudioScripts\scr_UnitSoundManager.cs" />
      <Compile Include="Assets\Scripts\ForFun\scr_rotateLikeCray.cs" />
      <Compile Include="Assets\Scripts\HighSpeedCheck\DontGoThroughThings.cs" />
      <Compile Include="Assets\Scripts\Player\Camera\scr_FollowTarget.cs" />
@@ -80,6 +81,7 @@
      <Compile Include="Assets\Scripts\Player\scr_ThirdPersonCharacter.cs" />
      <Compile Include="Assets\Scripts\Player\scr_ThirdPersonUserControl.cs" />
      <Compile Include="Assets\Scripts\Player\scr_UserInput.cs" />
+     <Compile Include="Assets\Scripts\Player\scr_checkpointBehaviour.cs" />
      <Compile Include="Assets\Scripts\Player\scr_playerClimbing.cs" />
      <Compile Include="Assets\Scripts\Projectile\scr_AIProj.cs" />
      <Compile Include="Assets\Scripts\Projectile\scr_projectileMovement.cs" />

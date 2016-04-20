@@ -90,11 +90,18 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
         aim = Input.GetMouseButton(1);
         if (aim)
         {
+            if(Input.GetMouseButtonDown(1))
+            {
+                m_audioManager.PlayDrawBow();
+
+            }
+
             if (Input.GetMouseButton(0) && m_reloadCounter > m_ReloadTime)
             {
                 if (currentArrowForce < maxBowLoadupDuration)
                 {
                     currentArrowForce += Time.deltaTime;
+
                 }
             }
             else
@@ -112,8 +119,8 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
                 //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
                 Rigidbody arrowRgd = (Rigidbody)arrow.GetComponent<Rigidbody>();
 
+                m_audioManager.PlayBowShoot();
                 // + (m_rgd.velocity / 1))
-
                 arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
                 m_reloadCounter = 0;
                 currentArrowForce = 0;
