@@ -7,9 +7,9 @@ public class scr_playerStateFunctions : MonoBehaviour {
     private GameObject m_player;
     scr_attachRopeTo pAttach;
     DontGoThroughThings DGTT;
-    scr_UserInput pInput;
+    scr_ThirdPersonUserControl pInput;
     Rigidbody pRigidbody;
-    scr_CharacterMovement pMove;
+    scr_ThirdPersonCharacter pMove;
 	void Start () {
         m_player = GameObject.FindGameObjectWithTag("Player");
         if (m_player == null)
@@ -21,8 +21,8 @@ public class scr_playerStateFunctions : MonoBehaviour {
         pRigidbody = m_player.GetComponent<Rigidbody>();
         pAttach = m_player.GetComponent<scr_attachRopeTo>();
         DGTT = m_player.GetComponent<DontGoThroughThings>();
-        pInput = m_player.GetComponent<scr_UserInput>();
-        pMove = m_player.GetComponent<scr_CharacterMovement>();
+        pInput = m_player.GetComponent<scr_ThirdPersonUserControl>();
+        pMove = m_player.GetComponent<scr_ThirdPersonCharacter>();
 	}
     public void SetTethered(Collider p_attachArrow, Collider p_arrowAttachCollider)
     {
@@ -53,17 +53,18 @@ public class scr_playerStateFunctions : MonoBehaviour {
     }
     public void SetSwinging()
     {
-        //pInput.enabled = false;
+        ////pInput.enabled = false;
         pAttach.SetWantsToSwing(true);
-        pInput.currentlyDisabled = true;
-        pMove.enabled = false;
+        //pInput.currentlyDisabled = true;
+        //pMove.enabled = false;
         DGTT.enabled = true;
        
-        //FixRigidbodyConstraints(true, true, true);
-        pRigidbody.constraints = RigidbodyConstraints.None;
+        ////FixRigidbodyConstraints(true, true, true);
+        ////pRigidbody.useGravity = false;
+        //pRigidbody.constraints = RigidbodyConstraints.None;
         pRigidbody.interpolation = RigidbodyInterpolation.Extrapolate;
         pRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        SetRigidBody(1, 0.1f, 0.05f, false, false);
+        //SetRigidBody(1, 0.1f, 0.05f, false, false);
       
         //print("AttachedAgain");
     }
@@ -71,10 +72,11 @@ public class scr_playerStateFunctions : MonoBehaviour {
     {
         pAttach.SetAmITethered(false);
         pAttach.SetWantsToSwing(false);
+        //pRigidbody.useGravity = true;
         pInput.enabled = true;
         pInput.currentlyDisabled = false;
         pMove.enabled = true;
-        DGTT.enabled = false;
+        //DGTT.enabled = false;
 
         //FixRigidbodyConstraints(true, true, true);
         pRigidbody.constraints = RigidbodyConstraints.FreezeRotationX|RigidbodyConstraints.FreezeRotationZ;

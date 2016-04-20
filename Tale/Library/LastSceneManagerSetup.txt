@@ -1,4 +1,8 @@
 sceneSetups:
-- path: Assets/Scenes/AniamtionAndCameraTestScene/AnimationAndCameraTestScene.unity
+<<<<<<< HEAD
+- path: Assets/Scenes/Prototype_Map/Prototype_04_08_2016.unity
+=======
+- path: Assets/Scenes/gabrielRopeTestingNoMergeError.unity
+>>>>>>> d56133221b19f300cb26a1a9efe0711d79cc1ad8
   isLoaded: 1
   isActive: 1
