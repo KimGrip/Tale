@@ -55,6 +55,7 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
     private bool m_isAxisInUse;
     private bool arrowIsLoaded;
     private scr_AudioManager m_audioManager;
+    bool ropeAttachedToArrow;
     private void Start()
     {
         // get the transform of the main camera
@@ -82,6 +83,19 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetButtonDown("ChangeEquippedArrow"))
+        {
+            print("ChangeEquippedArrow" + ropeAttachedToArrow);
+
+            if (ropeAttachedToArrow == true)
+            {
+                ropeAttachedToArrow = false;
+            }
+            else
+            {
+                ropeAttachedToArrow = true; 
+            }
+        }
         if (!m_Jump)
         {
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
@@ -108,18 +122,38 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
             {
                 if (Input.GetAxisRaw("FireAxis") == 0 && m_reloadCounter > m_ReloadTime)
                 {
-                    //   anim.SetTrigger("Fire");
-                    GameObject arrow = (GameObject)Instantiate(m_arrowPrefab, m_arrowSpawnpoint.position, m_player.GetComponent<Transform>().rotation);
-                    scr_projectileMovement projMovement = arrow.GetComponent<scr_projectileMovement>();
-                    projMovement.OnProjectileSpawn();
-                    projMovement.SetProjectileOriginator(this.gameObject);
-                    Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
-                    //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
-                    Rigidbody arrowRgd = (Rigidbody)arrow.GetComponent<Rigidbody>();
-                    arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
-                    m_reloadCounter = 0;
-                    currentArrowForce = 0;
-                    arrowIsLoaded = false;
+                    if (ropeAttachedToArrow)
+                    {
+                        //   anim.SetTrigger("Fire");
+                        GameObject arrow = (GameObject)Instantiate(m_arrowPrefab, m_arrowSpawnpoint.position, m_player.GetComponent<Transform>().rotation);
+                        scr_projectileMovement projMovement = arrow.GetComponent<scr_projectileMovement>();
+                        projMovement.SetRopeAttachedToArrow(ropeAttachedToArrow);
+                        projMovement.OnProjectileSpawn();
+                        projMovement.SetProjectileOriginator(this.gameObject);
+                        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+                        //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
+                        Rigidbody arrowRgd = (Rigidbody)arrow.GetComponent<Rigidbody>();
+                        arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
+                        m_reloadCounter = 0;
+                        currentArrowForce = 0;
+                        arrowIsLoaded = false;
+                    }
+                    else
+                    {
+                        GameObject arrow = (GameObject)Instantiate(m_arrowPrefab, m_arrowSpawnpoint.position, m_player.GetComponent<Transform>().rotation);
+                        scr_projectileMovement projMovement = arrow.GetComponent<scr_projectileMovement>();
+                        projMovement.SetRopeAttachedToArrow(ropeAttachedToArrow);
+                        projMovement.OnProjectileSpawn();
+                        projMovement.SetProjectileOriginator(this.gameObject);
+                        projMovement.GetComponent<LineRenderer>().enabled=false;
+                        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+                        //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
+                        Rigidbody arrowRgd = (Rigidbody)arrow.GetComponent<Rigidbody>();
+                        arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
+                        m_reloadCounter = 0;
+                        currentArrowForce = 0;
+                        arrowIsLoaded = false;
+                    }
                 }
             }
         }

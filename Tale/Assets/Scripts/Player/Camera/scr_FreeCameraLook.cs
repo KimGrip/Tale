@@ -98,7 +98,7 @@ public class scr_FreeCameraLook : scr_Pivot {
          float moveOffsetHigh = Mathf.Abs(tiltAngle) / tiltMax;
          //Debug.Log(moveOffsetHigh);
          transform.position = Vector3.MoveTowards(transform.position, new Vector3(m_player.transform.position.x + normalOffset.x,
-             m_player.transform.position.y + normalOffset.y, m_player.transform.position.z + normalOffset.z + moveOffsetHigh), 1);
+             m_player.transform.position.y + normalOffset.y, m_player.transform.position.z + normalOffset.z + moveOffsetHigh),1);
 
     }
     void OnDisable()
