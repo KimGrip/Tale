@@ -19,6 +19,7 @@ public class scr_UserInput : MonoBehaviour {
     private GameObject m_player;
     public GameObject m_arrow;
     private Transform m_arrowSpawnpoint;
+    private Rigidbody m_rgd;
     //These variables need to be detailed and set specifically for ALVA
   //  public Transform spine;
     public float aimingZ = 213.46f;
@@ -30,8 +31,12 @@ public class scr_UserInput : MonoBehaviour {
 
     public float m_ReloadTime;
     private float m_reloadCounter;
-
-
+    [SerializeField]
+    private float maxBowLoadupDuration;
+    private float currentArrowForce;
+    [SerializeField]
+    private float bowAccumulationMultiplier;
+    public bool currentlyDisabled;
     void Start()
     {
         if(Camera.main != null)
@@ -42,26 +47,40 @@ public class scr_UserInput : MonoBehaviour {
         m_player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         m_arrowSpawnpoint = GameObject.FindGameObjectWithTag("arrowSpawnPoint").transform;
-      
+        m_rgd=m_player.GetComponent<Rigidbody>();
+        currentArrowForce = 0;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     void Update()
     {
-        aim = Input.GetMouseButton(1);
+        aim = Input.GetButton("Fire2");
         if(aim)
         {
             if(Input.GetMouseButton(0) && m_reloadCounter > m_ReloadTime)
             {
-                anim.SetTrigger("Fire");
-
-                GameObject arrow = (GameObject)Instantiate(m_arrow,m_arrowSpawnpoint.position,m_player.GetComponent<Transform>().rotation);
-                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
-                arrow.GetComponent<Rigidbody>().AddForce(ray.direction * m_projectileSpeed, ForceMode.Impulse);
-
-                m_reloadCounter = 0;
+                if (currentArrowForce < maxBowLoadupDuration)
+                {
+                    currentArrowForce += Time.deltaTime;
+                }
             }
             else
             {
                 m_reloadCounter += Time.deltaTime;
+            }
+            if (Input.GetButtonUp("Fire1"))
+            {
+                anim.SetTrigger("Fire");
+
+                GameObject arrow = (GameObject)Instantiate(m_arrow, m_arrowSpawnpoint.position, m_player.GetComponent<Transform>().rotation);
+                scr_projectileMovement projMovement = arrow.GetComponent<scr_projectileMovement>();
+                projMovement.OnProjectileSpawn();
+                projMovement.SetProjectileOriginator(this.gameObject);
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+                //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
+                Rigidbody arrowRgd = arrow.GetComponent<Rigidbody>();
+                arrowRgd.AddForce((ray.direction ) * (m_projectileSpeed+(currentArrowForce*bowAccumulationMultiplier)), ForceMode.Impulse);
+                m_reloadCounter = 0;
+                currentArrowForce = 0;
             }
        
         }
@@ -73,7 +92,6 @@ public class scr_UserInput : MonoBehaviour {
     }
     void LateUpdate()
     {
-        //problemet med att pilen skjuts till skumma ställen finns här eller I update
         aimingWheight = Mathf.MoveTowards(aimingWheight, (aim) ? 1.0f : 0.0f, Time.deltaTime * 5);
 
         Vector3 normalState = new Vector3(0, 0, -1f);
@@ -99,6 +117,8 @@ public class scr_UserInput : MonoBehaviour {
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+
+        Debug.Log(horizontal + " h v " + vertical);
         if (!aim) // Om vi inte aimar.
         {
             if (cam != null)
@@ -130,7 +150,7 @@ public class scr_UserInput : MonoBehaviour {
         if (move.magnitude > 1)
             move.Normalize();
 
-        bool walkToggle = Input.GetKey(KeyCode.LeftShift) || aim;
+        bool walkToggle = Input.GetKey(KeyCode.LeftShift);
 
 
 
@@ -162,6 +182,9 @@ public class scr_UserInput : MonoBehaviour {
             : transform.position + transform.forward * 100;
 
         move *= walkMultiplier;
-        charMove.Move(move,aim,lookPosition);
+        if (!currentlyDisabled)
+        {
+            charMove.Move(move, aim, lookPosition);
+        }
     }
 }

@@ -57,12 +57,15 @@ public class StatePatternEnemyRanged : MonoBehaviour
         attackState = new AttackStateRanged(this);
         retreatState = new RetreatStateRanged(this);
 
-        attackState.Start(); // note to self call start on states that it is needed
+        attackState.Start(); // note to self:: Call start on states that needs to be init
         m_sphereCol = GetComponent<SphereCollider>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         weaponSwingRenderer = GetComponent<LineRenderer>();
     }
-
+    void Update()
+    {
+        currentState.UpdateState();
+    }
     public bool IsPlayerInsideComfortZone()
     {
         if (Vector3.Distance(transform.position, chaseTarget.position) < comfortZoneRange)
@@ -95,10 +98,7 @@ public class StatePatternEnemyRanged : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        currentState.UpdateState();
-    }
+  
     void OnDrawGizmos()
     {
         if (drawGizmos)
