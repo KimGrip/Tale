@@ -32,7 +32,9 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
     Vector3 currentLookPosition;
     private GameObject m_Player;
     public float m_InAirMaxSpeed;
+    scr_AudioManager m_AudioManager;
 
+    private bool m_playJumpLandingSound = false;
 	void Start()
 	{
 		m_Animator = GetComponent<Animator>();
@@ -44,6 +46,7 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
 		m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 		m_OrigGroundCheckDistance = m_GroundCheckDistance;
         m_PSM = GetComponent<scr_PSM>();
+        m_AudioManager = Camera.main.GetComponent<scr_AudioManager>();
 	}
 
 
@@ -159,6 +162,7 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
 		float runCycle =
 			Mathf.Repeat(
 				m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
+
 		float jumpLeg = (runCycle < k_Half ? 1 : -1) * m_ForwardAmount;
 		if (m_IsGrounded)
 		{
@@ -170,15 +174,23 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
 		if (m_IsGrounded && move.magnitude > 0)
 		{
 			m_Animator.speed = m_AnimSpeedMultiplier;
+            
 		}
 		else
 		{
 			// don't use that while airborne
 			m_Animator.speed = 1;
 		}
+        if(m_IsGrounded && m_ForwardAmount != 0)
+        {
+            PlayRunningSounds();
+        }
 	}
+    void PlayRunningSounds()
+    {
+        m_AudioManager.RandomizeSfx(0.3f,m_AudioManager.GetFootStepSounds());
 
-
+    }
 	void HandleAirborneMovement()
 	{
 		// apply extra gravity from multiplier:
@@ -212,6 +224,8 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
 			m_IsGrounded = false;
 			m_Animator.applyRootMotion = false;
 			m_GroundCheckDistance = 0.1f;
+          //  m_AudioManager.RandomizeSfx(0,m_AudioManager.GetFootStepSounds());
+
 		}
 	}
 
@@ -252,9 +266,17 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
 			m_GroundNormal = hitInfo.normal;
 			m_IsGrounded = true;
 			m_Animator.applyRootMotion = true;
+       
+            if(m_playJumpLandingSound)
+            {
+                m_AudioManager.RandomizeSfx(0,m_AudioManager.GetJumpLandingSounds());
+                m_playJumpLandingSound = false;
+            }
+
 		}
 		else
 		{
+            m_playJumpLandingSound = true;
 			m_IsGrounded = false;
 			m_GroundNormal = Vector3.up;
 			m_Animator.applyRootMotion = false;

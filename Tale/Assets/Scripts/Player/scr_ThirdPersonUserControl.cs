@@ -103,14 +103,28 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
         aim = Input.GetAxisRaw("AimAxis")>0;
         if (aim)
         {
+<<<<<<< HEAD
+            if(Input.GetMouseButtonDown(1))
+            {
+                m_audioManager.PlayDrawBow();
+
+            }
+
+            if (Input.GetMouseButton(0) && m_reloadCounter > m_ReloadTime)
+=======
             print("AIM");
             if (Input.GetAxisRaw("FireAxis")>0) //load the bow
+>>>>>>> 9c240bfb6a71f7898ff44e6f95a4aaa4771cec48
             {
                 arrowIsLoaded = true;
                 if (currentArrowForce < maxBowLoadupDuration)
                 {
                     currentArrowForce += Time.deltaTime;
+<<<<<<< HEAD
+
+=======
                    
+>>>>>>> 9c240bfb6a71f7898ff44e6f95a4aaa4771cec48
                 }
              
             }
@@ -120,6 +134,22 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
             }
             if (arrowIsLoaded)
             {
+<<<<<<< HEAD
+             //   anim.SetTrigger("Fire");
+                GameObject arrow = (GameObject)Instantiate(m_arrowPrefab, m_arrowSpawnpoint.position, m_player.GetComponent<Transform>().rotation);
+                scr_projectileMovement projMovement = arrow.GetComponent<scr_projectileMovement>();
+                projMovement.OnProjectileSpawn();
+                projMovement.SetProjectileOriginator(this.gameObject);
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+                //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
+                Rigidbody arrowRgd = (Rigidbody)arrow.GetComponent<Rigidbody>();
+
+                m_audioManager.PlayBowShoot();
+                // + (m_rgd.velocity / 1))
+                arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
+                m_reloadCounter = 0;
+                currentArrowForce = 0;
+=======
                 if (Input.GetAxisRaw("FireAxis") == 0 && m_reloadCounter > m_ReloadTime)
                 {
                     if (ropeAttachedToArrow)
@@ -155,6 +185,7 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
                         arrowIsLoaded = false;
                     }
                 }
+>>>>>>> 9c240bfb6a71f7898ff44e6f95a4aaa4771cec48
             }
         }
         else
