@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class scr_attachRopeTo : MonoBehaviour
 {
@@ -34,7 +35,6 @@ public class scr_attachRopeTo : MonoBehaviour
      private float playerHeigthTetherOffset;
     scr_playerStateFunctions PSF;
     [SerializeField]float detachJumpPowerUpwardForce, detachJumpPowerForwardForce;
-    private bool wantsToSwing;
     //rope pulling stuff
     scr_Player_Pulling m_pullRope;
     [SerializeField]
@@ -51,7 +51,6 @@ public class scr_attachRopeTo : MonoBehaviour
         m_rgd = GetComponent<Rigidbody>();
         m_pullRope = GetComponent<scr_Player_Pulling>();
         PSF = GameObject.FindGameObjectWithTag("SingletonHandler").GetComponent<scr_playerStateFunctions>();
-        wantsToSwing = false;
         distToGround = m_collider.bounds.extents.y;
         ropeRenderpoint1 = this.transform;
         ropeRenderpoint2 = tetherObject;
@@ -60,6 +59,7 @@ public class scr_attachRopeTo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //GamePad.SetVibration(0, 2, 3);
         isGrounded = IsGrounded();
         if (amITethered)
         {
@@ -76,49 +76,45 @@ public class scr_attachRopeTo : MonoBehaviour
     }
     void TetherInput()
     {
-        if (amITethered)
-        {
-            hInput = Input.GetAxis("Horizontal");
-            vInput = Input.GetAxis("Vertical");
-        }
+        hInput = Input.GetAxis("Horizontal");
+        vInput = Input.GetAxis("Vertical");
+        
         if (Input.GetButton("PullRope"))
         {
             Pullrope();
         }
-        if (Input.GetKey(KeyCode.H))
+        if (Input.GetButton("ReelInRope"))
         {
             if (tetherLength > 2)
             {
                 tetherLength -= Time.deltaTime * reelInMultiplier;
             }
-            //if (desiredLength > 2.0f)
-            //{
-            //    desiredLength -= Time.deltaTime*reelInMultiplier;
-            //}
         }
-        else if (Input.GetKey(KeyCode.G))
+        else if (Input.GetButton("ReelOutRope"))
         {
             if (tetherLength < maxTetherLength)
             {
                 tetherLength += Time.deltaTime * reelInMultiplier;
             }
-            //if (desiredLength < maxTetherLength)
-            //{
-            //    desiredLength += Time.deltaTime*reelInMultiplier;
-            //}
         }
         //if not grounded, if input ANY direction Input, 
         if (!isGrounded)
         {
-            PSF.SetSwinging();
+            //PSF.SetSwinging();
             //if (Input.GetKey(KeyCode.Q)) //optimize set key down later maybe
             //{
             //    PSF.SetSwinging();
             //}
-            if (Input.GetButtonDown("Jump") && !isGrounded)
+          
+        }
+        if (Input.GetButtonDown("Jump"))//&& !isGrounded
+        {
+
+            if (!isGrounded)
             {
                 PSF.SetRunning();
                 PSF.DeattachTether();
+                PSF.DeattachJump();
             }
         }
     }
@@ -134,7 +130,7 @@ public class scr_attachRopeTo : MonoBehaviour
             UpdateLineRenderer();
         }
     }
-    void FixedUpdate()//wants to swing kommer bli !grounded för autoswing of ground
+    void FixedUpdate()
     {
         print(IsGrounded());
         if (!amITethered)
@@ -145,13 +141,15 @@ public class scr_attachRopeTo : MonoBehaviour
         {
             m_lineRenderer.enabled = true;
         }
-        if (amITethered && !wantsToSwing)
+        if (amITethered)
         {//extend rope when moving with it and not swinging    <------ add when this check exists
             if(isGrounded){
-                if (tetherObject != null)
+                if (tetherObject != null && !Input.GetButton("ReelInRope"))
                 {
+                    
                     tetherLength = Vector3.Distance(this.transform.position, tetherObject.transform.position);
                     //when grounded works add restriction when falling with rope
+                    print("HUGGA HUGGA"); // do slidy thing? this no work well 
                 }
        
             }
@@ -165,15 +163,13 @@ public class scr_attachRopeTo : MonoBehaviour
             }
         }
             NewVelocity();
-            if (!isGrounded)
+            if (!isGrounded && amITethered)
             {
                 this.transform.Translate(prevVelocity * speedMultiplier * Time.deltaTime, Space.World);
                 m_rgd.velocity = prevVelocity * speedMultiplier * Time.deltaTime;
+
+                TetherRestriction();
             }
-                if (amITethered)
-                {
-                    TetherRestriction();
-                }
             
             PrevVelocity();  //always update velocity thingies 
             PrevPosition();
@@ -191,10 +187,6 @@ public class scr_attachRopeTo : MonoBehaviour
                     }
                 }
             }
-    }
-    public void SetWantsToSwing(bool trueOrFalse)
-    {
-        wantsToSwing = trueOrFalse;
     }
     public void SetAttachedArrowsHitTransform(Transform p_transform)
     {
@@ -278,16 +270,16 @@ public class scr_attachRopeTo : MonoBehaviour
     }
     void HandleMoveInput(float vInput, float hInput)
     {
-        this.transform.Translate(new Vector3(0, hInput * swingSpeed, vInput * swingSpeed) * Time.deltaTime, Space.World);
+        this.transform.Translate(new Vector3(hInput * swingSpeed,0 , vInput * swingSpeed) * Time.deltaTime);
         if (amITethered)
         {//fake gravity 
-            this.transform.Translate(new Vector3(0, downwardAcc, 0) * Time.deltaTime, Space.World);
+           // this.transform.Translate(new Vector3(0, downwardAcc, 0) * Time.deltaTime, Space.World);
         }
     }
     public void JumpAtDetach()
     {
         //depending on input?
-        m_rgd.AddForce(new Vector3(0, detachJumpPowerUpwardForce, detachJumpPowerForwardForce), ForceMode.Impulse);//MAYBE ADD forward force aswell(probably)
+        m_rgd.AddForce(new Vector3(0, detachJumpPowerUpwardForce, detachJumpPowerForwardForce)+m_rgd.velocity, ForceMode.Impulse);//MAYBE ADD forward force aswell(probably) note maybe just add current vel+* some offset multi
     }
     void GetInput()
     {

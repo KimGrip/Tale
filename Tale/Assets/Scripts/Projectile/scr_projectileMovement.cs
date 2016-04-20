@@ -27,6 +27,7 @@ public class scr_projectileMovement : MonoBehaviour
     LineRenderer m_lineRenderer;
     bool shouldBeDestroyed;
     bool inAir;
+    bool ropeIsAttachedToArrow;
     void Start()
     {
         m_collider = GetComponent<Collider>();
@@ -67,6 +68,10 @@ public class scr_projectileMovement : MonoBehaviour
         }
    
     }
+    public void SetRopeAttachedToArrow(bool trueOrFalse)
+    {
+        ropeIsAttachedToArrow = trueOrFalse;
+    }
     void LateUpdate()
     {
         if (shouldBeDestroyed)
@@ -99,15 +104,19 @@ public class scr_projectileMovement : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        else if ((vurnerableLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer)
+        else if ((vurnerableLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer && !colli.isTrigger)
         {
             MakeArrowIntoProp(colli.transform);
             //attach to thing
-            PSF.SetTethered(this.transform.GetComponent<Collider>(),colli);
+            if (ropeIsAttachedToArrow)
+            {
+                PSF.SetTethered(this.transform.GetComponent<Collider>(), colli);
+            }
+
             //StartCoroutine(DestroyProjectile(arrowStuckDuration));
             Invoke("DestroyProjectile", arrowStuckDuration);
         }
-        else if ((livingLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer)
+        else if ((livingLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer && !colli.isTrigger)
         {
             scr_healthManager hitHealth = colli.gameObject.GetComponent<scr_healthManager>();
             hitHealth.DealDamage(arrowDamage);
