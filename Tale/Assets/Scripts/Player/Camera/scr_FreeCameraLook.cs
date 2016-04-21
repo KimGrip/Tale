@@ -34,8 +34,8 @@ public class scr_FreeCameraLook : scr_Pivot {
     public float m_CameraResetTime;
     private float m_CameraResetCounter;
 
-
-    private GameObject m_player;
+	[SerializeField]
+	private GameObject m_player;
     private Rigidbody m_playerRB;
 
     private Transform m_pivot;
