@@ -5,11 +5,19 @@ public class StatePatternEnemyRanged : MonoBehaviour
 {
 
     // Use this for initialization
+    public enum EnemyStatus
+    {
+        Normal, 
+        Stunned,
+        Dead,
+    }
+    EnemyStatus m_enemyStatus;
     public float searchTurnSpeed = 240.0f;
     public float searchDuration = 4.0f;
     public Transform[] waypoints;
     public Transform eyes;//raypoint start
-    public float sightRange = 20f;
+    [HideInInspector]
+    public float sightRange;
     public Vector3 offset = new Vector3(0, 0.5f, 0); //lookoffset
     public MeshRenderer meshRendererFlag;
 
@@ -64,7 +72,18 @@ public class StatePatternEnemyRanged : MonoBehaviour
     }
     void Update()
     {
-        currentState.UpdateState();
+        if (m_enemyStatus == EnemyStatus.Normal)
+        {
+            currentState.UpdateState();
+        }
+        else if (m_enemyStatus == EnemyStatus.Stunned)
+        {
+
+        }
+        else if (m_enemyStatus == EnemyStatus.Dead)
+        {
+
+        }
     }
     public bool IsPlayerInsideComfortZone()
     {
@@ -73,6 +92,10 @@ public class StatePatternEnemyRanged : MonoBehaviour
             return true;
         }
         return false;
+    }
+    public void SetEnemyStatus(EnemyStatus p_enemyStatus)
+    {
+        m_enemyStatus = p_enemyStatus;
     }
     public Vector3 GetDirectionTo(Transform target)
     {
@@ -95,6 +118,7 @@ public class StatePatternEnemyRanged : MonoBehaviour
     void Start()
     {
         currentState = patrolState;
+        sightRange = m_sphereCol.radius;
     }
 
     // Update is called once per frame

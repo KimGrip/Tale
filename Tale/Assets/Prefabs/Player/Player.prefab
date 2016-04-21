@@ -302,6 +302,7 @@ GameObject:
   - 114: {fileID: 11460292}
   - 82: {fileID: 8282830}
   - 82: {fileID: 8209540}
+  - 114: {fileID: 11475674}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -754,7 +755,9 @@ GameObject:
   - 114: {fileID: 11488082}
   - 114: {fileID: 11485846}
   - 114: {fileID: 11412806}
-  m_Layer: 0
+  - 114: {fileID: 11422518}
+  - 114: {fileID: 11428546}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1654,7 +1657,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177676}
-  m_LocalRotation: {x: 0.5326752, y: 0.070340455, z: 0.83613276, w: -0.110415146}
+  m_LocalRotation: {x: 0.53267515, y: 0.07034045, z: 0.83613265, w: -0.11041513}
   m_LocalPosition: {x: 0.000022271464, y: -0.00006150465, z: 0.026027026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2346,7 +2349,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146326}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -63.1, y: -0.68, z: 1.17}
+  m_LocalPosition: {x: 58.1, y: -83.1, z: -119.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 478084}
@@ -2626,7 +2629,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 2
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!81 &8135724
 AudioListener:
   m_ObjectHideFlags: 1
@@ -2817,6 +2820,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262cdae62d7c61247b1eb6f0e26e695e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11422518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262cdae62d7c61247b1eb6f0e26e695e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11428546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412edf82aecea274fbce511aeedf4dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closestPullRange: 2
+  pushForce: 0
+  pushableLayer:
+    serializedVersion: 2
+    m_Bits: 65536
 --- !u!114 &11439706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2828,7 +2858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7105fa211ce6a434db826458723f6cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MovingTurnSpeed: 360
+  m_MovingTurnSpeed: 720
   m_StationaryTurnSpeed: 180
   m_JumpPower: 10
   m_GravityMultiplier: 1.25
@@ -2853,10 +2883,10 @@ MonoBehaviour:
   musicSource: {fileID: 8209540}
   lowPitchRange: 0.95
   highPitchRange: 1.05
-  moveSound_1: {fileID: 0}
-  moveSound_2: {fileID: 0}
+  m_playerSteps: []
+  m_JumpLanding: []
   DrawBowSound_1: {fileID: 8300000, guid: a78568257136a9e43a85733980af611d, type: 3}
-  ShootBowSound_1: {fileID: 8300000, guid: a945578ae1b1bd5459446994dec1154f, type: 3}
+  ShootBowSound_1: {fileID: 0}
 --- !u!114 &11471650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2877,10 +2907,10 @@ MonoBehaviour:
   aimingX: -65.93
   aimingY: 20.1
   point: 30
-  m_projectileSpeed: 20
+  m_projectileSpeed: 30
   m_ReloadTime: 0.3
-  maxBowLoadupDuration: 2
-  bowAccumulationMultiplier: 37
+  maxBowLoadupDuration: 1
+  bowAccumulationMultiplier: 120
   currentlyDisabled: 0
   normalOffset: {x: 0, y: 0, z: -1}
   aimingOffset: {x: 0, y: -0.3, z: 0.7}
@@ -2890,7 +2920,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146326}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87295b783d510054f873c333c081f9bc, type: 3}
   m_Name: 
@@ -2931,6 +2961,36 @@ MonoBehaviour:
   tiltMin: 50
   lockCursor: 0
   m_CameraResetTime: 1
+--- !u!114 &11475674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd82c32bad02b2e47be8b01006781952, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  efxSource: {fileID: 8282830}
+  musicSource: {fileID: 8282830}
+  lowPitchRange: 0.95
+  highPitchRange: 1.05
+  m_playerSteps:
+  - {fileID: 8300000, guid: cc1f1dedb8953c84191abd97e647719b, type: 3}
+  - {fileID: 8300000, guid: 74a6a0d0a0bebd44e84671939f2c2f90, type: 3}
+  - {fileID: 8300000, guid: e6c6e6bec1fab534c967c3dd61d72b9a, type: 3}
+  - {fileID: 8300000, guid: 49b0c2b6aa3fc3546ba42de8ff21cbe5, type: 3}
+  - {fileID: 8300000, guid: e9585a939bed88c4085d38f70cab7ca2, type: 3}
+  - {fileID: 8300000, guid: 1e6a04d8a3392354f8b1dc40ba194df0, type: 3}
+  - {fileID: 8300000, guid: a4e7dc84ab4be584fa5581568cccb690, type: 3}
+  - {fileID: 8300000, guid: aef730217f0de6a4c844b2b7b086ca32, type: 3}
+  m_JumpLanding:
+  - {fileID: 8300000, guid: 7e6816c996f99c8459c3fd793e532802, type: 3}
+  - {fileID: 8300000, guid: f206baacfb721544284383175ce15e29, type: 3}
+  - {fileID: 8300000, guid: 42710832670a93547ae92765ddfb2764, type: 3}
+  DrawBowSound_1: {fileID: 8300000, guid: a78568257136a9e43a85733980af611d, type: 3}
+  ShootBowSound_1: {fileID: 8300000, guid: a945578ae1b1bd5459446994dec1154f, type: 3}
 --- !u!114 &11485846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2948,7 +3008,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146326}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7082d3a68d9422c42af6551ab9fed6f8, type: 3}
   m_Name: 
@@ -2958,23 +3018,23 @@ MonoBehaviour:
   tetherObject: {fileID: 0}
   amITethered: 0
   speedMultiplier: 49
-  reelInMultiplier: 40
+  reelInMultiplier: 12
   autoShortenRope: 0
-  triesToReachDesired: 1
+  triesToReachDesired: 0
   desiredLength: 15
-  maxTetherLength: 20
+  maxTetherLength: 9999
   tetherLength: 10
-  swingSpeed: 0.4
-  downwardAcc: -2
+  swingSpeed: 0.3
+  downwardAcc: 0
   vInput: 0
   hInput: 0
   playerHeigthTetherOffset: 0.3
-  detachJumpPowerUpwardForce: 0
-  detachJumpPowerForwardForce: 0
-  m_ropePullForce: 0
+  detachJumpPowerUpwardForce: 16
+  detachJumpPowerForwardForce: 4
+  m_ropePullForce: 12
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65536
 --- !u!114 &11488882
 MonoBehaviour:
   m_ObjectHideFlags: 1

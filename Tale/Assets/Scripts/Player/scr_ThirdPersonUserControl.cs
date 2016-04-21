@@ -100,33 +100,21 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
         {
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
         }
-        aim = Input.GetAxisRaw("AimAxis")>0;
+        aim = Input.GetAxisRaw("AimAxis")>0.2;
         if (aim)
         {
-<<<<<<< HEAD
             if(Input.GetMouseButtonDown(1))
             {
                 m_audioManager.PlayDrawBow();
-
             }
-
-            if (Input.GetMouseButton(0) && m_reloadCounter > m_ReloadTime)
-=======
-            print("AIM");
-            if (Input.GetAxisRaw("FireAxis")>0) //load the bow
->>>>>>> 9c240bfb6a71f7898ff44e6f95a4aaa4771cec48
+            if (Input.GetAxisRaw("FireAxis") == 1 && m_reloadCounter > m_ReloadTime) //load the bow
             {
                 arrowIsLoaded = true;
                 if (currentArrowForce < maxBowLoadupDuration)
                 {
                     currentArrowForce += Time.deltaTime;
-<<<<<<< HEAD
 
-=======
-                   
->>>>>>> 9c240bfb6a71f7898ff44e6f95a4aaa4771cec48
                 }
-             
             }
             else
             {
@@ -134,23 +122,7 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
             }
             if (arrowIsLoaded)
             {
-<<<<<<< HEAD
-             //   anim.SetTrigger("Fire");
-                GameObject arrow = (GameObject)Instantiate(m_arrowPrefab, m_arrowSpawnpoint.position, m_player.GetComponent<Transform>().rotation);
-                scr_projectileMovement projMovement = arrow.GetComponent<scr_projectileMovement>();
-                projMovement.OnProjectileSpawn();
-                projMovement.SetProjectileOriginator(this.gameObject);
-                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
-                //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
-                Rigidbody arrowRgd = (Rigidbody)arrow.GetComponent<Rigidbody>();
-
-                m_audioManager.PlayBowShoot();
-                // + (m_rgd.velocity / 1))
-                arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
-                m_reloadCounter = 0;
-                currentArrowForce = 0;
-=======
-                if (Input.GetAxisRaw("FireAxis") == 0 && m_reloadCounter > m_ReloadTime)
+                if (Input.GetAxisRaw("FireAxis") ==0 && m_reloadCounter > m_ReloadTime)
                 {
                     if (ropeAttachedToArrow)
                     {
@@ -185,7 +157,6 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
                         arrowIsLoaded = false;
                     }
                 }
->>>>>>> 9c240bfb6a71f7898ff44e6f95a4aaa4771cec48
             }
         }
         else
@@ -260,7 +231,6 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
             //anim.SetFloat("Turn", h);
 
         }
-   
 #if !MOBILE_INPUT
 		// walk speed multiplier
 	    if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;

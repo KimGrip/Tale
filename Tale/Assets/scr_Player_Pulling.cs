@@ -16,7 +16,7 @@ public class scr_Player_Pulling : MonoBehaviour {
     public void PullRope(Transform p_attachedObject, float p_pullforce)
     {
         distanceFromPlayer = Vector3.Distance(this.transform.position, p_attachedObject.transform.position);
-        float tCollSize = p_attachedObject.transform.GetComponent<BoxCollider>().bounds.size.x;
+        float tCollSize = p_attachedObject.transform.GetComponent<Collider>().bounds.size.x;
         closestPullRange =tCollSize +tCollSize/4;
         if (distanceFromPlayer > closestPullRange)
         {

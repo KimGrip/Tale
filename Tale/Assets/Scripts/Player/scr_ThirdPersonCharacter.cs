@@ -279,6 +279,7 @@ public class scr_ThirdPersonCharacter : MonoBehaviour
             m_playJumpLandingSound = true;
 			m_IsGrounded = false;
 			m_GroundNormal = Vector3.up;
+
 			m_Animator.applyRootMotion = false;
 		}
 	}

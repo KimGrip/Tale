@@ -64,6 +64,22 @@ public class scr_attachRopeTo : MonoBehaviour
         if (amITethered)
         {
             TetherInput();
+            //extend rope when moving with it and not swinging    <------ add when this check exists
+            if (isGrounded)
+            {
+                if (tetherObject != null && !Input.GetButton("ReelInRope"))
+                {
+
+                    tetherLength = Vector3.Distance(this.transform.position, tetherObject.transform.position);
+                    // do slidy slide or pull object
+                    //when grounded works add restriction when falling with rope
+                    print("HUGGA HUGGA"); // do slidy thing? this no work well 
+                }
+                if (Input.GetButton("ReelInRope"))
+                {
+                    Pullrope();
+                }
+            }
         }
     }
     public float GetMaxTetherLength()
@@ -85,9 +101,12 @@ public class scr_attachRopeTo : MonoBehaviour
         }
         if (Input.GetButton("ReelInRope"))
         {
-            if (tetherLength > 2)
+            if (!isGrounded)
             {
-                tetherLength -= Time.deltaTime * reelInMultiplier;
+                if (tetherLength > 2)
+                {
+                    tetherLength -= Time.deltaTime * reelInMultiplier;
+                }
             }
         }
         else if (Input.GetButton("ReelOutRope"))
@@ -98,18 +117,8 @@ public class scr_attachRopeTo : MonoBehaviour
             }
         }
         //if not grounded, if input ANY direction Input, 
-        if (!isGrounded)
-        {
-            //PSF.SetSwinging();
-            //if (Input.GetKey(KeyCode.Q)) //optimize set key down later maybe
-            //{
-            //    PSF.SetSwinging();
-            //}
-          
-        }
         if (Input.GetButtonDown("Jump"))//&& !isGrounded
         {
-
             if (!isGrounded)
             {
                 PSF.SetRunning();
@@ -141,19 +150,7 @@ public class scr_attachRopeTo : MonoBehaviour
         {
             m_lineRenderer.enabled = true;
         }
-        if (amITethered)
-        {//extend rope when moving with it and not swinging    <------ add when this check exists
-            if(isGrounded){
-                if (tetherObject != null && !Input.GetButton("ReelInRope"))
-                {
-                    
-                    tetherLength = Vector3.Distance(this.transform.position, tetherObject.transform.position);
-                    //when grounded works add restriction when falling with rope
-                    print("HUGGA HUGGA"); // do slidy thing? this no work well 
-                }
-       
-            }
-        }
+   
         if (!isGrounded)
         {
             if (amITethered)

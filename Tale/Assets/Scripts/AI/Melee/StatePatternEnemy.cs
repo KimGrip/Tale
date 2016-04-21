@@ -8,7 +8,8 @@ public class StatePatternEnemy : MonoBehaviour {
     public float searchDuration = 4.0f;
     public Transform[] waypoints;
     public Transform eyes;//raypoint start
-    public float sightRange = 20f;
+    [HideInInspector]
+    public float sightRange;
     public Vector3 offset = new Vector3(0, 0.5f, 0); //lookoffset
     public MeshRenderer meshRendererFlag;
 
@@ -21,7 +22,8 @@ public class StatePatternEnemy : MonoBehaviour {
     public Transform[] weaponWayPoints;
     public LayerMask playerLayer;
     [HideInInspector]public LineRenderer weaponSwingRenderer;
-
+    public float FOV_angle;
+    public SphereCollider m_sphereCol;
     public bool drawGizmos;
     [HideInInspector]public Transform chaseTarget;
     [HideInInspector]public IEnemyState currentState;
@@ -43,9 +45,12 @@ public class StatePatternEnemy : MonoBehaviour {
         
         navMeshAgent = GetComponent<NavMeshAgent>();
         weaponSwingRenderer = GetComponent<LineRenderer>();
+        m_sphereCol = GetComponent<SphereCollider>();
     }
 	void Start () {
+        chaseTarget = GameObject.FindGameObjectWithTag("Player").transform;
         currentState = patrolState;
+        sightRange = m_sphereCol.radius;
 	}
 	
 	// Update is called once per frame

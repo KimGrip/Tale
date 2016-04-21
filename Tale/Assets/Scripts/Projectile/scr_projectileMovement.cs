@@ -118,7 +118,15 @@ public class scr_projectileMovement : MonoBehaviour
         }
         else if ((livingLayer.value & 1 << colli.gameObject.layer) == 1 << colli.gameObject.layer && !colli.isTrigger)
         {
-            scr_healthManager hitHealth = colli.gameObject.GetComponent<scr_healthManager>();
+            scr_healthManager hitHealth;
+            if (transform.parent != null)
+            {
+                hitHealth = colli.gameObject.transform.parent.transform.GetComponent<scr_healthManager>();
+            }
+            else
+            {
+                hitHealth = colli.gameObject.transform.GetComponent<scr_healthManager>();
+            }
             hitHealth.DealDamage(arrowDamage);
             MakeArrowIntoProp(colli.transform);
             Invoke("DestroyProjectile", arrowStuckDuration);
