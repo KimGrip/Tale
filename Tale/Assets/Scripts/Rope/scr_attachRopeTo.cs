@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class scr_attachRopeTo : MonoBehaviour
 {
@@ -50,7 +51,6 @@ public class scr_attachRopeTo : MonoBehaviour
         m_rgd = GetComponent<Rigidbody>();
         m_pullRope = GetComponent<scr_Player_Pulling>();
         PSF = GameObject.FindGameObjectWithTag("SingletonHandler").GetComponent<scr_playerStateFunctions>();
-        //wantsToSwing = false;
         distToGround = m_collider.bounds.extents.y;
         ropeRenderpoint1 = this.transform;
         ropeRenderpoint2 = tetherObject;
@@ -59,6 +59,7 @@ public class scr_attachRopeTo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //GamePad.SetVibration(0, 2, 3);
         isGrounded = IsGrounded();
         if (amITethered)
         {
@@ -108,10 +109,11 @@ public class scr_attachRopeTo : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump"))//&& !isGrounded
         {
-            PSF.SetRunning();
-            PSF.DeattachTether();
+
             if (!isGrounded)
             {
+                PSF.SetRunning();
+                PSF.DeattachTether();
                 PSF.DeattachJump();
             }
         }
@@ -128,7 +130,7 @@ public class scr_attachRopeTo : MonoBehaviour
             UpdateLineRenderer();
         }
     }
-    void FixedUpdate()//wants to swing kommer bli !grounded för autoswing of ground
+    void FixedUpdate()
     {
         print(IsGrounded());
         if (!amITethered)
@@ -144,8 +146,10 @@ public class scr_attachRopeTo : MonoBehaviour
             if(isGrounded){
                 if (tetherObject != null && !Input.GetButton("ReelInRope"))
                 {
+                    
                     tetherLength = Vector3.Distance(this.transform.position, tetherObject.transform.position);
                     //when grounded works add restriction when falling with rope
+                    print("HUGGA HUGGA"); // do slidy thing? this no work well 
                 }
        
             }
@@ -183,10 +187,6 @@ public class scr_attachRopeTo : MonoBehaviour
                     }
                 }
             }
-    }
-    public void SetWantsToSwing(bool trueOrFalse)
-    {
-        //wantsToSwing = trueOrFalse;
     }
     public void SetAttachedArrowsHitTransform(Transform p_transform)
     {
@@ -273,7 +273,7 @@ public class scr_attachRopeTo : MonoBehaviour
         this.transform.Translate(new Vector3(hInput * swingSpeed,0 , vInput * swingSpeed) * Time.deltaTime);
         if (amITethered)
         {//fake gravity 
-            this.transform.Translate(new Vector3(0, downwardAcc, 0) * Time.deltaTime, Space.World);
+           // this.transform.Translate(new Vector3(0, downwardAcc, 0) * Time.deltaTime, Space.World);
         }
     }
     public void JumpAtDetach()

@@ -54,7 +54,7 @@ public class scr_playerStateFunctions : MonoBehaviour {
     public void SetSwinging()
     {
         ////pInput.enabled = false;
-        pAttach.SetWantsToSwing(true);
+        //pAttach.SetWantsToSwing(true);
         //pInput.currentlyDisabled = true;
         //pMove.enabled = false;
         DGTT.enabled = true;
@@ -71,7 +71,7 @@ public class scr_playerStateFunctions : MonoBehaviour {
     public void SetRunning()
     {
         pAttach.SetAmITethered(false);
-        pAttach.SetWantsToSwing(false);
+        //pAttach.SetWantsToSwing(false);
         //pRigidbody.useGravity = true;
         pInput.enabled = true;
         pInput.currentlyDisabled = false;

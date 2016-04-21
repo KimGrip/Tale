@@ -33,8 +33,13 @@ InputManager:
     dead: 0.1
     sensitivity: 2
     snap: 0
+<<<<<<< HEAD
     invert: 0
     type: 0
+=======
+    invert: 1
+    type: 2
+>>>>>>> 7d577fb40fdf96ad5d3476c1283fab8d28c97d42
     axis: 1
     joyNum: 0
   - serializedVersion: 3
@@ -111,7 +116,7 @@ InputManager:
     altPositiveButton: 
     gravity: 0
     dead: 0.02
-    sensitivity: 0.1
+    sensitivity: 0.4
     snap: 0
     invert: 0
     type: 1
@@ -127,11 +132,17 @@ InputManager:
     altPositiveButton: 
     gravity: 0
     dead: 0.02
-    sensitivity: 0.1
+    sensitivity: 0.4
     snap: 0
+<<<<<<< HEAD
     invert: 0
     type: 1
     axis: 1
+=======
+    invert: 1
+    type: 2
+    axis: 4
+>>>>>>> 7d577fb40fdf96ad5d3476c1283fab8d28c97d42
     joyNum: 0
   - serializedVersion: 3
     m_Name: Mouse ScrollWheel
@@ -333,6 +344,22 @@ InputManager:
     positiveButton: joystick button 9
     altNegativeButton: 
     altPositiveButton: e
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: ChangeEquippedArrow
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 8
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000

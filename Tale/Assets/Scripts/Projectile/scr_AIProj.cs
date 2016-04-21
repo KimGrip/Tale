@@ -20,6 +20,15 @@ public class scr_AIProj : MonoBehaviour
     }
     void Update()
     {
+        if (m_rgd)
+        {
+            if (m_rgd.velocity.magnitude > 0.1)
+            {
+                Quaternion dirQ = Quaternion.LookRotation(m_rgd.velocity);
+                Quaternion slerp = Quaternion.Slerp(transform.rotation, dirQ, m_rgd.velocity.magnitude * 500.0f * Time.deltaTime);
+                m_rgd.MoveRotation(slerp);
+            }
+        }
         //RayCastingCollision();
     }
     public void AddVelocity(Vector3 dir, float velocity)
