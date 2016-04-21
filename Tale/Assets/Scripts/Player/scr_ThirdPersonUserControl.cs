@@ -17,10 +17,9 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
     private Transform cam;
     private Vector3 camForward;
     private Vector3 move;
-
     public bool aim;
+    private bool m_sliding;
     public float aimingWheight;
-
     public bool lookInCameraDirection;
     Vector3 lookPosition;
 
@@ -55,6 +54,13 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
     private bool m_isAxisInUse;
     private bool arrowIsLoaded;
     private scr_AudioManager m_audioManager;
+
+
+    private bool m_Climbing;
+    private GameObject m_ClimableObject;
+    public float m_ClimbingLenght;
+    public float m_MaxClimbingAngle;  // The angle of the top of the object that the player wants to climb
+
     private void Start()
     {
         // get the transform of the main camera
@@ -78,41 +84,67 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
         m_audioManager = Camera.main.GetComponent<scr_AudioManager>();
 
     }
+    void CheckClimbViability()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.forward);
+        Debug.DrawRay(new Vector3(transform.position.x , transform.position.y + 1.5f, transform.position.z), transform.forward);
 
+        if(Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.tag == "climbable")
+            {
+                Debug.Log(Vector3.Distance(hit.point, transform.position));
+                //if(Vector3.Distance(hit.point, transform.position))
+                //{
+                //    Debug.Log("Inreach");
+                //}
+                    
 
+            }
+        }
+     
+    }
     private void Update()
     {
+        CheckClimbViability();
+
         if (!m_Jump)
         {
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
         }
-        aim = Input.GetAxisRaw("AimAxis")>0;
+        if(Input.GetKey(KeyCode.T))
+        {
+            m_sliding = true;
+        }
+        else
+        {
+            m_sliding = false;
+        }
+
+
+        aim = Input.GetAxisRaw("AimAxis")>0;  //Controller
+
+      //  aim = Input.GetMouseButton(1);
+
         if (aim)
         {
-<<<<<<< HEAD
             if(Input.GetMouseButtonDown(1))
             {
                 m_audioManager.PlayDrawBow();
-
             }
 
             if (Input.GetMouseButton(0) && m_reloadCounter > m_ReloadTime)
-=======
+
             print("AIM");
             if (Input.GetAxisRaw("FireAxis")>0) //load the bow
->>>>>>> 9c240bfb6a71f7898ff44e6f95a4aaa4771cec48
+
             {
                 arrowIsLoaded = true;
                 if (currentArrowForce < maxBowLoadupDuration)
                 {
                     currentArrowForce += Time.deltaTime;
-<<<<<<< HEAD
-
-=======
-                   
->>>>>>> 9c240bfb6a71f7898ff44e6f95a4aaa4771cec48
                 }
-             
             }
             else
             {
@@ -120,7 +152,7 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
             }
             if (arrowIsLoaded)
             {
-<<<<<<< HEAD
+
              //   anim.SetTrigger("Fire");
                 GameObject arrow = (GameObject)Instantiate(m_arrowPrefab, m_arrowSpawnpoint.position, m_player.GetComponent<Transform>().rotation);
                 scr_projectileMovement projMovement = arrow.GetComponent<scr_projectileMovement>();
@@ -135,29 +167,29 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
                 arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
                 m_reloadCounter = 0;
                 currentArrowForce = 0;
-=======
-                if (Input.GetAxisRaw("FireAxis") == 0 && m_reloadCounter > m_ReloadTime)
-                {
-                    //   anim.SetTrigger("Fire");
-                    GameObject arrow = (GameObject)Instantiate(m_arrowPrefab, m_arrowSpawnpoint.position, m_player.GetComponent<Transform>().rotation);
-                    scr_projectileMovement projMovement = arrow.GetComponent<scr_projectileMovement>();
-                    projMovement.OnProjectileSpawn();
-                    projMovement.SetProjectileOriginator(this.gameObject);
-                    Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
-                    //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
-                    Rigidbody arrowRgd = (Rigidbody)arrow.GetComponent<Rigidbody>();
-                    arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
-                    m_reloadCounter = 0;
-                    currentArrowForce = 0;
-                    arrowIsLoaded = false;
-                }
->>>>>>> 9c240bfb6a71f7898ff44e6f95a4aaa4771cec48
+
+                //if (Input.GetAxisRaw("FireAxis") == 0 && m_reloadCounter > m_ReloadTime)
+                //{
+                //    //   anim.SetTrigger("Fire");
+                //    GameObject arrow = (GameObject)Instantiate(m_arrowPrefab, m_arrowSpawnpoint.position, m_player.GetComponent<Transform>().rotation);
+                //    scr_projectileMovement projMovement = arrow.GetComponent<scr_projectileMovement>();
+                //    projMovement.OnProjectileSpawn();
+                //    projMovement.SetProjectileOriginator(this.gameObject);
+                //    Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+                //    //projMovement.AddVelocity(ray.direction, m_projectileSpeed + m_rgd.velocity);
+                //    Rigidbody arrowRgd = (Rigidbody)arrow.GetComponent<Rigidbody>();
+                //    arrowRgd.AddForce((ray.direction * (m_projectileSpeed + (currentArrowForce * bowAccumulationMultiplier))), ForceMode.Impulse);
+                //    m_reloadCounter = 0;
+                //    currentArrowForce = 0;
+                //    arrowIsLoaded = false;
+                //}
             }
         }
         else
         {
             m_reloadCounter += Time.deltaTime;
         }
+
     }
     void LateUpdate()
     {
@@ -235,7 +267,7 @@ public class scr_ThirdPersonUserControl : MonoBehaviour
         // pass all parameters to the character control script
         if (!currentlyDisabled)
         {
-            m_Character.Move(m_Move, crouch, m_Jump, lookPosition, aim);
+            m_Character.Move(m_Move, crouch, m_Jump,m_sliding,m_Climbing, lookPosition, aim);
             m_Jump = false;
         }
       
